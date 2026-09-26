@@ -137,10 +137,10 @@ Keep both paths working. If you add a library, load it from cdnjs with a pinned 
 ## Roadmap for Claude Code (in priority order)
 
 ### P0 — publish
-- [ ] `git init`, first commit, push to a public GitHub repo; enable GitHub Pages (branch `main`, root).
-- [ ] Add a LICENSE. **Ask the author which licence**; MIT is the suggested default for the code.
-- [ ] Add `CITATION.cff` (author Karan Bansal, 2026, title "Temporal ONA builder"); optionally link to Zenodo for a DOI.
-- [ ] GitHub Action running `npm test` on push and pull requests.
+- [x] `git init`, first commit, push to a public GitHub repo; enable GitHub Pages (branch `main`, root).
+- [x] Add a LICENSE: MIT for the code, CC BY 4.0 for `docs/` (chosen by the author).
+- [x] Add `CITATION.cff` (author Karan Bansal, 2026, title "Temporal ONA builder"); optionally link to Zenodo for a DOI.
+- [x] GitHub Action running `npm test` on push and pull requests.
 
 ### P1 — features that support valid inference (from the research phase)
 - [ ] **Group column support:** an optional `group` column; show side-by-side networks per group with shared scales, plus an optional difference view. Differences must be labelled exploratory.
