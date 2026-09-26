@@ -1,0 +1,14 @@
+{
+  "name": "temporal-ona-builder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Single-file browser tool that draws a temporal ordered network (duration, timing and sequence) from coded SRL episode logs.",
+  "scripts": {
+    "test": "node tests/smoke.test.js",
+    "figures": "node scripts/export-figures.js",
+    "sample": "node scripts/export-figures.js --sample-only"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}
