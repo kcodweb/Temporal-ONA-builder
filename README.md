@@ -61,3 +61,7 @@ The page makes no network requests except to load Google Fonts. The last pasted 
 ## Cite
 
 Bansal, K. (2026). *Temporal ONA builder* [Web tool].
+
+## Licence
+
+The code is released under the [MIT licence](LICENSE). The white paper and other documents in `docs/` are released under [CC BY 4.0](docs/LICENSE.md).

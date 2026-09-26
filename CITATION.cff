@@ -7,6 +7,7 @@ authors:
   - family-names: Bansal
     given-names: Karan
     affiliation: "IIT Bombay"
+license: MIT
 version: 0.1.0
 date-released: 2026-09-26
 repository-code: "https://github.com/kcodweb/Temporal-ONA-builder"
