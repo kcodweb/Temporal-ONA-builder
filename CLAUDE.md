@@ -34,7 +34,7 @@ Keep `index.html` as a **single self-contained file**. If you refactor into modu
 
 ```
 npm install          # jsdom only
-npm test             # 9 smoke tests; must pass before any commit
+npm test             # 14 smoke tests; must pass before any commit
 npm run figures      # writes figures/*.svg (whole-timeline, whole-colour, frame-1..6)
 npm run sample       # rewrites samples/sample-srl-log.csv from the page's generator
 ```
@@ -62,16 +62,16 @@ The code is ES5-style inside an IIFE, with no dependencies. Sections, in order:
 2. **Constants:** `ALIASES`, `DEF` (default settings), node palettes `NODE_LIGHT`/`NODE_DARK`, time ramps `RAMP_LIGHT`/`RAMP_DARK` (violet → magenta → amber), ring width `RW = 6`.
 3. **State:** `S` (settings), `P` (parsed log), `D` (derived: `seqs`, `links`, `L` = session length), `view` (`{t0, t1, frame}` where frame `-1` = whole, `-2` = custom), `selected` node, `downloads` (Claude capability or null).
 4. **Colour/theme:** `tokens()` reads CSS variables so SVG gets literal colours, which exported files need.
-5. **Parsing:** `splitRow`, `normH`, `parseTime`, `parseLog` returns `{ev, behaviours, learners, clock, skipped, bad, hasEnd}` or `{error}`.
+5. **Parsing:** `splitRow`, `normH`, `parseTime`; `readTable(text)` returns `{delim, names, hdr, rows, nums}`; `autoMap(hdr)` guesses the column for each of `ROLES` via `ALIASES`; `parseRows(tb, idx)` returns `{ev, behaviours, counts, learners, clock, skipped, bad, hasEnd, rows, two, neg}` or `{error}` (`two` = rows with `mm:ss`-style times, `neg` = episodes ending before they start). `parseLog(text, idx?)` chains them.
 6. **Derive:** `derive()` sorts each learner's episodes, fills missing ends, aligns (per learner to 0′ if `S.align`, else global min for clock data), optionally merges back-to-back repeats, sets `L` (auto = ceil to slice, or `S.sessionLen`), and builds `links`: for each episode *i*, a link from each of the previous `w−1` episodes; `time` = response start, `dur` = response duration.
 7. **Compute:** `compute(t0, t1)` returns minutes per behaviour in the window, per-slice minutes (`slc`) and shares (`shr`), and aggregated edges `{f, t, w, mean, bins[]}` filtered by `S.loops` and `S.minShare`.
 8. **Geometry:** `layoutNodes` (fixed circle; first behaviour at top, clockwise in order of first appearance), `edgeGeom` (quadratic curve offset to the left of direction, so reciprocal edges separate), `loopGeom`, `qpt`/`cpt` (quadratic/cubic points), `arcPath`, `swellSegs`.
 9. **Draw:** `drawFigure(c)` builds the whole SVG as a string. It contains the background rect, title, colour bar (top right), edges, nodes (track ring, slice arcs, disc, selection ring), loops, labels (halo drawn as a duplicate stroked text **behind** the text, *not* `paint-order`, so exports render in cairosvg), and footer insights. `insights(c)` produces the three footer sentences.
 10. **Side panels:** `drawDetail` (selected node: minutes, busiest slice, histogram, top next/before links), `drawLegend`.
 11. **Window UI:** `buildFrames`, `syncWindowUI`, `setFrame`, `togglePlay` (1.6 s per frame), dual range slider (`#r0`, `#r1`).
-12. **Data flow:** `build(fromUser)`, `rederive()`, `readSettingsUI`/`writeSettingsUI`, `applyTheme`. Storage keys: `tona-data`, `tona-settings-v2`, all wrapped in try/catch.
+12. **Data flow and steps:** the page has three stages, `#stage-start` (upload: drop zone, file input, paste box, sample, template), `#stage-check` (column selects `#map-*`, preview table, summary tiles, behaviour chips, warnings) and `#stage-explore` (settings, figure, legend, detail). `showStage(s, focus)` switches them and the step buttons in the app bar. `analyse(text, name, idx)` fills `pending` and draws the check step (`drawCheck`); `build(fromUser)` turns `pending` into `P` and opens the explore step; `rederive()`, `readSettingsUI`/`writeSettingsUI`, `applyTheme`. First visits open on the upload step; a saved log opens straight on its figure. Storage keys: `tona-data`, `tona-name`, `tona-map` (column names per role), `tona-settings-v2`, all wrapped in try/catch.
 13. **Sample:** `mulberry32(610)` plus `sampleCSV()`, which generates phase-weighted synthetic data. **Do not change the seed or generator** without updating the tests and the white paper numbers.
-14. **Export:** `svgString`, `savePNG` (SVG → canvas at 2×), `saveFile`, which uses the Claude `downloads` capability when running as a Claude artifact and `browserSave` (Blob + `<a download>`) when standalone.
+14. **Export:** `svgString`, `savePNG` (SVG → canvas at 2×), `saveFile`, which uses the Claude `downloads` capability when running as a Claude artifact and `browserSave` (Blob + `<a download>`) when standalone. `TEMPLATE` is the small CSV behind **Download template**; elements marked `data-save` appear only when saving works.
 15. **Init:** event wiring.
 
 ## Formulas (keep code, legend and paper consistent)

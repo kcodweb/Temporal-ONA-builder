@@ -4,52 +4,159 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Temporal ONA builder</title>
-<meta name="description" content="Turn a coded self-regulated learning log into an ordered network that shows time spent, when behaviours happened, and what followed what. Runs entirely in your browser.">
+<meta name="description" content="Upload a coded self-regulated learning log and get an ONA-inspired network that shows time spent, when behaviours happened, and what followed what. Runs entirely in your browser.">
 <meta property="og:title" content="Temporal ONA builder">
-<meta property="og:description" content="An ordered network for learning logs that shows duration, timing and sequence in one figure. Your data stays in your browser.">
+<meta property="og:description" content="An ONA-inspired network for learning logs that shows duration, timing and sequence in one figure. Your data stays in your browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F5F6F8;--panel:#FFFFFF;--ink:#1B1F27;--muted:#5C6371;--line:#DADEE5;--track:#E7EAEF;--accent:#4B3FB5;--on-accent:#FFFFFF;--accent-soft:#ECEAFB;--danger:#B42318;color-scheme:light}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#13151A;--panel:#1B1E25;--ink:#E8EAEE;--muted:#9CA3AF;--line:#2D323C;--track:#2A2F39;--accent:#A497FF;--on-accent:#16132E;--accent-soft:#2A2748;--danger:#F97066;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#13151A;--panel:#1B1E25;--ink:#E8EAEE;--muted:#9CA3AF;--line:#2D323C;--track:#2A2F39;--accent:#A497FF;--on-accent:#16132E;--accent-soft:#2A2748;--danger:#F97066;color-scheme:dark}
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
+:root{--bg:#F5F6F8;--panel:#FFFFFF;--ink:#1B1F27;--muted:#5C6371;--line:#DADEE5;--track:#E7EAEF;--accent:#4B3FB5;--on-accent:#FFFFFF;--accent-soft:#ECEAFB;--danger:#B42318;--warn:#8A5A00;color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#13151A;--panel:#1B1E25;--ink:#E8EAEE;--muted:#9CA3AF;--line:#2D323C;--track:#2A2F39;--accent:#A497FF;--on-accent:#16132E;--accent-soft:#2A2748;--danger:#F97066;--warn:#E3B341;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13151A;--panel:#1B1E25;--ink:#E8EAEE;--muted:#9CA3AF;--line:#2D323C;--track:#2A2F39;--accent:#A497FF;--on-accent:#16132E;--accent-soft:#2A2748;--danger:#F97066;--warn:#E3B341;color-scheme:dark}
+:root{box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;font-variant-numeric:tabular-nums}
-.wrap{max-width:1380px;margin:0 auto;padding:22px 20px 44px}
-.top{margin:0 0 18px;max-width:72ch}
-h1{font-size:27px;line-height:1.2;font-weight:600;margin:0;letter-spacing:-0.01em}
-.lede{margin:6px 0 0;color:var(--muted)}
-.layout{display:grid;gap:18px;grid-template-columns:320px minmax(0,1fr) 300px;grid-template-areas:"ctl fig side";align-items:start}
-@media (max-width:1260px){.layout{grid-template-columns:320px minmax(0,1fr);grid-template-areas:"ctl fig" "ctl side"}}
-@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"fig" "side" "ctl"}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
-.ctl{grid-area:ctl;display:flex;flex-direction:column;gap:14px;min-width:0}
-.fig{grid-area:fig;padding:10px 10px 14px;min-width:0}
-.side{grid-area:side;display:flex;flex-direction:column;gap:14px;min-width:0}
-@media (max-width:1260px) and (min-width:901px){.side{display:grid;grid-template-columns:1fr 1fr}}
+.wrap{max-width:1380px;margin:0 auto;padding:0 20px 40px}
+h1{font-size:26px;line-height:1.2;font-weight:600;margin:0;letter-spacing:-0.01em}
+h1:focus{outline:none}
 h2{font-size:15px;font-weight:600;margin:0 0 10px}
+.lede{margin:6px 0 0;color:var(--muted)}
+.eyebrow{margin:0 0 4px;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .hint{font-size:12.5px;color:var(--muted);margin:6px 0 0;line-height:1.45}
-textarea{display:block;width:100%;min-height:180px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;line-height:1.45;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
-.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* app bar */
+.appbar{position:sticky;top:0;z-index:10;background:var(--panel);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.appbar .in{max-width:1380px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;color:inherit;text-decoration:none}
+.brand svg{width:30px;height:30px;flex:none}
+.brand b{display:block;font-size:17px;font-weight:600;line-height:1.15;white-space:nowrap}
+.brand small{display:block;font-size:12px;color:var(--muted);line-height:1.2;white-space:nowrap}
+.steps{display:flex;gap:2px;margin-left:auto}
+.steps button{display:flex;align-items:center;gap:7px;border:0;background:none;border-radius:999px;padding:5px 11px 5px 6px;font-size:13.5px;color:var(--muted)}
+.steps button i{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);font-style:normal;font-size:12px;font-weight:600}
+.steps button[aria-current="step"]{background:var(--accent-soft);color:var(--ink)}
+.steps button[aria-current="step"] i{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.steps button:disabled{opacity:.45;cursor:default}
+.steps button:not(:disabled):not([aria-current]):hover{color:var(--ink)}
+@media (max-width:700px){.steps .lbl{display:none}.steps button{padding:5px}.brand small{display:none}}
+
+/* controls */
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
 button,.filebtn{font:inherit;font-size:14px;line-height:1.3;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
 button:hover,.filebtn:hover{border-color:var(--muted)}
-button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.primary,button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.primary:hover{border-color:var(--ink)}
 button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.btn-lg{font-size:15px;padding:9px 18px;border-radius:8px}
 .filebtn{position:relative;display:inline-block}
 .filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.status{font-size:13px;color:var(--muted);margin:10px 0 0}
+.filebtn:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.linkbtn{border:0;background:none;padding:0;color:var(--accent);font-size:inherit;text-decoration:underline;text-underline-offset:3px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.status{font-size:13.5px;color:var(--muted);margin:10px 0 0}
 .status.err{color:var(--danger)}
-.f{display:grid;grid-template-columns:minmax(0,1fr) 128px;align-items:center;gap:10px;margin:9px 0;font-size:14px}
-.f small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+textarea{display:block;width:100%;min-height:170px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;line-height:1.45;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin-top:6px}
 select,input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px;width:100%}
+.f{display:grid;grid-template-columns:minmax(0,1fr) 120px;align-items:center;gap:10px;margin:9px 0;font-size:14px}
+.f small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.f>select,.f>input{min-width:0}
 .check{display:flex;gap:8px;align-items:flex-start;font-size:14px;margin:9px 0}
 .check input{margin-top:4px;accent-color:var(--accent)}
 .check small{display:block;color:var(--muted);font-size:12px}
 input[type=range]{accent-color:var(--accent)}
+
+/* step 1: start */
+.hero{max-width:780px;margin:44px auto 28px;text-align:center}
+.hero h1{font-size:clamp(28px,4.6vw,42px);line-height:1.1;letter-spacing:-0.02em}
+.hero .lede{font-size:17px;margin-top:12px}
+.start-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:18px;max-width:1100px;margin:0 auto;align-items:start}
+@media (max-width:880px){.start-grid{grid-template-columns:minmax(0,1fr)}}
+.drop{background:var(--panel);border:2px dashed var(--line);border-radius:14px;padding:40px 24px 30px;text-align:center;transition:border-color .15s,background-color .15s}
+.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.drop .ico{display:block;width:52px;height:52px;margin:0 auto 12px;color:var(--accent)}
+.drop h2{font-size:20px;margin:0 0 4px}
+.drop>.hint{font-size:14px;margin:0 auto;max-width:44ch}
+.drop>.row{justify-content:center;margin-top:18px}
+.drop .or{margin:16px 0 0;font-size:14px;color:var(--muted)}
+.drop .status{margin-top:14px}
+.paste{margin-top:20px;text-align:left}
+.paste label{display:block}
+.need table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:2px}
+.need th,.need td{text-align:left;vertical-align:top;padding:7px 6px 7px 0;border-top:1px solid var(--line)}
+.need th{font-weight:600;white-space:nowrap;padding-right:12px}
+.need td span{display:block;color:var(--muted);font-size:12.5px}
+.req{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:1100px;margin:18px auto 0}
+@media (max-width:880px){.features{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.features{grid-template-columns:minmax(0,1fr)}.feat{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 12px}.feat svg{grid-row:span 2;margin:2px 0 0}}
+.feat svg{display:block;width:44px;height:32px;margin-bottom:8px;color:var(--ink)}
+.feat b{display:block;font-size:14.5px;font-weight:600}
+.feat p{margin:3px 0 0;font-size:13.5px;color:var(--muted)}
+.privacy{display:flex;gap:8px;align-items:flex-start;justify-content:center;max-width:1100px;margin:22px auto 0;font-size:13.5px;color:var(--muted);text-align:left}
+.privacy svg{flex:none;width:16px;height:16px;margin-top:2px}
+
+/* step 2: check */
+.stage-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 20px;margin:28px 0 16px}
+.stage-head .row{margin-top:0}
+.check-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+@media (max-width:980px){.check-grid{grid-template-columns:minmax(0,1fr)}}
+.ck-side{display:flex;flex-direction:column;gap:18px;min-width:0}
+.maps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:640px){.maps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.maps label{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight:600}
+.maps label small{font-weight:400;color:var(--muted);font-size:12px}
+.maps select{font-weight:400}
+.maps label.miss select{border-color:var(--danger);box-shadow:0 0 0 1px var(--danger)}
+.tag{display:inline-block;margin-left:4px;padding:0 7px;border-radius:999px;background:var(--accent-soft);color:var(--ink);font-family:"Source Sans 3",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:11.5px;font-weight:600;vertical-align:1px}
+.tablewrap{overflow:auto;max-height:340px;border:1px solid var(--line);border-radius:8px;margin-top:10px}
+table.pv{border-collapse:collapse;min-width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
+table.pv th,table.pv td{padding:6px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.pv th{position:sticky;top:0;background:var(--bg);font-family:"Source Sans 3",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:13px;font-weight:600}
+table.pv tbody tr:last-child td{border-bottom:0}
+table.pv .off{color:var(--muted);font-weight:400}
+table.pv .ln{color:var(--muted);font-weight:400;text-align:right}
+table.pv tr.bad td{color:var(--danger);background:transparent}
+table.pv tr.bad td:first-child{box-shadow:inset 3px 0 0 var(--danger)}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+.tile b{display:block;font-size:22px;font-weight:600;line-height:1.2}
+.tile span{font-size:12.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 8px;border:1px solid var(--line);border-radius:999px;font-size:13px}
+.chip i{width:10px;height:10px;border-radius:50%}
+.chip span{color:var(--muted)}
+.warns{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.warns li{display:flex;gap:9px;font-size:13.5px;line-height:1.45;padding:8px 10px;border-radius:8px;background:var(--bg)}
+.warns li svg{flex:none;width:16px;height:16px;margin-top:2px}
+.warns li.warn svg{color:var(--warn)}
+.warns li.info svg{color:var(--muted)}
+.warns li.ok svg{color:var(--accent)}
+.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+
+/* step 3: explore */
+.toolbar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 20px;margin:24px 0 16px}
+.toolbar .ds{flex:1 1 320px;min-width:0}
+.toolbar h1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toolbar .row{margin-top:0}
+.toolbar .note{margin:0;flex-basis:100%;text-align:right}
+.layout{display:grid;gap:18px;grid-template-columns:300px minmax(0,1fr) 300px;grid-template-areas:"ctl fig side";align-items:start}
+@media (max-width:1260px){.layout{grid-template-columns:300px minmax(0,1fr);grid-template-areas:"ctl fig" "ctl side"}}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"fig" "side" "ctl"}}
+.ctl{grid-area:ctl;padding:4px 16px;min-width:0}
+.fig{grid-area:fig;padding:10px 10px 14px;min-width:0}
+.side{grid-area:side;display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:1260px) and (min-width:901px){.side{display:grid;grid-template-columns:1fr 1fr}}
+.grp{border-top:1px solid var(--line)}
+.grp:first-of-type{border-top:0}
+.grp>summary{display:flex;align-items:center;justify-content:space-between;list-style:none;cursor:pointer;padding:12px 0;font-weight:600;font-size:14.5px}
+.grp>summary::-webkit-details-marker{display:none}
+.grp>summary::after{content:"";width:7px;height:7px;margin-right:4px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
+.grp[open]>summary::after{transform:rotate(-135deg)}
+.grp>div{padding:0 0 8px}
 .arrows{display:flex;gap:6px;align-items:center;margin:4px 4px 8px;font-size:13px;color:var(--muted)}
 .arrows span{margin-right:4px}
 .arrows button{padding:4px 10px;font-size:13px}
@@ -66,6 +173,9 @@ input[type=range]{accent-color:var(--accent)}
 .range2 input::-moz-range-thumb{pointer-events:auto;width:14px;height:14px;border-radius:50%;background:var(--panel);border:2px solid var(--accent);cursor:grab}
 .winlbl{min-width:84px;text-align:right;color:var(--ink)}
 svg#net{display:block;width:100%;height:auto}
+.figbox{overflow-x:auto;overscroll-behavior-x:contain}
+.swipe{display:none;margin:2px 6px 0;font-size:12.5px;color:var(--muted)}
+@media (max-width:700px){svg#net{min-width:600px}.swipe{display:block}.fig{padding:8px 6px 12px}}
 svg#net [data-b]{cursor:pointer}
 svg#net [data-b]:focus{outline:none}
 svg#net [data-b]:focus-visible .hl{stroke-width:2}
@@ -82,114 +192,246 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
 .det ul{list-style:none;padding:0;margin:4px 0 0;font-size:13px}
 .det li{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-top:1px solid var(--line)}
 .det h4{font-size:13px;font-weight:600;margin:12px 0 2px}
-.exp .row{margin-top:0}
 .note{font-size:13px;color:var(--muted);margin:8px 0 0}
 .about p{font-size:13.5px;line-height:1.5;margin:0 0 10px}
 .about .m{color:var(--muted)}
+
+.foot{max-width:1380px;margin:0 auto;padding:18px 20px 28px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+.foot a{color:inherit}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);opacity:0;pointer-events:none;background:var(--ink);color:var(--panel);padding:9px 16px;border-radius:8px;font-size:14px;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion: reduce){.toast,.drop,.grp>summary::after{transition:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <h1>Temporal ONA builder</h1>
-    <p class="lede">Paste a coded activity log and get an ordered network where every part also shows time: disc size for time spent, clock rings for when, and arrows coloured by the minute each link happened.</p>
-  </header>
-
-  <div class="layout">
-    <section class="ctl" aria-label="Data and settings">
-      <div class="panel">
-        <h2>Your data</h2>
-        <label for="data" class="hint" style="display:block;margin:0 0 6px">One row per coded episode. Columns: <b>learner</b>, <b>behaviour</b>, <b>start</b>, and optionally <b>end</b>.</label>
-        <textarea id="data" spellcheck="false" aria-describedby="fmt"></textarea>
-        <p class="hint" id="fmt">Times can be minutes (12.5), mm:ss (12:30) or clock time (09:12:30). Without an end column, each episode ends when the learner's next one starts.</p>
-        <div class="row">
-          <button class="primary" id="build">Build network</button>
-          <span class="filebtn">Upload CSV<input type="file" id="file" accept=".csv,.tsv,.txt,text/csv" aria-label="Upload CSV"></span>
-          <button id="sample">Load sample</button>
-        </div>
-        <p class="status" id="status" role="status"></p>
-      </div>
-
-      <div class="panel">
-        <h2>Network</h2>
-        <label class="f"><span>Link window<small>B counts as following A when it comes within this many actions</small></span>
-          <select id="s-window"><option value="2">Next action</option><option value="3">Within 2</option><option value="4">Within 3</option><option value="5">Within 4</option><option value="6">Within 5</option></select></label>
-        <label class="f"><span>Arrow thickness</span>
-          <select id="s-thick"><option value="count">Transitions</option><option value="min">Minutes in B</option></select></label>
-        <label class="f"><span>Values</span>
-          <select id="s-scope"><option value="avg">Per learner</option><option value="sum">Class total</option></select></label>
-        <label class="f"><span>Hide weak links<small>Below this share of the strongest</small></span>
-          <select id="s-min"><option value="0">Show all</option><option value="0.1">10%</option><option value="0.2">20%</option><option value="0.3">30%</option><option value="0.5">50%</option></select></label>
-        <label class="check"><input type="checkbox" id="s-loops"><span>Show loops<small>A behaviour followed by itself</small></span></label>
-        <label class="check"><input type="checkbox" id="s-merge"><span>Merge back-to-back repeats<small>Collapse consecutive rows of the same behaviour into one episode</small></span></label>
-        <label class="check"><input type="checkbox" id="s-align"><span>Start each learner at 0′<small>Use each learner's first event as their minute zero</small></span></label>
-      </div>
-
-      <div class="panel">
-        <h2>Time</h2>
-        <label class="f"><span>Session length<small>Minutes, blank for automatic</small></span><input type="number" id="s-len" min="1" step="1" placeholder="Auto"></label>
-        <label class="f"><span>Clock-ring slice</span>
-          <select id="s-slice"><option value="1">1 min</option><option value="2">2 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option></select></label>
-        <label class="f"><span>Frame length</span>
-          <select id="s-frame"><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="20">20 min</option><option value="30">30 min</option></select></label>
-        <label class="f"><span>Theme</span>
-          <select id="s-theme"><option value="auto">Match device</option><option value="light">Paper</option><option value="dark">Screen</option></select></label>
-      </div>
-
-      <div class="panel exp">
-        <h2>Export</h2>
-        <div class="row" id="exp-btns" hidden>
-          <button id="dl-png">Save PNG</button>
-          <button id="dl-svg">Save SVG</button>
-          <button id="dl-csv">Sample CSV</button>
-        </div>
-        <p class="note" id="exp-note">Checking whether saving files is available here…</p>
-      </div>
-    </section>
-
-    <section class="panel fig" aria-label="Network figure">
-      <div class="arrows" role="group" aria-label="Arrow style"><span>Arrows</span><button data-e="swell">Timeline</button><button data-e="colour">Colour only</button></div>
-      <div class="frames" id="frames" role="group" aria-label="Time frames"></div>
-      <svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Temporal ordered network</title><desc id="net-d">Build a network to see it here.</desc></svg>
-      <div class="win">
-        <span>Window</span>
-        <div class="range2"><div class="rt"><div class="rf" id="rfill"></div></div>
-          <input type="range" id="r0" min="0" max="60" step="1" value="0" aria-label="Window start (minute)">
-          <input type="range" id="r1" min="0" max="60" step="1" value="60" aria-label="Window end (minute)">
-        </div>
-        <span class="winlbl" id="winlbl">0′ – 60′</span>
-      </div>
-    </section>
-
-    <aside class="side">
-      <div class="panel">
-        <h2>How to read it</h2>
-        <div class="lg">
-          <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="11" cy="17" r="6" fill="#3E7CC4"/><circle cx="28" cy="15" r="10" fill="#3E7CC4"/></svg>
-          <div><b>Disc area</b> is the share of the window spent in that behaviour. A disc filling the whole ring limit would mean 100% of the time.</div>
-          <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="20" cy="15" r="11" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="4"/><path d="M20 4 A11 11 0 0 1 31 15" fill="none" stroke="#2E9E6B" stroke-width="4"/><path d="M31 15 A11 11 0 0 1 20 26" fill="none" stroke="#2E9E6B" stroke-opacity=".4" stroke-width="4"/><circle cx="20" cy="15" r="6" fill="#2E9E6B"/></svg>
-          <div><b>Clock ring</b>: <span id="lg-ring">one arc per 5-min slice</span>, starting at 0′ at the top and running clockwise. Darker arcs mean a bigger share of that slice. Faded arcs fall outside the window.</div>
-          <svg viewBox="0 0 40 30" aria-hidden="true"><path d="M4 22 Q20 4 32 16" fill="none" stroke="#B0489A" stroke-width="3"/><polygon points="36,20 27,17 32,11" fill="#B0489A"/></svg>
-          <div><b>Arrow A → B</b>: <span id="lg-arrow">B came right after A</span>. <span id="lg-thick">Thickness = transitions per learner.</span></div>
-          <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="14" cy="18" r="7" fill="#D6536D"/><path d="M19 13 C30 2 36 16 22 20" fill="none" stroke="#B0489A" stroke-width="2"/></svg>
-          <div><b>Loop</b>: the behaviour followed itself.</div>
-          <svg viewBox="0 0 40 30" aria-hidden="true" id="lg-edge-ico"></svg>
-          <div id="lg-edge"></div>
-        </div>
-        <div class="bar" id="lg-bar"></div>
-        <div class="barlbl"><span>Early</span><span>Arrow colour = minute of session</span><span>Late</span></div>
-      </div>
-      <div class="panel det" id="det" aria-live="polite"></div>
-      <div class="panel about">
-        <h2>About this tool</h2>
-        <p>Everything runs in your browser. The log you paste is never uploaded. The page remembers your last log on this device so it is there next time; use pseudonymous learner IDs and clear it when you are done with real student data.</p>
-        <p>The link logic is adapted from ordered network analysis (ONA). This is a descriptive figure, not a full ONA: it does not normalise, reduce dimensions or test differences between groups. For statistical comparisons, run ONA itself.</p>
-        <p class="m">Cite as: Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool].</p>
-        <div class="row"><button id="clear">Clear saved data</button></div>
-      </div>
-    </aside>
+<header class="appbar">
+  <div class="in">
+    <a class="brand" href="#" id="home" aria-label="Temporal ONA builder, start page">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-opacity=".18" stroke-width="3"/><path d="M16 3.5 A12.5 12.5 0 0 1 28.5 16" fill="none" stroke="#4B3FB5" stroke-width="3"/><circle cx="16" cy="16" r="7" fill="#3E7CC4"/></svg>
+      <span><b>Temporal ONA builder</b><small>ONA-inspired network of time and order</small></span>
+    </a>
+    <nav class="steps" aria-label="Steps">
+      <button data-go="start" aria-current="step"><i>1</i><span class="lbl">Upload</span></button>
+      <button data-go="check" disabled><i>2</i><span class="lbl">Check</span></button>
+      <button data-go="explore" disabled><i>3</i><span class="lbl">Explore</span></button>
+    </nav>
   </div>
-</div>
+</header>
+
+<main class="wrap">
+  <!-- Step 1: upload -->
+  <section class="stage" id="stage-start" aria-labelledby="st-title">
+    <div class="hero">
+      <p class="eyebrow">For coded self-regulated learning logs</p>
+      <h1 id="st-title" tabindex="-1">See how long, when and in what order</h1>
+      <p class="lede">Upload an episode log and get one network that shows how much time learners spent in each behaviour, when in the session it happened, what followed what, and when each link happened.</p>
+    </div>
+
+    <div class="start-grid">
+      <div class="drop" id="drop">
+        <svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 34h-2a8 8 0 0 1-1-15.9A11 11 0 0 1 32.4 15 9 9 0 0 1 36 32.7"/><path d="M24 40V24m-6 6 6-6 6 6"/></svg>
+        <h2>Drop your log file here</h2>
+        <p class="hint">CSV, TSV or semicolon-separated text with a header row. The file is read in this browser tab and never uploaded.</p>
+        <div class="row">
+          <label class="filebtn primary btn-lg">Choose file<input type="file" id="file" accept=".csv,.tsv,.txt,text/csv,text/plain,text/tab-separated-values" aria-label="Choose a log file"></label>
+          <button class="btn-lg" id="paste-toggle" aria-expanded="false" aria-controls="paste">Paste rows</button>
+        </div>
+        <p class="or">No data yet? <button class="linkbtn" id="sample">Try the sample of 30 synthetic learners</button></p>
+        <p class="status err" id="start-msg" role="alert" hidden></p>
+        <div class="paste" id="paste" hidden>
+          <label for="data" class="hint">Paste rows copied from a spreadsheet or text file, header row first.</label>
+          <textarea id="data" spellcheck="false" placeholder="learner,behaviour,start,end&#10;S01,Planning,09:00:00,09:02:40&#10;S01,Monitoring,09:02:40,09:03:30"></textarea>
+          <div class="row"><button class="primary" id="check-paste">Check data</button><span class="hint" style="margin:0">or press Ctrl+Enter</span></div>
+        </div>
+      </div>
+
+      <div class="panel need">
+        <h2>What your file needs</h2>
+        <table>
+          <tr><th scope="row">learner</th><td>A pseudonymous ID<span>e.g. S01</span></td><td class="req">Required</td></tr>
+          <tr><th scope="row">behaviour</th><td>The coded behaviour<span>e.g. Planning, Debugging</span></td><td class="req">Required</td></tr>
+          <tr><th scope="row">start</th><td>When the episode began<span>12.5 (minutes), 12:30 (mm:ss) or 09:12:30</span></td><td class="req">Required</td></tr>
+          <tr><th scope="row">end</th><td>When it ended<span>If missing, an episode lasts until the next one starts</span></td><td class="req">Optional</td></tr>
+        </table>
+        <p class="hint">Names such as <code>student_id</code>, <code>activity</code> or <code>timestamp</code> are recognised, and you can pick the columns yourself in the next step.</p>
+        <div class="row" data-save hidden><button id="dl-template">Download template</button><button id="dl-csv">Download sample log</button></div>
+      </div>
+    </div>
+
+    <div class="features" aria-label="What the figure shows">
+      <div class="panel feat">
+        <svg viewBox="0 0 44 32" aria-hidden="true"><circle cx="12" cy="18" r="6" fill="#3E7CC4"/><circle cx="31" cy="16" r="11" fill="#3E7CC4"/></svg>
+        <b>Time spent</b><p>Disc area is the share of the time window spent in each behaviour.</p>
+      </div>
+      <div class="panel feat">
+        <svg viewBox="0 0 44 32" aria-hidden="true"><circle cx="22" cy="16" r="12" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="4"/><path d="M22 4 A12 12 0 0 1 34 16" fill="none" stroke="#2E9E6B" stroke-width="4"/><path d="M34 16 A12 12 0 0 1 22 28" fill="none" stroke="#2E9E6B" stroke-opacity=".4" stroke-width="4"/><circle cx="22" cy="16" r="6.5" fill="#2E9E6B"/></svg>
+        <b>When it happened</b><p>A clock ring around each disc shows which minutes of the session it filled.</p>
+      </div>
+      <div class="panel feat">
+        <svg viewBox="0 0 44 32" aria-hidden="true"><path d="M5 24 Q22 4 35 17" fill="none" stroke="currentColor" stroke-opacity=".7" stroke-width="3"/><polygon points="40,21 30,18 35,11" fill="currentColor" fill-opacity=".7"/></svg>
+        <b>What followed what</b><p>Arrows link each behaviour to the ones that came next, using ONA's moving window.</p>
+      </div>
+      <div class="panel feat">
+        <svg viewBox="0 0 44 32" aria-hidden="true"><line x1="3" y1="16" x2="37" y2="16" stroke="currentColor" stroke-opacity=".4"/><line x1="7" y1="16" x2="14" y2="16" stroke="#5A3FC0" stroke-width="3"/><line x1="17" y1="16" x2="25" y2="16" stroke="#B0489A" stroke-width="9"/><line x1="28" y1="16" x2="33" y2="16" stroke="#E8912A" stroke-width="4"/><polygon points="42,16 36,12 36,20" fill="currentColor" fill-opacity=".6"/></svg>
+        <b>When each link happened</b><p>Arrows swell in the minutes the link occurred, coloured from early to late.</p>
+      </div>
+    </div>
+    <p class="privacy"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg><span>Nothing you load leaves your device. The page only fetches its font from Google Fonts. Use pseudonymous learner IDs with real student data.</span></p>
+  </section>
+
+  <!-- Step 2: check -->
+  <section class="stage" id="stage-check" aria-labelledby="ck-title" hidden>
+    <div class="stage-head">
+      <div>
+        <p class="eyebrow">Step 2 of 3</p>
+        <h1 id="ck-title" tabindex="-1">Check how your data was read</h1>
+        <p class="lede" id="src-name"></p>
+      </div>
+      <div class="row">
+        <button id="back">Choose another file</button>
+        <button class="primary btn-lg" id="build">Build network</button>
+      </div>
+    </div>
+    <p class="status" id="status" role="status"></p>
+
+    <div class="check-grid">
+      <div class="panel">
+        <h2>Columns</h2>
+        <p class="hint" style="margin:0">Matched from your header row. Change any that are wrong.</p>
+        <div class="maps">
+          <label>Learner<select id="map-learner"></select></label>
+          <label>Behaviour<select id="map-behaviour"></select></label>
+          <label>Start<select id="map-start"></select></label>
+          <label><span>End <small>(optional)</small></span><select id="map-end"></select></label>
+        </div>
+        <h2 style="margin-top:20px">First rows</h2>
+        <div class="tablewrap"><table class="pv" id="preview"></table></div>
+        <p class="hint" id="pv-note"></p>
+      </div>
+      <div class="ck-side">
+        <div class="panel">
+          <h2>Summary</h2>
+          <div class="tiles" id="tiles"></div>
+          <h2 style="margin-top:16px">Behaviours</h2>
+          <div class="chips" id="chips"></div>
+          <p class="hint">Colours match the network. Spellings are grouped regardless of case.</p>
+        </div>
+        <div class="panel">
+          <h2>Before you build</h2>
+          <ul class="warns" id="warns"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="actions"><button class="primary btn-lg" id="build-2">Build network</button></div>
+  </section>
+
+  <!-- Step 3: explore -->
+  <section class="stage" id="stage-explore" aria-labelledby="ds-name" hidden>
+    <div class="toolbar">
+      <div class="ds">
+        <p class="eyebrow">Step 3 of 3</p>
+        <h1 id="ds-name" tabindex="-1">Network</h1>
+        <p class="lede" id="summary"></p>
+      </div>
+      <div class="row">
+        <button id="to-check">Edit data</button>
+        <button id="to-start">New file</button>
+      </div>
+      <div class="row" id="exp-btns" hidden>
+        <button class="primary" id="dl-png">Save PNG</button>
+        <button id="dl-svg">Save SVG</button>
+      </div>
+      <p class="note" id="exp-note">Checking whether saving files is available here…</p>
+    </div>
+
+    <div class="layout">
+      <section class="panel ctl" aria-label="Settings">
+        <details class="grp" open>
+          <summary>Links</summary>
+          <div>
+            <label class="f"><span>Link window<small>B counts as following A when it comes within this many actions</small></span>
+              <select id="s-window"><option value="2">Next action</option><option value="3">Within 2</option><option value="4">Within 3</option><option value="5">Within 4</option><option value="6">Within 5</option></select></label>
+            <label class="f"><span>Arrow thickness</span>
+              <select id="s-thick"><option value="count">Transitions</option><option value="min">Minutes in B</option></select></label>
+            <label class="f"><span>Values</span>
+              <select id="s-scope"><option value="avg">Per learner</option><option value="sum">Class total</option></select></label>
+            <label class="f"><span>Hide weak links<small>Below this share of the strongest</small></span>
+              <select id="s-min"><option value="0">Show all</option><option value="0.1">10%</option><option value="0.2">20%</option><option value="0.3">30%</option><option value="0.5">50%</option></select></label>
+            <label class="check"><input type="checkbox" id="s-loops"><span>Show loops<small>A behaviour followed by itself</small></span></label>
+            <label class="check"><input type="checkbox" id="s-merge"><span>Merge back-to-back repeats<small>Collapse consecutive rows of the same behaviour into one episode</small></span></label>
+          </div>
+        </details>
+        <details class="grp">
+          <summary>Time</summary>
+          <div>
+            <label class="check"><input type="checkbox" id="s-align"><span>Start each learner at 0′<small>Use each learner's first event as their minute zero</small></span></label>
+            <label class="f"><span>Session length<small>Minutes, blank for automatic</small></span><input type="number" id="s-len" min="1" step="1" placeholder="Auto"></label>
+            <label class="f"><span>Clock-ring slice<small>Also the bin size of timeline arrows</small></span>
+              <select id="s-slice"><option value="1">1 min</option><option value="2">2 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option></select></label>
+            <label class="f"><span>Frame length</span>
+              <select id="s-frame"><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="20">20 min</option><option value="30">30 min</option></select></label>
+          </div>
+        </details>
+        <details class="grp">
+          <summary>Display</summary>
+          <div>
+            <label class="f"><span>Theme</span>
+              <select id="s-theme"><option value="auto">Match device</option><option value="light">Paper</option><option value="dark">Screen</option></select></label>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel fig" aria-label="Network figure">
+        <div class="arrows" role="group" aria-label="Arrow style"><span>Arrows</span><button data-e="swell">Timeline</button><button data-e="colour">Colour only</button></div>
+        <div class="frames" id="frames" role="group" aria-label="Time frames"></div>
+        <div class="figbox" id="figbox"><svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Temporal ordered network</title><desc id="net-d">Build a network to see it here.</desc></svg></div>
+        <p class="swipe">Swipe sideways to see the whole figure.</p>
+        <div class="win">
+          <span>Window</span>
+          <div class="range2"><div class="rt"><div class="rf" id="rfill"></div></div>
+            <input type="range" id="r0" min="0" max="60" step="1" value="0" aria-label="Window start (minute)">
+            <input type="range" id="r1" min="0" max="60" step="1" value="60" aria-label="Window end (minute)">
+          </div>
+          <span class="winlbl" id="winlbl">0′ – 60′</span>
+        </div>
+      </section>
+
+      <aside class="side">
+        <div class="panel">
+          <h2>How to read it</h2>
+          <div class="lg">
+            <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="11" cy="17" r="6" fill="#3E7CC4"/><circle cx="28" cy="15" r="10" fill="#3E7CC4"/></svg>
+            <div><b>Disc area</b> is the share of the window spent in that behaviour. A disc filling the whole ring limit would mean 100% of the time.</div>
+            <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="20" cy="15" r="11" fill="none" stroke="currentColor" stroke-opacity=".15" stroke-width="4"/><path d="M20 4 A11 11 0 0 1 31 15" fill="none" stroke="#2E9E6B" stroke-width="4"/><path d="M31 15 A11 11 0 0 1 20 26" fill="none" stroke="#2E9E6B" stroke-opacity=".4" stroke-width="4"/><circle cx="20" cy="15" r="6" fill="#2E9E6B"/></svg>
+            <div><b>Clock ring</b>: <span id="lg-ring">one arc per 5-min slice</span>, starting at 0′ at the top and running clockwise. Darker arcs mean a bigger share of that slice. Faded arcs fall outside the window.</div>
+            <svg viewBox="0 0 40 30" aria-hidden="true"><path d="M4 22 Q20 4 32 16" fill="none" stroke="#B0489A" stroke-width="3"/><polygon points="36,20 27,17 32,11" fill="#B0489A"/></svg>
+            <div><b>Arrow A → B</b>: <span id="lg-arrow">B came right after A</span>. <span id="lg-thick">Thickness = transitions per learner.</span></div>
+            <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="14" cy="18" r="7" fill="#D6536D"/><path d="M19 13 C30 2 36 16 22 20" fill="none" stroke="#B0489A" stroke-width="2"/></svg>
+            <div><b>Loop</b>: the behaviour followed itself.</div>
+            <svg viewBox="0 0 40 30" aria-hidden="true" id="lg-edge-ico"></svg>
+            <div id="lg-edge"></div>
+          </div>
+          <div class="bar" id="lg-bar"></div>
+          <div class="barlbl"><span>Early</span><span>Arrow colour = minute of session</span><span>Late</span></div>
+        </div>
+        <div class="panel det" id="det" aria-live="polite"></div>
+        <div class="panel about">
+          <h2>About this tool</h2>
+          <p>Everything runs in your browser. The log you load is never uploaded. The page remembers your last log on this device so it is there next time; use pseudonymous learner IDs and clear it when you are done with real student data.</p>
+          <p>The link logic is adapted from ordered network analysis (ONA). This is a descriptive, ONA-inspired figure, not a full ONA: it does not normalise, reduce dimensions or test differences between groups. For statistical comparisons, run ONA itself.</p>
+          <p class="m">Cite as: Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool].</p>
+          <div class="row"><button id="clear">Clear saved data</button></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool]. Code under the MIT licence.</span>
+  <a href="https://github.com/kcodweb/Temporal-ONA-builder" rel="noopener">Source on GitHub</a>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
@@ -232,23 +474,35 @@ function parseTime(v){v=(v||'').trim();if(v==='')return null;
   var m=v.match(/^(\d{1,2}):(\d{1,2})(?::(\d{1,2}(?:\.\d+)?))?$/);
   if(m){if(m[3]!==undefined)return {min:(+m[1])*60+(+m[2])+(+m[3])/60,clock:true};return {min:(+m[1])+(+m[2])/60,clock:false};}
   var d=Date.parse(v);if(!isNaN(d))return {min:d/60000,clock:true};return null;}
-function parseLog(text){
-  var lines=String(text||'').replace(/\r/g,'').split('\n').filter(function(l){return l.trim()!=='';});
-  if(lines.length<2)return {error:'Paste a log with a header row and at least one data row.'};
+var ROLES=['learner','behaviour','start','end'],TWO_PART=/^\d{1,2}:\d{1,2}$/;
+// readTable splits the text into a header and rows; autoMap guesses which column plays which role;
+// parseRows reads episodes with a given column map (from autoMap or from the Check step).
+function readTable(text){
+  var raw=String(text||'').replace(/\r/g,'').split('\n'),lines=[],nums=[];
+  raw.forEach(function(l,i){if(l.trim()!==''){lines.push(l);nums.push(i+1);}});
+  if(lines.length<2)return {error:'The log needs a header row and at least one data row.'};
   var head=lines[0],delim=[',','\t',';'].reduce(function(a,b){return head.split(b).length>head.split(a).length?b:a;},',');
-  var hdr=splitRow(head,delim).map(normH),idx={};
-  Object.keys(ALIASES).forEach(function(k){idx[k]=hdr.findIndex(function(h){return ALIASES[k].indexOf(h)>=0;});});
-  var miss=['learner','behaviour','start'].filter(function(k){return idx[k]<0;});
-  if(miss.length)return {error:'Missing column'+(miss.length>1?'s':'')+': '+miss.join(', ')+'. The header row needs learner, behaviour and start (end is optional).'};
-  var ev=[],skipped=0,clock=false,bMap={},bNames=[],lMap={},lNames=[],bad=[];
-  for(var i=1;i<lines.length;i++){var r=splitRow(lines[i],delim),l=r[idx.learner],b=r[idx.behaviour],s=parseTime(r[idx.start]),e=idx.end>=0?parseTime(r[idx.end]):null;
-    if(!l||!b||!s){skipped++;if(bad.length<3)bad.push(i+1);continue;}
+  var names=splitRow(head,delim);
+  return {delim:delim,names:names,hdr:names.map(normH),rows:lines.slice(1).map(function(l){return splitRow(l,delim);}),nums:nums.slice(1)};}
+function autoMap(hdr){var idx={};ROLES.forEach(function(k){idx[k]=hdr.findIndex(function(h){return ALIASES[k].indexOf(h)>=0;});});return idx;}
+function rowOk(r,idx){return !!(r[idx.learner]&&r[idx.behaviour]&&parseTime(r[idx.start]));}
+function parseRows(tb,idx){
+  var miss=['learner','behaviour','start'].filter(function(k){return !(idx[k]>=0);});
+  if(miss.length)return {error:'Missing column'+(miss.length>1?'s':'')+': '+miss.join(', ')+'. Choose which column holds '+(miss.length>1?'each':'it')+' below (end is optional).'};
+  var used={};for(var q=0;q<ROLES.length;q++){var k=ROLES[q],c=idx[k];if(!(c>=0))continue;if(used[c])return {error:'The same column is chosen for '+used[c]+' and '+k+'. Each needs its own column.'};used[c]=k;}
+  var hasEnd=idx.end>=0,ev=[],skipped=0,clock=false,bMap=Object.create(null),bNames=[],counts=[],lMap=Object.create(null),lNames=[],bad=[],two=0,neg=0;
+  tb.rows.forEach(function(r,i){var l=r[idx.learner],b=r[idx.behaviour],sv=r[idx.start]||'',evv=hasEnd?(r[idx.end]||''):'',s=parseTime(sv),e=hasEnd?parseTime(evv):null;
+    if(!l||!b||!s){skipped++;if(bad.length<3)bad.push(tb.nums[i]);return;}
+    if(TWO_PART.test(sv.trim())||TWO_PART.test(evv.trim()))two++;
     if(s.clock)clock=true;var key=b.toLowerCase();
-    if(!(key in bMap)){bMap[key]=bNames.length;bNames.push(b);}
+    if(!(key in bMap)){bMap[key]=bNames.length;bNames.push(b);counts.push(0);}
+    counts[bMap[key]]++;
     if(!(l in lMap)){lMap[l]=lNames.length;lNames.push(l);}
-    ev.push({l:lMap[l],b:bMap[key],s:s.min,e:e?e.min:null});}
+    if(e&&e.min<s.min)neg++;
+    ev.push({l:lMap[l],b:bMap[key],s:s.min,e:e?e.min:null});});
   if(!ev.length)return {error:'None of the rows could be read. Check that start times are minutes, mm:ss or hh:mm:ss.'};
-  return {ev:ev,behaviours:bNames,learners:lNames,clock:clock,skipped:skipped,bad:bad,hasEnd:idx.end>=0};}
+  return {ev:ev,behaviours:bNames,counts:counts,learners:lNames,clock:clock,skipped:skipped,bad:bad,hasEnd:hasEnd,rows:tb.rows.length,two:two,neg:neg};}
+function parseLog(text,idx){var tb=readTable(text);return tb.error?tb:parseRows(tb,idx||autoMap(tb.hdr));}
 
 /* ---------- derive ---------- */
 function derive(){
@@ -430,15 +684,81 @@ function render(){if(!P||!D)return;cancelAnimationFrame(raf);raf=requestAnimatio
 
 /* ---------- data flow ---------- */
 function setStatus(msg,err){var s=$('#status');s.textContent=msg;s.className='status'+(err?' err':'');}
-function build(fromUser){var text=$('#data').value,res=parseLog(text);
-  if(res.error){setStatus(res.error,true);return false;}
+function plural(n,w){return n+' '+w+(n===1?'':'s');}
+var toastTimer=0;
+function toast(msg){var t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show');},3200);}
+function startMsg(msg){var m=$('#start-msg');m.textContent=msg||'';m.hidden=!msg;}
+
+// Stages: 'start' (upload), 'check' (column map and preview), 'explore' (figure).
+var stage='start',pending=null,SAMPLE_NAME='Sample: 30 synthetic learners';
+function showStage(s,focus){stage=s;
+  ['start','check','explore'].forEach(function(k){$('#stage-'+k).hidden=k!==s;});
+  Array.prototype.forEach.call(document.querySelectorAll('.steps [data-go]'),function(b){var k=b.dataset.go;
+    b.disabled=(k==='check'&&!pending)||(k==='explore'&&!P);if(k===s)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});
+  if(s==='explore')render();
+  if(focus){try{window.scrollTo(0,0);}catch(e){}var h=$('#stage-'+s+' h1');if(h)try{h.focus({preventScroll:true});}catch(e){}}}
+
+// Check step: read the text with a column map and describe what was found.
+function analyse(text,name,idx){var tb=readTable(text);
+  if(tb.error)pending={text:text,name:name,tb:null,idx:{},res:tb};
+  else{idx=idx||autoMap(tb.hdr);pending={text:text,name:name,tb:tb,idx:idx,res:parseRows(tb,idx)};}
+  drawCheck();return pending.res;}
+function spanOf(res){var per=[],mx=0;
+  res.ev.forEach(function(e){var end=e.e!=null&&e.e>e.s?e.e:e.s;if(res.clock){var p=per[e.l]||(per[e.l]={a:Infinity,b:-Infinity});p.a=Math.min(p.a,e.s);p.b=Math.max(p.b,end);}else mx=Math.max(mx,end);});
+  if(res.clock)per.forEach(function(p){if(p)mx=Math.max(mx,p.b-p.a);});return mx;}
+var ICON={warn:'<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1.8 15 14H1z" stroke-linejoin="round"/><path d="M8 6v3.6M8 11.4v.4" stroke-linecap="round"/></svg>',
+  info:'<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M8 7.2v4M8 4.6v.4" stroke-linecap="round"/></svg>',
+  ok:'<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6.4"/><path d="m5.2 8.2 2 2 3.8-4" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
+var ROLE_LBL={learner:'Learner',behaviour:'Behaviour',start:'Start',end:'End'};
+function drawCheck(){var pd=pending,res=pd.res,tb=pd.tb,T=tokens(),ok=!res.error;
+  $('#src-name').textContent=pd.name;
+  ROLES.forEach(function(k){var sel=$('#map-'+k),h='<option value="-1">'+(k==='end'?'None':'Choose a column')+'</option>';
+    if(tb)tb.names.forEach(function(n,i){h+='<option value="'+i+'">'+esc(n||'Column '+(i+1))+'</option>';});
+    sel.innerHTML=h;sel.value=String(pd.idx[k]>=0?pd.idx[k]:-1);sel.disabled=!tb;
+    sel.parentNode.classList.toggle('miss',!!tb&&k!=='end'&&!(pd.idx[k]>=0));});
+  setStatus(ok?'Read '+plural(res.ev.length,'episode')+' from '+plural(res.learners.length,'learner')+', '+plural(res.behaviours.length,'behaviour')+'.':res.error,!ok);
+  var roleOf={};ROLES.forEach(function(k){if(pd.idx[k]>=0)roleOf[pd.idx[k]]=k;});
+  var pv='',badShown=0;
+  if(tb){pv='<thead><tr><th scope="col" class="ln">Line</th>'+tb.names.map(function(n,i){var r=roleOf[i];return '<th scope="col"'+(r?'':' class="off"')+'>'+esc(n||'Column '+(i+1))+(r?'<span class="tag">'+ROLE_LBL[r]+'</span>':'')+'</th>';}).join('')+'</tr></thead><tbody>';
+    tb.rows.slice(0,8).forEach(function(r,j){var good=!ok||rowOk(r,pd.idx);if(!good)badShown++;
+      pv+='<tr'+(good?'':' class="bad"')+'><td class="ln">'+tb.nums[j]+'</td>'+tb.names.map(function(_,i){return '<td'+(roleOf[i]?'':' class="off"')+'>'+esc(r[i]==null?'':r[i])+'</td>';}).join('')+'</tr>';});
+    pv+='</tbody>';}
+  $('#preview').innerHTML=pv;
+  $('#pv-note').textContent=tb?'Showing '+Math.min(8,tb.rows.length)+' of '+plural(tb.rows.length,'row')+'.'+(badShown?' Rows in red can’t be read.':''):'';
+  var tiles=ok?[[res.ev.length,'episodes read'+(res.skipped?' of '+res.rows:'')],[res.learners.length,'learners'],[res.behaviours.length,'behaviours'],[fmtMin(spanOf(res))+PR,res.clock?'longest session':'last minute in the log']]:[];
+  $('#tiles').innerHTML=tiles.map(function(t){return '<div class="tile"><b>'+esc(t[0])+'</b><span>'+esc(t[1])+'</span></div>';}).join('')||'<p class="hint" style="margin:0">Choose the columns to see a summary.</p>';
+  $('#chips').innerHTML=ok?res.behaviours.map(function(b,i){return '<span class="chip"><i style="background:'+T.pal[i%T.pal.length]+'"></i>'+esc(b)+' <span>'+res.counts[i]+'</span></span>';}).join(''):'';
+  var W=[];
+  if(!ok)W.push(['warn',tb?'Pick the learner, behaviour and start columns above to continue.':'Go back and load a file with a header row and at least one data row.']);
+  else{
+    if(res.skipped)W.push(['warn',plural(res.skipped,'row')+' can’t be read and will be skipped (line'+(res.bad.length>1?'s ':' ')+res.bad.join(', ')+(res.skipped>res.bad.length?', …':'')+'). Each row needs a learner, a behaviour and a start time.']);
+    if(res.two)W.push(['warn','Times such as 09:12 are read as minutes:seconds. If yours mean hours:minutes, add seconds (09:12:00).']);
+    if(res.neg)W.push(['warn',plural(res.neg,'episode')+' end'+(res.neg===1?'s':'')+' before '+(res.neg===1?'it starts':'they start')+'. '+(res.neg===1?'It':'They')+' will run until the learner’s next episode instead.']);
+    if(res.behaviours.length>10)W.push(['warn',res.behaviours.length+' behaviours. Above 10 the circle gets crowded and colours repeat; consider grouping codes.']);
+    if(!res.hasEnd)W.push(['info','No end column: each episode lasts until the learner’s next one starts, so each learner’s last episode counts as 0 minutes.']);
+    W.push(['info',res.clock?'Clock times found, so each learner will start at 0'+PR+'. You can change this under Settings → Time.':'Times are read as minutes from the start of the session.']);
+    if(W.every(function(w){return w[0]==='info';}))W.unshift(['ok','Every row could be read.']);}
+  $('#warns').innerHTML=W.map(function(w){return '<li class="'+w[0]+'">'+ICON[w[0]]+'<span>'+esc(w[1])+'</span></li>';}).join('');}
+function mapFromUI(){var idx={};ROLES.forEach(function(k){idx[k]=+$('#map-'+k).value;});return idx;}
+function mapNames(){var m={};if(pending&&pending.tb)ROLES.forEach(function(k){if(pending.idx[k]>=0)m[k]=pending.tb.names[pending.idx[k]];});return m;}
+function mapFromNames(text,m){if(!m||typeof m!=='object')return null;var tb=readTable(text);if(tb.error)return null;var idx={};
+  ROLES.forEach(function(k){idx[k]=typeof m[k]==='string'?tb.names.indexOf(m[k]):-1;});return idx.learner>=0&&idx.behaviour>=0&&idx.start>=0?idx:null;}
+function loadText(text,name){startMsg('');$('#data').value=text;analyse(text,name,null);showStage('check',true);}
+function readFile(f){if(!f)return;
+  if(/\.(xlsx|xlsm|xls|ods|numbers)$/i.test(f.name)){showStage('start');startMsg('Spreadsheet files can’t be read directly. Save the sheet as CSV (in Excel: File → Save As → CSV) and load that file.');return;}
+  var rd=new FileReader();rd.onload=function(){loadText(String(rd.result),f.name);};
+  rd.onerror=function(){showStage('start');startMsg('That file couldn’t be read. Try saving it as CSV.');};rd.readAsText(f);}
+
+function build(fromUser){var text=$('#data').value;
+  if(!pending||pending.text!==text)analyse(text,'Pasted data',null);
+  var res=pending.res;
+  if(res.error){setStatus(res.error,true);showStage('check',fromUser);return false;}
   P=res;if(fromUser){S.align=P.clock;$('#s-align').checked=S.align;}
   selected=null;stopPlay();derive();view={t0:0,t1:D.L,frame:-1};buildFrames();
-  var msg=P.ev.length+' episodes from '+P.learners.length+' learner'+(P.learners.length===1?'':'s')+', '+P.behaviours.length+' behaviours. Session 0'+PR+'–'+fmtMin(D.L)+PR+'.';
-  if(P.skipped)msg+=' Skipped '+P.skipped+' unreadable row'+(P.skipped===1?'':'s')+' (e.g. line '+P.bad.join(', ')+').';
-  if(!P.hasEnd)msg+=' No end column, so each episode runs until the next one starts.';
-  if(P.behaviours.length>10)msg+=' More than 10 behaviours will be hard to read; consider grouping codes.';
-  setStatus(msg,false);if(text.length<1500000)store('tona-data',text);render();return true;}
+  $('#ds-name').textContent=pending.name;
+  $('#summary').textContent=P.ev.length+' episodes from '+plural(P.learners.length,'learner')+', '+plural(P.behaviours.length,'behaviour')+' · session 0'+PR+'–'+fmtMin(D.L)+PR+(P.skipped?' · '+plural(P.skipped,'row')+' skipped':'');
+  if(text.length<1500000){store('tona-data',text);store('tona-name',pending.name);store('tona-map',mapNames());}
+  showStage('explore',fromUser);return true;}
 function rederive(){if(!P)return;stopPlay();derive();var L=D.L;buildFrames();
   if(view.frame===-1)view={t0:0,t1:L,frame:-1};else if(view.frame>=0){var n=Math.ceil(L/S.frame-1e-9);if(view.frame<n)view={t0:view.frame*S.frame,t1:Math.min((view.frame+1)*S.frame,L),frame:view.frame};else view={t0:0,t1:L,frame:-1};}
   else{view.t1=Math.min(view.t1,L);view.t0=Math.min(view.t0,view.t1-1);if(view.t0<0)view.t0=0;}
@@ -459,6 +779,7 @@ function sampleCSV(){var rnd=mulberry32(610),Bn=['Planning','Monitoring','Debugg
     while(t<59){var w=wts(t);if(prev>=0)w[prev]*=0.35;var tot=w.reduce(function(a,b){return a+b;},0),r=rnd()*tot,b=0;while(b<w.length-1&&r>w[b]){r-=w[b];b++;}
       var e=Math.min(60,t+dur[b][0]+rnd()*(dur[b][1]-dur[b][0]));lines.push(id+','+Bn[b]+','+clockStr(t)+','+clockStr(e));prev=b;t=e+(rnd()<0.55?rnd()*0.9:0);}}
   return lines.join('\n');}
+var TEMPLATE=['learner,behaviour,start,end','S01,Planning,09:00:00,09:02:40','S01,Monitoring,09:02:40,09:03:30','S01,Debugging,09:03:45,09:07:10','S01,Help seeking,09:07:10,09:08:05','S01,Evaluation,09:08:05,09:10:00','S02,Planning,09:00:20,09:01:50','S02,Debugging,09:01:50,09:06:30','S02,Monitoring,09:06:30,09:07:15'].join('\n')+'\n';
 
 /* ---------- export ---------- */
 function svgString(withFont){var svg=$('#net').cloneNode(true);svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
@@ -485,16 +806,44 @@ function savePNG(btn){var str=svgString(false),vb=$('#net').getAttribute('viewBo
 function init(){
   var saved=load('tona-settings-v2');if(saved&&typeof saved==='object')Object.keys(DEF).forEach(function(k){if(k in saved&&typeof saved[k]===typeof DEF[k])S[k]=saved[k];});
   applyTheme();writeSettingsUI();
-  var text=load('tona-data');$('#data').value=typeof text==='string'&&text.trim()?text:sampleCSV();
-  build(false);
+  // Returning visitors land on their last figure; first-time visitors see the upload step.
+  var text=load('tona-data');
+  if(typeof text==='string'&&text.trim()){var nm=load('tona-name');$('#data').value=text;analyse(text,typeof nm==='string'&&nm?nm:'Saved log',mapFromNames(text,load('tona-map')));
+    if(!build(false))showStage('check');}
+  else showStage('start');
 
+  // Step 1: upload, paste, sample, templates
+  $('#file').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];readFile(f);e.target.value='';});
+  var drop=$('#drop');
+  drop.addEventListener('dragover',function(e){e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',function(e){if(!drop.contains(e.relatedTarget))drop.classList.remove('over');});
+  window.addEventListener('dragover',function(e){e.preventDefault();});
+  window.addEventListener('drop',function(e){e.preventDefault();drop.classList.remove('over');var dt=e.dataTransfer;if(!dt)return;
+    if(dt.files&&dt.files.length){readFile(dt.files[0]);return;}var t=dt.getData('text');if(t&&t.indexOf('\n')>=0)loadText(t,'Dropped text');});
+  document.addEventListener('paste',function(e){if(stage!=='start')return;var tg=e.target;if(tg&&(tg.tagName==='TEXTAREA'||tg.tagName==='INPUT'))return;
+    var t=e.clipboardData&&e.clipboardData.getData('text');if(!t||t.indexOf('\n')<0)return;e.preventDefault();loadText(t,'Pasted data');});
+  $('#paste-toggle').addEventListener('click',function(){var box=$('#paste'),open=box.hidden;box.hidden=!open;this.setAttribute('aria-expanded',String(open));if(open)$('#data').focus();});
+  function checkPaste(){var t=$('#data').value;if(!t.trim()){startMsg('Paste some rows first, starting with the header row.');return;}loadText(t,'Pasted data');}
+  $('#check-paste').addEventListener('click',checkPaste);
+  $('#data').addEventListener('keydown',function(e){if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();checkPaste();}});
+  $('#sample').addEventListener('click',function(){var t=sampleCSV();startMsg('');$('#data').value=t;analyse(t,SAMPLE_NAME,null);build(true);});
+
+  // Step 2: column map and build
+  ROLES.forEach(function(k){$('#map-'+k).addEventListener('change',function(){if(pending&&pending.tb)analyse(pending.text,pending.name,mapFromUI());});});
   $('#build').addEventListener('click',function(){build(true);});
-  $('#data').addEventListener('keydown',function(e){if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();build(true);}});
-  $('#sample').addEventListener('click',function(){$('#data').value=sampleCSV();build(true);});
-  $('#file').addEventListener('change',function(e){var f=e.target.files&&e.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){$('#data').value=String(rd.result);build(true);e.target.value='';};rd.onerror=function(){setStatus('That file couldn\'t be read. Try saving it as CSV.',true);};rd.readAsText(f);});
+  $('#build-2').addEventListener('click',function(){build(true);});
+  $('#back').addEventListener('click',function(){showStage('start',true);});
+
+  // Navigation
+  document.querySelector('.steps').addEventListener('click',function(e){var b=e.target.closest('[data-go]');if(b&&!b.disabled)showStage(b.dataset.go,true);});
+  $('#home').addEventListener('click',function(e){e.preventDefault();showStage('start',true);});
+  $('#to-check').addEventListener('click',function(){showStage('check',true);});
+  $('#to-start').addEventListener('click',function(){showStage('start',true);});
+
+  // Step 3: settings and figure
   var derivers={'s-window':1,'s-merge':1,'s-align':1,'s-len':1,'s-slice':1,'s-frame':1};
   Array.prototype.forEach.call(document.querySelectorAll('[id^="s-"]'),function(el){el.addEventListener('change',function(){readSettingsUI();store('tona-settings-v2',S);
-    if(el.id==='s-theme'){applyTheme();render();return;}if(derivers[el.id])rederive();else render();});});
+    if(el.id==='s-theme'){applyTheme();render();if(pending)drawCheck();return;}if(derivers[el.id])rederive();else render();});});
   document.querySelector('.arrows').addEventListener('click',function(e){var b=e.target.closest('[data-e]');if(!b)return;S.edgeStyle=b.dataset.e;store('tona-settings-v2',S);render();});
   $('#frames').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!D)return;if(b.id==='play'){togglePlay();return;}stopPlay();setFrame(+b.dataset.f);});
   function onRange(which){if(!D)return;stopPlay();var a=+$('#r0').value,b=+$('#r1').value,step=+$('#r0').step||1;
@@ -504,16 +853,22 @@ function init(){
   var net=$('#net');
   net.addEventListener('click',function(e){var g=e.target.closest('[data-b]');if(!g)return;selected=+g.dataset.b;render();});
   net.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var g=e.target.closest('[data-b]');if(!g)return;e.preventDefault();selected=+g.dataset.b;render();setTimeout(function(){var n=document.querySelector('#net [data-b="'+selected+'"]');if(n)n.focus();},40);});
-  try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){if(S.theme==='auto')render();});}catch(e){}
+  try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){if(S.theme==='auto'){render();if(pending)drawCheck();}});}catch(e){}
 
+  // Export and privacy
   $('#dl-svg').addEventListener('click',function(){saveFile(fname('svg'),svgString(true),this);});
   $('#dl-png').addEventListener('click',function(){savePNG(this);});
   $('#dl-csv').addEventListener('click',function(){saveFile('sample-srl-log.csv',sampleCSV(),this);});
-  $('#clear').addEventListener('click',function(){try{localStorage.removeItem('tona-data');localStorage.removeItem('tona-settings-v2');}catch(e){}$('#data').value=sampleCSV();build(true);setStatus('Saved data cleared from this browser. The sample log is loaded.',false);});
+  $('#dl-template').addEventListener('click',function(){saveFile('temporal-ona-template.csv',TEMPLATE,this);});
+  $('#clear').addEventListener('click',function(){try{['tona-data','tona-name','tona-map','tona-settings-v2'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+    stopPlay();S=Object.assign({},DEF);applyTheme();writeSettingsUI();P=null;D=null;pending=null;selected=null;$('#data').value='';
+    showStage('start',true);toast('Saved data cleared from this browser.');});
   var note=$('#exp-note');
-  if(standalone){$('#exp-btns').hidden=false;note.textContent='Files download straight to your device.';}
-  else if(window.claude&&typeof window.claude.use==='function'){window.claude.use('downloads').then(function(d){downloads=d;if(d){$('#exp-btns').hidden=false;note.hidden=true;}else note.textContent='Saving files isn\'t available in this view. Open the page in Claude to save a PNG or SVG.';},function(){note.textContent='Saving files isn\'t available in this view. Open the page in Claude to save a PNG or SVG.';});}
-  else note.textContent='Saving files isn\'t available in this view. Open the page in Claude to save a PNG or SVG.';
+  function saveReady(){$('#exp-btns').hidden=false;note.hidden=true;Array.prototype.forEach.call(document.querySelectorAll('[data-save]'),function(n){n.hidden=false;});}
+  var noSave='Saving files isn\'t available in this view. Open the page in Claude to save a PNG or SVG.';
+  if(standalone)saveReady();
+  else if(window.claude&&typeof window.claude.use==='function'){window.claude.use('downloads').then(function(d){downloads=d;if(d)saveReady();else note.textContent=noSave;},function(){note.textContent=noSave;});}
+  else note.textContent=noSave;
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

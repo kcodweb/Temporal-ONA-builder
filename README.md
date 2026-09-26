@@ -13,9 +13,13 @@ Everything runs in the browser. No data is uploaded.
 
 ## Use it
 
-1. Open the page.
-2. Paste or upload a CSV with the columns `learner`, `behaviour`, `start` and optionally `end`.
-3. Click **Build network**, then explore the frames and save the figure as PNG or SVG.
+Open the site: **https://kcodweb.github.io/Temporal-ONA-builder/**
+
+1. **Upload.** Drop a CSV, TSV or semicolon-separated file onto the page, choose it with **Choose file**, or paste rows. No data yet? Try the built-in sample of 30 synthetic learners, or download the template.
+2. **Check.** See how each column was read, change the column choices if needed, and look over the first rows, the behaviours found and any warnings (unreadable rows, `09:12`-style times, a missing end column).
+3. **Explore.** Build the network, step through time frames or drag the window, click a disc for details, and save the figure as PNG or SVG.
+
+The page remembers your last log on this device, so next time it opens straight on your figure. **Clear saved data** removes it.
 
 Times can be minutes (`12.5`), `mm:ss` (`12:30`) or clock time (`09:12:30`). Without an `end` column, each episode lasts until that learner's next episode starts.
 

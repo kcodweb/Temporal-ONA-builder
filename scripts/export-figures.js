@@ -15,7 +15,10 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 (async () => {
   const dom = new JSDOM(html, { runScripts: 'dangerously', pretendToBeVisual: true, url: 'https://example.org/' });
   const w = dom.window, d = w.document;
+  w.scrollTo = () => {};
   await wait(400);
+  d.querySelector('#sample').click(); // the page opens on the upload step
+  await wait(200);
   if (sampleOnly) {
     fs.mkdirSync(path.join(root, 'samples'), { recursive: true });
     fs.writeFileSync(path.join(root, 'samples', 'sample-srl-log.csv'), d.querySelector('#data').value + '\n');
