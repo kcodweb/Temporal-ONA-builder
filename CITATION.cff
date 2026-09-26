@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this tool, please cite it as below."
+type: software
+title: "Temporal ONA builder"
+abstract: "A browser tool that draws an ONA-inspired temporal ordered network from coded self-regulated learning episode logs, showing time spent, timing and sequence in one figure. It is a descriptive visualisation, not a full ordered network analysis."
+authors:
+  - family-names: Bansal
+    given-names: Karan
+    affiliation: "IIT Bombay"
+version: 0.1.0
+date-released: 2026-09-26
+repository-code: "https://github.com/kcodweb/Temporal-ONA-builder"
+url: "https://kcodweb.github.io/Temporal-ONA-builder/"
+keywords:
+  - learning analytics
+  - self-regulated learning
+  - ordered network analysis
+  - temporal networks
+  - visualisation
