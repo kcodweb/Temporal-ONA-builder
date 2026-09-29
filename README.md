@@ -3,7 +3,7 @@
 A browser tool that turns a coded self-regulated learning (SRL) log into an ordered network showing, in one figure:
 
 - **how long** learners spent in each behaviour (disc area = share of the time window),
-- **when** each behaviour happened (clock ring around each disc, 0′ at the top, clockwise),
+- **when** each behaviour happened (a clock ring of bars around each disc: 0′ at the top, clockwise, with minute numbers at the quarter points and the peak slice written under each label),
 - **what followed what** (directed arrows, ONA-style moving window),
 - **when each link happened** (timeline arrows that swell in the minutes the link occurred, coloured early to late).
 
@@ -17,7 +17,7 @@ Open the site: **https://kcodweb.github.io/Temporal-ONA-builder/**
 
 1. **Upload.** Drop a CSV, TSV or semicolon-separated file onto the page, choose it with **Choose file**, or paste rows. No data yet? Try the built-in sample of 30 synthetic learners, or download the template.
 2. **Check.** See how each column was read, change the column choices if needed, and look over the first rows, the behaviours found and any warnings (unreadable rows, `09:12`-style times, a missing end column).
-3. **Explore.** Build the network, step through time frames or drag the window, click a disc for details, and save the figure as PNG or SVG.
+3. **Explore.** Build the network, step through time frames or drag the window, click a disc to highlight only its links and see its details, and save the figure as PNG or SVG.
 
 The page remembers your last log on this device, so next time it opens straight on your figure. **Clear saved data** removes it.
 

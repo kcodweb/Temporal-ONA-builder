@@ -92,6 +92,26 @@ const svgOk = (svg) => {
     svgOk(svg);
   });
 
+  await t('clicking a disc highlights its links and clicking again clears it', async () => {
+    const disc = () => svg.querySelector('[data-b="2"]');
+    disc().dispatchEvent(new w.MouseEvent('click', { bubbles: true }));
+    await wait(60);
+    assert(/Highlighted: links of Debugging/.test(svg.textContent));
+    assert(svg.querySelectorAll('g[opacity="0.08"]').length > 0, 'unrelated links should be faded');
+    assert.strictEqual(disc().getAttribute('aria-pressed'), 'true');
+    disc().dispatchEvent(new w.MouseEvent('click', { bubbles: true }));
+    await wait(60);
+    assert(!/Highlighted:/.test(svg.textContent));
+    assert.strictEqual(svg.querySelectorAll('g[opacity="0.08"]').length, 0);
+  });
+
+  await t('clock rings carry minute numbers and every node names its peak slice', async () => {
+    const txt = svg.textContent;
+    ['15\u2032', '30\u2032', '45\u2032'].forEach((m) => assert(txt.includes(m), m));
+    assert.strictEqual((txt.match(/peak \d/g) || []).length, 10, 'one peak label per behaviour (each drawn twice: halo + text)');
+    assert(/Disc area = % of window/.test(txt) && /Clock ring = when/.test(txt), 'size and clock keys expected');
+  });
+
   await t('check step shows columns, preview and behaviours', async () => {
     d.querySelector('#to-check').click();
     assert(shown('check'));

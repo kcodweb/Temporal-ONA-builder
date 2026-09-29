@@ -34,7 +34,7 @@ Keep `index.html` as a **single self-contained file**. If you refactor into modu
 
 ```
 npm install          # jsdom only
-npm test             # 14 smoke tests; must pass before any commit
+npm test             # 16 smoke tests; must pass before any commit
 npm run figures      # writes figures/*.svg (whole-timeline, whole-colour, frame-1..6)
 npm run sample       # rewrites samples/sample-srl-log.csv from the page's generator
 ```
@@ -59,14 +59,14 @@ CSV, TSV or semicolon-separated text with a header row. Columns are matched case
 The code is ES5-style inside an IIFE, with no dependencies. Sections, in order:
 
 1. **Helpers:** `esc`, `clamp`, `fmt` (1 dp below 100), `fmtMin`, `unit`, `f1`. `PR` = `'\u2032'` (prime for minutes).
-2. **Constants:** `ALIASES`, `DEF` (default settings), node palettes `NODE_LIGHT`/`NODE_DARK`, time ramps `RAMP_LIGHT`/`RAMP_DARK` (violet → magenta → amber), ring width `RW = 6`.
+2. **Constants:** `ALIASES`, `DEF` (default settings), node palettes `NODE_LIGHT`/`NODE_DARK` (blues, greens, teal and olive only, clear of the time hues; the first five pass the colour-vision checks for every pair in both themes, slots 6–10 rely on the always-visible labels), time ramps `RAMP_LIGHT`/`RAMP_DARK` (violet → magenta → amber; the light amber is darkened to `#CC7612` for 3.4:1 contrast), longest clock-ring bar `BAR = 16`.
 3. **State:** `S` (settings), `P` (parsed log), `D` (derived: `seqs`, `links`, `L` = session length), `view` (`{t0, t1, frame}` where frame `-1` = whole, `-2` = custom), `selected` node, `downloads` (Claude capability or null).
 4. **Colour/theme:** `tokens()` reads CSS variables so SVG gets literal colours, which exported files need.
 5. **Parsing:** `splitRow`, `normH`, `parseTime`; `readTable(text)` returns `{delim, names, hdr, rows, nums}`; `autoMap(hdr)` guesses the column for each of `ROLES` via `ALIASES`; `parseRows(tb, idx)` returns `{ev, behaviours, counts, learners, clock, skipped, bad, hasEnd, rows, two, neg}` or `{error}` (`two` = rows with `mm:ss`-style times, `neg` = episodes ending before they start). `parseLog(text, idx?)` chains them.
 6. **Derive:** `derive()` sorts each learner's episodes, fills missing ends, aligns (per learner to 0′ if `S.align`, else global min for clock data), optionally merges back-to-back repeats, sets `L` (auto = ceil to slice, or `S.sessionLen`), and builds `links`: for each episode *i*, a link from each of the previous `w−1` episodes; `time` = response start, `dur` = response duration.
 7. **Compute:** `compute(t0, t1)` returns minutes per behaviour in the window, per-slice minutes (`slc`) and shares (`shr`), and aggregated edges `{f, t, w, mean, bins[]}` filtered by `S.loops` and `S.minShare`.
-8. **Geometry:** `layoutNodes` (fixed circle; first behaviour at top, clockwise in order of first appearance), `edgeGeom` (quadratic curve offset to the left of direction, so reciprocal edges separate), `loopGeom`, `qpt`/`cpt` (quadratic/cubic points), `arcPath`, `swellSegs`.
-9. **Draw:** `drawFigure(c)` builds the whole SVG as a string. It contains the background rect, title, colour bar (top right), edges, nodes (track ring, slice arcs, disc, selection ring), loops, labels (halo drawn as a duplicate stroked text **behind** the text, *not* `paint-order`, so exports render in cairosvg), and footer insights. `insights(c)` produces the three footer sentences.
+8. **Geometry:** `rMaxOf(B)`, `layoutNodes` (fixed circle; first behaviour at top, clockwise in order of first appearance; each node has `r` disc, `r0` = r+5 bar baseline, `ro` = r0+BAR+1 outer edge, `side` for left/right nodes), `edgeGeom` (quadratic curve offset to the left of direction, so reciprocal edges separate), `loopGeom` (side nodes loop up and outward, clear of their labels), `qpt`/`cpt` (quadratic/cubic points), `arcPath`, `sectorPath` (annular sector for a clock bar), `swellSegs`, `wrapText`, `haloText`, `peakSlice`.
+9. **Draw:** `drawFigure(c)` builds the whole SVG as a string. It contains the background rect, title and subtitle (plus a "Highlighted: links of X" line when a disc is selected), colour bar with 0′ / mid / end minutes (top right), edges (weakest first; links not touching the selected disc drop to 0.08 opacity), nodes (bar baseline, one clock bar per slice, dark 0′ tick, disc, selection ring), loops, labels (minute numbers at the quarter points of each ring, then name / minutes (%) / peak slice, beside side nodes and above or below the others; halo drawn as a duplicate stroked text **behind** the text, *not* `paint-order`, so exports render in cairosvg), wrapped footer insights, a size key (10% and 25% circles) and a clock key. `insights(c)` produces the three footer sentences. Clicking a disc toggles `selected` (focus + detail panel); clicking the background or pressing Escape clears it.
 10. **Side panels:** `drawDetail` (selected node: minutes, busiest slice, histogram, top next/before links), `drawLegend`.
 11. **Window UI:** `buildFrames`, `syncWindowUI`, `setFrame`, `togglePlay` (1.6 s per frame), dual range slider (`#r0`, `#r1`).
 12. **Data flow and steps:** the page has three stages, `#stage-start` (upload: drop zone, file input, paste box, sample, template), `#stage-check` (column selects `#map-*`, preview table, summary tiles, behaviour chips, warnings) and `#stage-explore` (settings, figure, legend, detail). `showStage(s, focus)` switches them and the step buttons in the app bar. `analyse(text, name, idx)` fills `pending` and draws the check step (`drawCheck`); `build(fromUser)` turns `pending` into `P` and opens the explore step; `rederive()`, `readSettingsUI`/`writeSettingsUI`, `applyTheme`. First visits open on the upload step; a saved log opens straight on its figure. Storage keys: `tona-data`, `tona-name`, `tona-map` (column names per role), `tona-settings-v2`, all wrapped in try/catch.
@@ -80,10 +80,12 @@ For behaviour *b*, window length *T*, *N* learners, per-learner scope (class-tot
 
 - minutes: `m_b = (1/N) Σ overlap(episode, window)`
 - disc: `share = m_b / T`, `r = max(3, rMax·√share)`, `rMax = min(92, 0.88·R·sin(π/max(B,3)))`, with `R = 212` (165 if B ≤ 2)
-- ring arc opacity: `0.12 + 0.88 · p_bk / max(p)`, where `p_bk = Σ overlap(episode, slice k) / (N · slice length)`; arcs outside the window are × 0.3
+- clock bar length: `max(1.5, 16 · p_bk / max(p))` px outward from the baseline at `r + 5`, where `p_bk = Σ overlap(episode, slice k) / (N · slice length)`; bars outside the window are drawn at 0.28 opacity, bars inside at 0.9
+- size key: circles at 10% and 25% share, `r = rMax·√share`, the same scale as the discs
 - link weight: `w_A→B = (1/N) · #pairs in window` (or minutes in B when thickness = minutes); link time = response start
 - colour-mode edge width: `1.2 + 8.8 · w / max(w)`; colour = `ramp(mean / L)`
 - timeline-mode segment width: `2 + 10 · bin / max(bin)`; segment colour = `ramp(binMid / L)`; bins follow the slice length and span the window from source to target
+- timeline-mode link emphasis (colour-free, so width keeps one meaning): base line opacity `0.18 + 0.62 · w / max(w)`, segment opacity `0.35 + 0.65 · w / max(w)`, arrowhead opacity `0.4 + 0.6 · w / max(w)`
 
 ## Settings (DEF)
 
@@ -131,7 +133,8 @@ Keep both paths working. If you add a library, load it from cdnjs with a pinned 
 - PNG export uses system fallback fonts (web fonts are not embedded when an SVG is drawn to canvas).
 - Timeline segments are placed by curve parameter, not arc length, so they are slightly uneven on strongly curved edges.
 - Logs larger than 1.5 MB are not saved to local storage; large logs render on the main thread.
-- The colour ramp has not been tested for colour-vision deficiency; segment width is the colour-free cue.
+- The time ramp passes the colour-vision separation check for its three stops, but reading an exact minute from colour is still hard; segment position along the arrow and the minute numbers are the colour-free cues.
+- With more than five behaviours some node colour pairs fall below the colour-vision target; the labels carry identity.
 - No statistics: group or window differences shown by the figure are exploratory.
 
 ## Roadmap for Claude Code (in priority order)
