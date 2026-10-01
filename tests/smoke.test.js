@@ -78,6 +78,12 @@ const svgOk = (svg) => {
     await wait(60);
   });
 
+  await t('frame buttons count the episodes that start in each frame', async () => {
+    const counts = [...d.querySelectorAll('#frames [data-f] small')].map((n) => +n.textContent);
+    assert.strictEqual(counts.length, 6);
+    assert.strictEqual(counts.reduce((a, b) => a + b, 0), 799, String(counts));
+  });
+
   await t('settings that re-derive keep the figure valid', async () => {
     for (const [id, val] of [['s-window', '4'], ['s-thick', 'min'], ['s-scope', 'sum'], ['s-slice', '2'], ['s-frame', '15']]) {
       const el = d.querySelector('#' + id);
@@ -103,6 +109,97 @@ const svgOk = (svg) => {
     await wait(60);
     assert(!/Highlighted:/.test(svg.textContent));
     assert.strictEqual(svg.querySelectorAll('g[opacity="0.08"]').length, 0);
+  });
+
+  await t('copy caption writes the reporting details', async () => {
+    let copied = null;
+    Object.defineProperty(w.navigator, 'clipboard', { configurable: true, value: { writeText: (s) => { copied = s; return Promise.resolve(); } } });
+    d.querySelector('#copy-cap').click();
+    await wait(40);
+    assert(/ONA-inspired, descriptive/.test(copied) && /30 learners/.test(copied) && /w = 4/.test(copied), String(copied));
+    assert(/back-to-back repeats are merged/.test(copied) && /Coded behaviours cover/.test(copied), copied);
+    assert(/Caption copied/.test(d.querySelector('#toast').textContent));
+  });
+
+  // A fake fetch that records the request and answers with a server-sent event stream.
+  const sseResponse = (body, status = 200) => ({
+    ok: status >= 200 && status < 300, status,
+    headers: { get: () => (status === 200 ? 'text/event-stream' : 'application/json') },
+    body: null, text: () => Promise.resolve(body),
+  });
+  const anthropicSSE = (txt) => [
+    'event: message_start', 'data: {"type":"message_start","message":{"id":"m1"}}', '',
+    ...txt.match(/[\s\S]{1,25}/g).map((p) => `event: content_block_delta\ndata: ${JSON.stringify({ type: 'content_block_delta', index: 0, delta: { type: 'text_delta', text: p } })}\n`),
+    'event: message_delta', 'data: {"type":"message_delta","delta":{"stop_reason":"end_turn"}}', '',
+    'event: message_stop', 'data: {"type":"message_stop"}', ''].join('\n');
+  const set = (sel, v) => { const el = d.querySelector(sel); if (el.type === 'checkbox') el.checked = v; else el.value = v; el.dispatchEvent(new w.Event(el.tagName === 'SELECT' || el.type === 'checkbox' ? 'change' : 'input')); el.dispatchEvent(new w.Event('change')); };
+
+  await t('AI reading sends only the figure summary to Claude and renders the answer', async () => {
+    d.querySelector('#tab-ai').click();
+    assert(!d.querySelector('#pane-ai').hidden && d.querySelector('#pane-set').hidden);
+    let req = null;
+    w.fetch = (url, init) => { req = { url, init }; return Promise.resolve(sseResponse(anthropicSSE('### What the figure shows\nDebugging fills **41%** of the session.\n- first point\n- <script>alert(1)</script>\n'))); };
+    set('#ai-prov', 'anthropic');
+    set('#ai-key', 'test-key-not-real');
+    set('#ai-remember', true);
+    set('#ai-q', 'When does monitoring follow debugging?');
+    d.querySelector('#ai-go').click();
+    await wait(120);
+    assert(req, 'a request should be sent');
+    assert.strictEqual(req.url, 'https://api.anthropic.com/v1/messages');
+    const h = req.init.headers, body = JSON.parse(req.init.body);
+    assert.strictEqual(h['anthropic-dangerous-direct-browser-access'], 'true');
+    assert.strictEqual(h['x-api-key'], 'test-key-not-real');
+    assert.strictEqual(h['anthropic-version'], '2023-06-01');
+    assert.strictEqual(body.model, 'claude-opus-5-5');
+    assert.strictEqual(body.stream, true);
+    assert(/ONA-inspired/.test(body.system));
+    const msg = body.messages[0].content;
+    assert(/BEHAVIOURS/.test(msg) && /LINKS/.test(msg) && /Debugging/.test(msg), msg);
+    assert(/QUESTION FROM THE RESEARCHER: When does monitoring follow debugging\?/.test(msg));
+    assert(!/\bS\d\d\b/.test(msg), 'learner IDs must never be sent');
+    const out = d.querySelector('#ai-text');
+    assert.strictEqual(out.querySelector('h4').textContent, 'What the figure shows');
+    assert.strictEqual(out.querySelector('b').textContent, '41%');
+    assert.strictEqual(out.querySelectorAll('script').length, 0, 'model output must not become live HTML');
+    assert(/<script>/.test(out.textContent));
+    assert(d.querySelector('#ai-stale').hidden, 'fresh reading is not stale');
+    assert(JSON.parse(w.localStorage.getItem('tona-ai-key')).anthropic === 'test-key-not-real', 'remembered key is stored');
+    d.querySelector('#frames [data-f="0"]').click();
+    await wait(80);
+    assert(!d.querySelector('#ai-stale').hidden, 'changing the window marks the reading as stale');
+    d.querySelector('#frames [data-f="-1"]').click();
+    await wait(80);
+  });
+
+  await t('AI reading explains a rejected key', async () => {
+    w.fetch = () => Promise.resolve(sseResponse('{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"}}', 401));
+    d.querySelector('#ai-go').click();
+    await wait(80);
+    assert(/did not accept the API key/.test(d.querySelector('#ai-err').textContent), d.querySelector('#ai-err').textContent);
+    assert(!d.querySelector('#ai-go').hidden && d.querySelector('#ai-stop').hidden, 'controls reset after an error');
+  });
+
+  await t('local models use an OpenAI-compatible endpoint without a key', async () => {
+    let req = null;
+    w.fetch = (url, init) => { req = { url, init }; return Promise.resolve(sseResponse(['data: {"choices":[{"delta":{"content":"### Cautions\\n"}}]}', 'data: {"choices":[{"delta":{"content":"Few episodes."},"finish_reason":"stop"}]}', 'data: [DONE]', ''].join('\n\n'))); };
+    set('#ai-prov', 'local');
+    assert(d.querySelector('#ai-key-row').hidden, 'no key field for local models');
+    assert(/nothing leaves your device/.test(d.querySelector('#ai-sendto').textContent));
+    d.querySelector('#ai-go').click();
+    await wait(40);
+    assert(/model you have installed/.test(d.querySelector('#ai-err').textContent), 'asks for a model name first');
+    set('#ai-model', 'llama3.1');
+    d.querySelector('#ai-go').click();
+    await wait(80);
+    assert.strictEqual(req.url, 'http://localhost:11434/v1/chat/completions');
+    assert(!('authorization' in req.init.headers));
+    const body = JSON.parse(req.init.body);
+    assert.strictEqual(body.model, 'llama3.1');
+    assert.deepStrictEqual(body.messages.map((m) => m.role), ['system', 'user']);
+    assert(/Few episodes\./.test(d.querySelector('#ai-text').textContent));
+    set('#ai-prov', 'anthropic');
+    assert.strictEqual(d.querySelector('#ai-key').value, 'test-key-not-real', 'each provider keeps its own key');
   });
 
   await t('clock rings carry minute numbers and every node names its peak slice', async () => {
@@ -166,6 +263,70 @@ const svgOk = (svg) => {
     assert(!svg.innerHTML.includes('NaN'));
   });
 
+  // Logs that are not 60-minute SRL sessions: slices, frames and labels follow the session length.
+  const rowsFor = (n, minutes, step, codes, fmt) => {
+    const out = ['learner,behaviour,start,end'];
+    for (let l = 1; l <= n; l++) for (let t = 0, k = l; t < minutes - 1e-9; t += step, k++) out.push(`L${l},${codes[k % codes.length]},${fmt(t)},${fmt(Math.min(minutes, t + step))}`);
+    return out.join('\n');
+  };
+  const buildText = async (text) => {
+    d.querySelector('#data').value = text;
+    d.querySelector('#check-paste').click();
+    await wait(30);
+    d.querySelector('#build').click();
+    await wait(100);
+  };
+  const figText = () => [...svg.querySelectorAll('text')].map((n) => n.textContent).join(' | ');
+
+  await t('a short session gets small slices and no invented uncoded time', async () => {
+    ['#s-slice', '#s-frame'].forEach((sel) => { const el = d.querySelector(sel); el.value = '0'; el.dispatchEvent(new w.Event('change')); });
+    await buildText(rowsFor(4, 8, 0.5, ['Read', 'Infer', 'Question'], (m) => m));
+    assert(shown('explore'));
+    assert.strictEqual(d.querySelector('#s-slice').selectedOptions[0].textContent, 'Auto (1 min)');
+    assert.strictEqual(d.querySelectorAll('#frames [data-f]').length, 5, 'whole session plus four 2-minute frames');
+    assert(svg.querySelector('text').textContent.startsWith('0′ – 8′'));
+    assert(/0\.0 min uncoded/.test(figText()), figText());
+    svgOk(svg);
+  });
+
+  await t('a two-week log is read in days and hours, not thousands of minutes', async () => {
+    const iso = (m) => new Date(Date.UTC(2026, 0, 5, 9) + m * 60000).toISOString().replace('.000Z', '');
+    await buildText(rowsFor(3, 14 * 1440, 720, ['Video', 'Quiz', 'Forum', 'Idle'], iso));
+    assert(shown('explore'));
+    const frames = d.querySelectorAll('#frames [data-f]').length;
+    assert(frames <= 9, 'frames: ' + frames);
+    assert(svg.innerHTML.length < 200000, 'figure stays small: ' + svg.innerHTML.length);
+    assert(/^0d – 14d/.test(svg.querySelector('text').textContent), svg.querySelector('text').textContent);
+    assert(/ h (per learner|total)/.test(figText()) && /around day /.test(figText()) && /1 bar = 2-day slice/.test(figText()), figText());
+    assert(/session 0–14d/.test(d.querySelector('#summary').textContent));
+    svgOk(svg);
+  });
+
+  await t('time numbers can be seconds or Unix timestamps', async () => {
+    d.querySelector('#data').value = rowsFor(2, 1.5, 0.25, ['Look', 'Click'], (m) => Math.round(m * 60)).replace('start,end', 'start_s,end_s');
+    d.querySelector('#check-paste').click();
+    await wait(30);
+    assert(!d.querySelector('#unit-row').hidden && d.querySelector('#map-unit').value === 's', 'seconds guessed from the column name');
+    assert(/read as seconds/.test(d.querySelector('#warns').textContent));
+    d.querySelector('#build').click();
+    await wait(100);
+    assert(svg.querySelector('text').textContent.startsWith('0s – 90s'), svg.querySelector('text').textContent);
+    d.querySelector('#data').value = rowsFor(2, 120, 10, ['Video', 'Quiz'], (m) => 1767600000 + m * 60);
+    d.querySelector('#check-paste').click();
+    await wait(30);
+    assert.strictEqual(d.querySelector('#map-unit').value, 's', 'Unix seconds detected');
+    assert(/Unix timestamps/.test(d.querySelector('#warns').textContent));
+    const unit = d.querySelector('#map-unit');
+    unit.value = 'ms';
+    unit.dispatchEvent(new w.Event('change'));
+    assert(/read as milliseconds/.test(d.querySelector('#warns').textContent), 'the user can override the guess');
+    unit.value = 's';
+    unit.dispatchEvent(new w.Event('change'));
+    d.querySelector('#build').click();
+    await wait(100);
+    assert(/session 0–120′/.test(d.querySelector('#summary').textContent), d.querySelector('#summary').textContent);
+  });
+
   await t('standalone exports trigger browser downloads', async () => {
     assert.strictEqual(d.querySelector('#exp-btns').hidden, false);
     let name = null;
@@ -175,12 +336,35 @@ const svgOk = (svg) => {
     assert(/^temporal-ona-.*\.svg$/.test(name), String(name));
   });
 
+  await t('the downloaded tool is a working copy of the page', async () => {
+    let name = null, blob = null;
+    w.HTMLAnchorElement.prototype.click = function () { name = this.download; };
+    w.URL.createObjectURL = (b) => { blob = b; return 'blob:test'; };
+    d.querySelector('#dl-tool').click();
+    await wait(80);
+    assert.strictEqual(name, 'temporal-ona-builder.html');
+    const text = await new Promise((res) => { const fr = new w.FileReader(); fr.onload = () => res(fr.result); fr.readAsText(blob); });
+    assert(/^<!doctype html>/.test(text) && text.includes('Temporal ONA builder') && text.includes('function figureBrief'), 'full page expected');
+    assert(text.includes('Build a network to see it here.'), 'the copy is the page as served, before any figure is drawn');
+    const copy = new JSDOM(text, { runScripts: 'dangerously', pretendToBeVisual: true, url: 'file:///C:/Users/me/temporal-ona-builder.html', beforeParse: (cw) => { cw.scrollTo = () => {}; } });
+    const errs = [];
+    copy.window.addEventListener('error', (e) => errs.push(e.message));
+    await wait(200);
+    copy.window.document.querySelector('#sample').click();
+    await wait(150);
+    assert.deepStrictEqual(errs, []);
+    assert(!copy.window.document.querySelector('#stage-explore').hidden, 'the copy builds the sample figure');
+    copy.window.close();
+  });
+
   await t('clear saved data returns to the upload step', async () => {
     d.querySelector('#clear').click();
     await wait(80);
     assert(/Saved data cleared/.test(d.querySelector('#toast').textContent));
     assert(shown('start'));
     assert.strictEqual(w.localStorage.getItem('tona-data'), null);
+    assert.strictEqual(w.localStorage.getItem('tona-ai-key'), null, 'a remembered AI key is cleared too');
+    assert.strictEqual(d.querySelector('#ai-key').value, '');
   });
 
   assert.deepStrictEqual(errors, []);
