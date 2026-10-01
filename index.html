@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Temporal ONA builder</title>
-<meta name="description" content="Upload a coded self-regulated learning log and get an ONA-inspired network that shows time spent, when behaviours happened, and what followed what. Runs entirely in your browser.">
+<meta name="description" content="Upload a coded episode log (self-regulated learning, collaboration, clickstream and more) and get an ONA-inspired network that shows time spent, when behaviours happened, and what followed what. Runs entirely in your browser.">
 <meta property="og:title" content="Temporal ONA builder">
 <meta property="og:description" content="An ONA-inspired network for learning logs that shows duration, timing and sequence in one figure. Your data stays in your browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,6 +111,8 @@ input[type=range]{accent-color:var(--accent)}
 .maps label small{font-weight:400;color:var(--muted);font-size:12px}
 .maps select{font-weight:400}
 .maps label.miss select{border-color:var(--danger);box-shadow:0 0 0 1px var(--danger)}
+.unitrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;font-size:13.5px}
+.unitrow select{width:auto}
 .tag{display:inline-block;margin-left:4px;padding:0 7px;border-radius:999px;background:var(--accent-soft);color:var(--ink);font-family:"Source Sans 3",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:11.5px;font-weight:600;vertical-align:1px}
 .tablewrap{overflow:auto;max-height:340px;border:1px solid var(--line);border-radius:8px;margin-top:10px}
 table.pv{border-collapse:collapse;min-width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px}
@@ -143,13 +145,21 @@ table.pv tr.bad td:first-child{box-shadow:inset 3px 0 0 var(--danger)}
 .toolbar h1{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .toolbar .row{margin-top:0}
 .toolbar .note{margin:0;flex-basis:100%;text-align:right}
-.layout{display:grid;gap:18px;grid-template-columns:300px minmax(0,1fr) 300px;grid-template-areas:"ctl fig side";align-items:start}
-@media (max-width:1260px){.layout{grid-template-columns:300px minmax(0,1fr);grid-template-areas:"ctl fig" "ctl side"}}
-@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"fig" "side" "ctl"}}
-.ctl{grid-area:ctl;padding:4px 16px;min-width:0}
-.fig{grid-area:fig;padding:10px 10px 14px;min-width:0}
-.side{grid-area:side;display:flex;flex-direction:column;gap:14px;min-width:0}
-@media (max-width:1260px) and (min-width:901px){.side{display:grid;grid-template-columns:1fr 1fr}}
+.toolbar .sep{width:1px;align-self:stretch;background:var(--line);margin:2px 4px}
+/* The figure takes the main column; settings, guide, behaviour details and the AI reading share one tabbed side panel. */
+.layout{display:grid;gap:18px;grid-template-columns:minmax(0,1fr) 370px;align-items:start}
+@media (max-width:1040px){.layout{grid-template-columns:minmax(0,1fr)}}
+.fig{padding:12px 14px 14px;min-width:0}
+.side{position:sticky;top:68px;display:flex;flex-direction:column;min-width:0;max-height:calc(100vh - 84px);padding:0;overflow:hidden}
+@media (max-width:1040px){.side{position:static;max-height:none}}
+.tabs{display:flex;gap:0;padding:4px 8px 0;border-bottom:1px solid var(--line);flex:none;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1 0 auto;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;padding:9px 6px 8px;margin-bottom:-1px;font-size:13.5px;color:var(--muted);white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.tabs .new{display:inline-block;margin-left:5px;padding:0 5px;border-radius:999px;background:var(--accent-soft);color:var(--ink);font-size:10.5px;font-weight:600;vertical-align:1px}
+.tabpanel{padding:12px 16px 16px;overflow:auto;min-height:0;overscroll-behavior:contain}
+.tabpanel>h2{margin-top:2px}
 .grp{border-top:1px solid var(--line)}
 .grp:first-of-type{border-top:0}
 .grp>summary{display:flex;align-items:center;justify-content:space-between;list-style:none;cursor:pointer;padding:12px 0;font-weight:600;font-size:14.5px}
@@ -157,12 +167,16 @@ table.pv tr.bad td:first-child{box-shadow:inset 3px 0 0 var(--danger)}
 .grp>summary::after{content:"";width:7px;height:7px;margin-right:4px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
 .grp[open]>summary::after{transform:rotate(-135deg)}
 .grp>div{padding:0 0 8px}
-.arrows{display:flex;gap:6px;align-items:center;margin:4px 4px 8px;font-size:13px;color:var(--muted)}
-.arrows span{margin-right:4px}
+.fighead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding:0 2px 10px;border-bottom:1px solid var(--line)}
+.fighead .lbl{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.arrows{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
 .arrows button{padding:4px 10px;font-size:13px}
-.frames{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 4px 4px}
+.frames{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .frames button{padding:4px 10px;font-size:13px}
-.win{display:flex;align-items:center;gap:12px;margin:10px 6px 0;font-size:13px;color:var(--muted)}
+.frames button small{margin-left:5px;font-size:11.5px;color:var(--muted)}
+.frames #play{display:inline-flex;align-items:center;gap:6px}
+.frames #play svg{width:10px;height:10px}
+.win{display:flex;align-items:center;gap:12px;margin:10px 4px 2px;font-size:13px;color:var(--muted)}
 .range2{position:relative;flex:1;height:26px}
 .range2 .rt{position:absolute;left:9px;right:9px;top:11px;height:4px;border-radius:2px;background:var(--track)}
 .range2 .rf{position:absolute;top:0;height:4px;border-radius:2px;background:var(--accent)}
@@ -193,8 +207,52 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
 .det li{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-top:1px solid var(--line)}
 .det h4{font-size:13px;font-weight:600;margin:12px 0 2px}
 .note{font-size:13px;color:var(--muted);margin:8px 0 0}
-.about p{font-size:13.5px;line-height:1.5;margin:0 0 10px}
+.about p{font-size:14px;line-height:1.55;margin:0 0 10px}
 .about .m{color:var(--muted)}
+
+/* app bar actions and the About dialog */
+.bar-actions{display:flex;gap:6px;align-items:center;padding-left:14px;border-left:1px solid var(--line)}
+.bar-actions button{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;padding:5px 10px}
+.bar-actions svg{width:15px;height:15px;flex:none}
+@media (max-width:700px){.bar-actions .lbl{display:none}.bar-actions{padding-left:8px}.appbar .in{gap:10px}}
+@media (max-width:480px){.brand>span{display:none}}
+dialog.about{width:min(560px,calc(100% - 32px));max-height:calc(100% - 48px);overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);padding:22px 24px 20px;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+dialog.about::backdrop{background:rgba(15,17,22,.45)}
+dialog.about h2{font-size:19px;margin:0 0 12px}
+dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
+.dlg-x{float:right;margin:-6px -8px 0 0;border:0;background:none;font-size:22px;line-height:1;padding:4px 8px;color:var(--muted)}
+
+/* step 1: offline strip */
+.offline{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;max-width:1100px;margin:18px auto 0}
+.offline b{display:block;font-size:14.5px;font-weight:600}
+.offline p{margin:2px 0 0;font-size:13.5px;color:var(--muted);max-width:70ch}
+.offline .ico{display:flex;gap:14px;align-items:flex-start;min-width:0;flex:1 1 420px}
+.offline .ico svg{flex:none;width:28px;height:28px;color:var(--accent);margin-top:2px}
+
+/* AI reading */
+.ai .f{grid-template-columns:minmax(0,1fr);gap:4px;margin:10px 0}
+.ai .f>span{font-weight:600;font-size:13.5px}
+.ai .f small{font-weight:400}
+.ai input[type=text],.ai input[type=password],.ai input[type=url]{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 8px;width:100%;min-width:0}
+.ai textarea{min-height:64px;font-family:inherit;font-size:13.5px}
+.ai .sendto{display:flex;gap:7px;align-items:flex-start;font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.45}
+.ai .sendto svg{flex:none;width:14px;height:14px;margin-top:2px}
+.ai pre{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.45;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;max-height:260px;overflow:auto;margin:8px 0 0}
+.ai details>summary{cursor:pointer;font-size:13px;color:var(--accent);margin-top:10px}
+.ai-out{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.ai-out .meta{font-size:12px;color:var(--muted);margin:0 0 8px}
+.ai-out .stale{font-size:12.5px;color:var(--warn);background:var(--bg);border-radius:6px;padding:6px 9px;margin:0 0 10px}
+.md{font-size:14px;line-height:1.55}
+.md h4{font-size:14px;font-weight:600;margin:14px 0 4px}
+.md h4:first-child{margin-top:0}
+.md p{margin:0 0 8px}
+.md ul,.md ol{margin:0 0 8px;padding-left:20px}
+.md li{margin:2px 0}
+.md code{font-size:12px}
+.busy{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-top:12px}
+.busy i{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--accent);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.busy i{animation:none}}
 
 .foot{max-width:1380px;margin:0 auto;padding:18px 20px 28px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
 .foot a{color:inherit}
@@ -215,6 +273,10 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
       <button data-go="check" disabled><i>2</i><span class="lbl">Check</span></button>
       <button data-go="explore" disabled><i>3</i><span class="lbl">Explore</span></button>
     </nav>
+    <div class="bar-actions">
+      <button id="about-btn" aria-haspopup="dialog"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M8 7.2v4M8 4.6v.4" stroke-linecap="round"/></svg><span class="lbl">About</span></button>
+      <button id="dl-tool" data-save hidden title="Save this tool as one HTML file that runs offline"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8m-3.2-3.2L8 10l3.2-3.2M2.5 11.5v1.8h11v-1.8"/></svg><span class="lbl">Download tool</span></button>
+    </div>
   </div>
 </header>
 
@@ -222,9 +284,9 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
   <!-- Step 1: upload -->
   <section class="stage" id="stage-start" aria-labelledby="st-title">
     <div class="hero">
-      <p class="eyebrow">For coded self-regulated learning logs</p>
+      <p class="eyebrow">For coded learning and activity logs</p>
       <h1 id="st-title" tabindex="-1">See how long, when and in what order</h1>
-      <p class="lede">Upload an episode log and get one network that shows how much time learners spent in each behaviour, when in the session it happened, what followed what, and when each link happened.</p>
+      <p class="lede">Upload an episode log and get one network that shows how much time learners spent in each behaviour, when in the session it happened, what followed what, and when each link happened. It works with any coded episodes, such as self-regulated learning, collaboration or clickstream events, over minutes, hours or days.</p>
     </div>
 
     <div class="start-grid">
@@ -249,8 +311,8 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
         <h2>What your file needs</h2>
         <table>
           <tr><th scope="row">learner</th><td>A pseudonymous ID<span>e.g. S01</span></td><td class="req">Required</td></tr>
-          <tr><th scope="row">behaviour</th><td>The coded behaviour<span>e.g. Planning, Debugging</span></td><td class="req">Required</td></tr>
-          <tr><th scope="row">start</th><td>When the episode began<span>12.5 (minutes), 12:30 (mm:ss) or 09:12:30</span></td><td class="req">Required</td></tr>
+          <tr><th scope="row">behaviour</th><td>The code or behaviour<span>e.g. Planning, Debugging, Forum post</span></td><td class="req">Required</td></tr>
+          <tr><th scope="row">start</th><td>When the episode began<span>A number (minutes, seconds…), 12:30 (mm:ss), 09:12:30 or a date and time</span></td><td class="req">Required</td></tr>
           <tr><th scope="row">end</th><td>When it ended<span>If missing, an episode lasts until the next one starts</span></td><td class="req">Optional</td></tr>
         </table>
         <p class="hint">Names such as <code>student_id</code>, <code>activity</code> or <code>timestamp</code> are recognised, and you can pick the columns yourself in the next step.</p>
@@ -265,7 +327,7 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
       </div>
       <div class="panel feat">
         <svg viewBox="0 0 44 34" aria-hidden="true"><circle cx="22" cy="17" r="7" fill="none" stroke="currentColor" stroke-opacity=".25"/><path d="M22.7 4A13 13 0 0 1 27.9 5.4L25.4 10.3A7.5 7.5 0 0 0 22.4 9.5ZM29.4 5.7A13.5 13.5 0 0 1 33.3 9.6L28.3 12.9A7.5 7.5 0 0 0 26.1 10.7ZM32.7 11.6A12 12 0 0 1 34 16.4L29.5 16.6A7.5 7.5 0 0 0 28.7 13.6ZM32.7 17.6A10.75 10.75 0 0 1 31.6 21.9L28.7 20.4A7.5 7.5 0 0 0 29.5 17.4ZM30.4 22.4A10 10 0 0 1 27.4 25.4L26.1 23.3A7.5 7.5 0 0 0 28.3 21.1ZM26.3 25.5A9.5 9.5 0 0 1 22.5 26.5L22.4 24.5A7.5 7.5 0 0 0 25.4 23.7ZM21.5 26.2A9.25 9.25 0 0 1 17.8 25.2L18.6 23.7A7.5 7.5 0 0 0 21.6 24.5ZM16.7 25.2A9.75 9.75 0 0 1 13.8 22.3L15.7 21.1A7.5 7.5 0 0 0 17.9 23.3ZM12.9 21.7A10.25 10.25 0 0 1 11.8 17.5L14.5 17.4A7.5 7.5 0 0 0 15.3 20.4ZM11 16.4A11 11 0 0 1 12.2 12L15.3 13.6A7.5 7.5 0 0 0 14.5 16.6ZM12.4 10.7A11.5 11.5 0 0 1 15.7 7.4L17.9 10.7A7.5 7.5 0 0 0 15.7 12.9ZM16.4 6.1A12.25 12.25 0 0 1 21.4 4.8L21.6 9.5A7.5 7.5 0 0 0 18.6 10.3Z" fill="#32670C"/><circle cx="22" cy="17" r="4" fill="#32670C"/><line x1="22" y1="3" x2="22" y2="0" stroke="currentColor" stroke-width="1.4"/></svg>
-        <b>When it happened</b><p>A clock ring of bars around each disc shows which minutes of the session it filled, with 0′ at the top.</p>
+        <b>When it happened</b><p>A clock ring of bars around each disc shows which part of the session it filled, with the start at the top.</p>
       </div>
       <div class="panel feat">
         <svg viewBox="0 0 44 32" aria-hidden="true"><path d="M5 24 Q22 4 35 17" fill="none" stroke="currentColor" stroke-opacity=".7" stroke-width="3"/><polygon points="40,21 30,18 35,11" fill="currentColor" fill-opacity=".7"/></svg>
@@ -273,10 +335,15 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
       </div>
       <div class="panel feat">
         <svg viewBox="0 0 44 32" aria-hidden="true"><line x1="3" y1="16" x2="37" y2="16" stroke="currentColor" stroke-opacity=".4"/><line x1="7" y1="16" x2="14" y2="16" stroke="#5A3FC0" stroke-width="3"/><line x1="17" y1="16" x2="25" y2="16" stroke="#B0489A" stroke-width="9"/><line x1="28" y1="16" x2="33" y2="16" stroke="#CC7612" stroke-width="4"/><polygon points="42,16 36,12 36,20" fill="currentColor" fill-opacity=".6"/></svg>
-        <b>When each link happened</b><p>Arrows swell in the minutes the link occurred, coloured from early to late.</p>
+        <b>When each link happened</b><p>Arrows swell in the time slices where the link occurred, coloured from early to late.</p>
       </div>
     </div>
-    <p class="privacy"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg><span>Nothing you load leaves your device. The page only fetches its font from Google Fonts. Use pseudonymous learner IDs with real student data.</span></p>
+    <div class="panel offline" data-save hidden>
+      <div class="ico"><svg viewBox="0 0 28 28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="22" height="15" rx="2"/><path d="M10 24h8M14 20v4M14 8.5v6.5m-3-3 3 3 3-3"/></svg>
+        <div><b>Run it on your own computer</b><p>Download the tool as a single HTML file and open it in any browser. It works without an internet connection and without installing anything; only the font falls back to your system font.</p></div></div>
+      <button id="dl-tool-2">Download tool (HTML)</button>
+    </div>
+    <p class="privacy"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg><span>Nothing you load leaves your device. The page only fetches its font from Google Fonts. The optional AI reading sends a numeric summary of the figure, never your rows or learner IDs, and only when you ask. Use pseudonymous learner IDs with real student data.</span></p>
   </section>
 
   <!-- Step 2: check -->
@@ -304,6 +371,8 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
           <label>Start<select id="map-start"></select></label>
           <label><span>End <small>(optional)</small></span><select id="map-end"></select></label>
         </div>
+        <label class="unitrow" id="unit-row" hidden>Plain numbers in the time columns are in
+          <select id="map-unit"><option value="min">minutes</option><option value="s">seconds</option><option value="ms">milliseconds</option><option value="h">hours</option></select></label>
         <h2 style="margin-top:20px">First rows</h2>
         <div class="tablewrap"><table class="pv" id="preview"></table></div>
         <p class="hint" id="pv-note"></p>
@@ -336,69 +405,43 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
       <div class="row">
         <button id="to-check">Edit data</button>
         <button id="to-start">New file</button>
-      </div>
-      <div class="row" id="exp-btns" hidden>
-        <button class="primary" id="dl-png">Save PNG</button>
-        <button id="dl-svg">Save SVG</button>
+        <span class="sep" aria-hidden="true"></span>
+        <button id="copy-cap" title="Copy a figure caption with the settings a reader needs">Copy caption</button>
+        <span id="exp-btns" class="row" style="margin:0" hidden>
+          <button id="dl-svg">Save SVG</button>
+          <button class="primary" id="dl-png">Save PNG</button>
+        </span>
       </div>
       <p class="note" id="exp-note">Checking whether saving files is available here…</p>
     </div>
 
     <div class="layout">
-      <section class="panel ctl" aria-label="Settings">
-        <details class="grp" open>
-          <summary>Links</summary>
-          <div>
-            <label class="f"><span>Link window<small>B counts as following A when it comes within this many actions</small></span>
-              <select id="s-window"><option value="2">Next action</option><option value="3">Within 2</option><option value="4">Within 3</option><option value="5">Within 4</option><option value="6">Within 5</option></select></label>
-            <label class="f"><span>Arrow thickness</span>
-              <select id="s-thick"><option value="count">Transitions</option><option value="min">Minutes in B</option></select></label>
-            <label class="f"><span>Values</span>
-              <select id="s-scope"><option value="avg">Per learner</option><option value="sum">Class total</option></select></label>
-            <label class="f"><span>Hide weak links<small>Below this share of the strongest</small></span>
-              <select id="s-min"><option value="0">Show all</option><option value="0.1">10%</option><option value="0.2">20%</option><option value="0.3">30%</option><option value="0.5">50%</option></select></label>
-            <label class="check"><input type="checkbox" id="s-loops"><span>Show loops<small>A behaviour followed by itself</small></span></label>
-            <label class="check"><input type="checkbox" id="s-merge"><span>Merge back-to-back repeats<small>Collapse consecutive rows of the same behaviour into one episode</small></span></label>
-          </div>
-        </details>
-        <details class="grp">
-          <summary>Time</summary>
-          <div>
-            <label class="check"><input type="checkbox" id="s-align"><span>Start each learner at 0′<small>Use each learner's first event as their minute zero</small></span></label>
-            <label class="f"><span>Session length<small>Minutes, blank for automatic</small></span><input type="number" id="s-len" min="1" step="1" placeholder="Auto"></label>
-            <label class="f"><span>Clock-ring slice<small>Also the bin size of timeline arrows</small></span>
-              <select id="s-slice"><option value="1">1 min</option><option value="2">2 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option></select></label>
-            <label class="f"><span>Frame length</span>
-              <select id="s-frame"><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="20">20 min</option><option value="30">30 min</option></select></label>
-          </div>
-        </details>
-        <details class="grp">
-          <summary>Display</summary>
-          <div>
-            <label class="f"><span>Theme</span>
-              <select id="s-theme"><option value="auto">Match device</option><option value="light">Paper</option><option value="dark">Screen</option></select></label>
-          </div>
-        </details>
-      </section>
-
       <section class="panel fig" aria-label="Network figure">
-        <div class="arrows" role="group" aria-label="Arrow style"><span>Arrows</span><button data-e="swell">Timeline</button><button data-e="colour">Colour only</button></div>
-        <div class="frames" id="frames" role="group" aria-label="Time frames"></div>
-        <div class="figbox" id="figbox"><svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Temporal ordered network</title><desc id="net-d">Build a network to see it here.</desc></svg></div>
-        <p class="swipe">Swipe sideways to see the whole figure.</p>
+        <div class="fighead">
+          <div class="frames" id="frames" role="group" aria-label="Time frames"></div>
+          <div class="arrows" role="group" aria-label="Arrow style"><span class="lbl">Arrows</span><button data-e="swell">Timeline</button><button data-e="colour">Colour only</button></div>
+        </div>
         <div class="win">
           <span>Window</span>
           <div class="range2"><div class="rt"><div class="rf" id="rfill"></div></div>
-            <input type="range" id="r0" min="0" max="60" step="1" value="0" aria-label="Window start (minute)">
-            <input type="range" id="r1" min="0" max="60" step="1" value="60" aria-label="Window end (minute)">
+            <input type="range" id="r0" min="0" max="60" step="1" value="0" aria-label="Window start">
+            <input type="range" id="r1" min="0" max="60" step="1" value="60" aria-label="Window end">
           </div>
           <span class="winlbl" id="winlbl">0′ – 60′</span>
         </div>
+        <div class="figbox" id="figbox"><svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Temporal ordered network</title><desc id="net-d">Build a network to see it here.</desc></svg></div>
+        <p class="swipe">Swipe sideways to see the whole figure.</p>
       </section>
 
-      <aside class="side">
-        <div class="panel">
-          <h2>How to read it</h2>
+      <aside class="panel side" aria-label="Figure tools">
+        <div class="tabs" role="tablist" aria-label="Figure tools">
+          <button role="tab" id="tab-guide" aria-controls="pane-guide" aria-selected="true" data-tab="guide">How to read</button>
+          <button role="tab" id="tab-set" aria-controls="pane-set" aria-selected="false" tabindex="-1" data-tab="set">Settings</button>
+          <button role="tab" id="tab-det" aria-controls="pane-det" aria-selected="false" tabindex="-1" data-tab="det">Behaviour</button>
+          <button role="tab" id="tab-ai" aria-controls="pane-ai" aria-selected="false" tabindex="-1" data-tab="ai">AI reading<span class="new">Beta</span></button>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="pane-guide" aria-labelledby="tab-guide">
           <div class="lg">
             <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="11" cy="17" r="6" fill="#438CEB"/><circle cx="28" cy="15" r="10" fill="#438CEB"/></svg>
             <div><b>Disc area</b> is the share of the window spent in that behaviour. The size key under the figure shows 10% and 25%.</div>
@@ -412,20 +455,88 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
             <div id="lg-edge"></div>
           </div>
           <div class="bar" id="lg-bar"></div>
-          <div class="barlbl"><span>Early</span><span>Arrow colour = minute of session</span><span>Late</span></div>
+          <div class="barlbl"><span>Early</span><span id="lg-barmid">Arrow colour = minute of session</span><span>Late</span></div>
+          <p class="hint" style="margin-top:14px">This is a descriptive, ONA-inspired figure. Differences between frames or windows are exploratory; it runs no statistical tests.</p>
         </div>
-        <div class="panel det" id="det" aria-live="polite"></div>
-        <div class="panel about">
-          <h2>About this tool</h2>
-          <p>Everything runs in your browser. The log you load is never uploaded. The page remembers your last log on this device so it is there next time; use pseudonymous learner IDs and clear it when you are done with real student data.</p>
-          <p>The link logic is adapted from ordered network analysis (ONA). This is a descriptive, ONA-inspired figure, not a full ONA: it does not normalise, reduce dimensions or test differences between groups. For statistical comparisons, run ONA itself.</p>
-          <p class="m">Cite as: Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool].</p>
-          <div class="row"><button id="clear">Clear saved data</button></div>
+
+        <div class="tabpanel ctl" role="tabpanel" id="pane-set" aria-labelledby="tab-set" hidden>
+          <details class="grp" open>
+            <summary>Links</summary>
+            <div>
+              <label class="f"><span>Link window<small>B counts as following A when it comes within this many actions</small></span>
+                <select id="s-window"><option value="2">Next action</option><option value="3">Within 2</option><option value="4">Within 3</option><option value="5">Within 4</option><option value="6">Within 5</option></select></label>
+              <label class="f"><span>Arrow thickness</span>
+                <select id="s-thick"><option value="count">Transitions</option><option value="min">Minutes in B</option></select></label>
+              <label class="f"><span>Values</span>
+                <select id="s-scope"><option value="avg">Per learner</option><option value="sum">Class total</option></select></label>
+              <label class="f"><span>Hide weak links<small>Below this share of the strongest</small></span>
+                <select id="s-min"><option value="0">Show all</option><option value="0.1">10%</option><option value="0.2">20%</option><option value="0.3">30%</option><option value="0.5">50%</option></select></label>
+              <label class="check"><input type="checkbox" id="s-loops"><span>Show loops<small>A behaviour followed by itself</small></span></label>
+              <label class="check"><input type="checkbox" id="s-merge"><span>Merge back-to-back repeats<small>Collapse consecutive rows of the same behaviour into one episode</small></span></label>
+            </div>
+          </details>
+          <details class="grp" open>
+            <summary>Time</summary>
+            <div>
+              <label class="check"><input type="checkbox" id="s-align"><span>Start each learner at 0′<small>Use each learner's first event as their time zero</small></span></label>
+              <label class="f"><span>Session length<small>Minutes, blank for automatic</small></span><input type="number" id="s-len" min="1" step="1" placeholder="Auto"></label>
+              <label class="f"><span>Clock-ring slice<small>Also the bin size of timeline arrows. Auto aims for about 12 bars.</small></span>
+                <select id="s-slice"><option value="0">Auto</option><option value="1">1 min</option><option value="2">2 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option></select></label>
+              <label class="f"><span>Frame length<small>Auto aims for about 6 frames</small></span>
+                <select id="s-frame"><option value="0">Auto</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="20">20 min</option><option value="30">30 min</option></select></label>
+            </div>
+          </details>
+          <details class="grp" open>
+            <summary>Display</summary>
+            <div>
+              <label class="f"><span>Theme</span>
+                <select id="s-theme"><option value="auto">Match device</option><option value="light">Paper</option><option value="dark">Screen</option></select></label>
+            </div>
+          </details>
+        </div>
+
+        <div class="tabpanel det" role="tabpanel" id="pane-det" aria-labelledby="tab-det" hidden><div id="det" aria-live="polite"></div></div>
+
+        <div class="tabpanel ai" role="tabpanel" id="pane-ai" aria-labelledby="tab-ai" hidden>
+          <p class="hint" style="margin:0 0 6px">Ask a language model for a first reading of the figure you are looking at. It gets the numbers behind this figure and its settings, never your rows or learner IDs. Treat the answer as a draft to check against the figure.</p>
+          <label class="f"><span>Model provider</span>
+            <select id="ai-prov"><option value="anthropic">Claude (Anthropic API)</option><option value="openai">OpenAI-compatible API (OpenAI, OpenRouter, Groq…)</option><option value="local">Local model on this computer (Ollama, LM Studio)</option></select></label>
+          <label class="f" id="ai-url-row"><span>Endpoint<small>Base URL ending in /v1</small></span><input type="url" id="ai-url" spellcheck="false" autocomplete="off"></label>
+          <label class="f"><span>Model</span><input type="text" id="ai-model" list="ai-models" spellcheck="false" autocomplete="off"></label>
+          <datalist id="ai-models"></datalist>
+          <label class="f" id="ai-key-row"><span>API key<small id="ai-key-hint">Your own key; sent only to the provider</small></span><input type="password" id="ai-key" spellcheck="false" autocomplete="off" placeholder="Paste key"></label>
+          <label class="check" id="ai-remember-row"><input type="checkbox" id="ai-remember"><span>Remember the key on this device<small>Stored in this browser only. Leave off on shared computers.</small></span></label>
+          <label class="f"><span>About this data <small>Optional. What was logged and coded, e.g. “60-minute programming lab, SRL codes from screen recordings” or “2-week MOOC, clickstream events”</small></span><input type="text" id="ai-ctx" spellcheck="true" autocomplete="off"></label>
+          <label class="hint" for="ai-q" style="display:block;margin-top:10px">What are you looking for? <span class="m">(optional, but it keeps the reading focused)</span></label>
+          <textarea id="ai-q" spellcheck="true" placeholder="e.g. Do learners monitor before or after debugging, and does that change late in the session?"></textarea>
+          <div class="row"><button class="primary" id="ai-go">Read this figure</button><button id="ai-stop" hidden>Stop</button></div>
+          <p class="sendto" id="ai-sendto"></p>
+          <details id="ai-peek"><summary>See exactly what will be sent</summary><pre id="ai-preview"></pre></details>
+          <div class="busy" id="ai-busy" hidden><i></i><span>Reading the figure…</span></div>
+          <p class="status err" id="ai-err" role="alert" hidden></p>
+          <div class="ai-out" id="ai-out" hidden>
+            <p class="stale" id="ai-stale" hidden>The figure has changed since this reading. Run it again to match the current window and settings.</p>
+            <p class="meta" id="ai-meta"></p>
+            <div class="md" id="ai-text" aria-live="polite"></div>
+            <div class="row"><button id="ai-copy">Copy reading</button></div>
+          </div>
         </div>
       </aside>
     </div>
   </section>
 </main>
+
+<dialog class="about" id="about" aria-labelledby="about-t">
+  <button class="dlg-x" id="about-x" aria-label="Close">×</button>
+  <h2 id="about-t">About this tool</h2>
+  <p>The Temporal ONA builder turns a coded episode log, such as self-regulated learning codes, collaboration moves or clickstream events, into one figure that shows how long learners spent in each behaviour, when in the session it happened, what followed what, and when each link happened.</p>
+  <p>The link logic is adapted from ordered network analysis (ONA). This is a descriptive, ONA-inspired figure, not a full ONA: it does not normalise, reduce dimensions or test differences between groups. For statistical comparisons, run ONA itself.</p>
+  <h3>Your data</h3>
+  <p>Everything runs in your browser and the log you load is never uploaded. The page remembers your last log on this device so it is there next time; use pseudonymous learner IDs and clear it when you are done with real student data. The AI reading is off until you use it, and then sends only the numeric summary shown under “See exactly what will be sent”.</p>
+  <div class="row"><button id="clear">Clear saved data</button><button id="dl-tool-3" data-save hidden>Download tool (HTML)</button></div>
+  <h3>Cite</h3>
+  <p class="m">Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool]. https://kcodweb.github.io/Temporal-ONA-builder/</p>
+</dialog>
 
 <footer class="foot">
   <span>Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool]. Code under the MIT licence.</span>
@@ -436,6 +547,8 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
 <script>
 (function(){
 'use strict';
+// A copy of the page as served, taken before init touches the DOM, for "Download tool".
+var SELF=(function(){try{return '<!doctype html>\n'+document.documentElement.outerHTML+'\n';}catch(e){return '';}})();
 var PR='\u2032';
 function $(s){return document.querySelector(s);}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -445,9 +558,27 @@ function fmt(x){if(!isFinite(x))return '0';return Math.abs(x)>=100?String(Math.r
 function fmtMin(t){var v=r1(t);return v%1===0?String(v):v.toFixed(1);}
 function unit(x,y){var l=Math.hypot(x,y)||1;return {x:x/l,y:y/l};}
 function f1(n){return (Math.round(n*10)/10).toString();}
+// Time is stored in minutes. Labels use one unit picked from the session length (TU, set in derive):
+// seconds up to 3 minutes, minutes up to 4 hours, then hours, then days. A 60-minute session reads exactly as before.
+var LADDER=[0.25,0.5,1,2,5,10,15,20,30,60,120,180,240,360,720,1440,2880,4320,10080,20160,43200];
+function nice(x){for(var i=0;i<LADDER.length;i++)if(LADDER[i]>=x-1e-9)return LADDER[i];return LADDER[LADDER.length-1];}
+function timeUnit(L){return L<=3?{k:'s',f:1/60}:L<=240?{k:'min',f:1}:L<=4320?{k:'h',f:60}:{k:'d',f:1440};}
+var TU={k:'min',f:1};
+function tnum(m,u){u=u||TU;var v=m/u.f;return u.k==='s'?String(Math.round(v)):fmtMin(v);}
+function tsuf(u){u=u||TU;return u.k==='min'?'′':u.k;}
+function tp(m,u){return tnum(m,u)+tsuf(u);}                     // a point in the session: 15′, 90s, 1.5h, 3d
+function tr(a,b,u){return tnum(a,u)+'–'+tnum(b,u)+tsuf(u);}  // a span of the session: 10–20′
+function af(){return TU.k==='s'?1/60:TU.k==='min'?1:60;}         // amounts of time: seconds, minutes, or hours for long sessions
+function au(){return TU.k==='s'?'s':TU.k==='min'?'min':'h';}
+function ta(m){return fmt(m/af())+' '+au();}
+function fw(w){return S.thick==='count'?fmt(w):fmt(w/af());}   // a link weight in the unit the legend states
+function td(m){return m<1?Math.round(m*60)+'-s':m<60?fmtMin(m)+'-min':m<1440?fmtMin(m/60)+'-h':fmtMin(m/1440)+'-day';}
+function lenLbl(m){return m<1?Math.round(m*60)+' s':m<60?fmtMin(m)+' min':m<1440?fmtMin(m/60)+' h':fmtMin(m/1440)+(m===1440?' day':' days');}
+function tword(){return {s:'second',min:'minute',h:'hour',d:'day'}[TU.k];}
+function when(m){return 'around '+tword()+' '+(TU.k==='s'?Math.round(m*60):TU.k==='min'?Math.round(m):fmtMin(m/TU.f));}
 
-var ALIASES={learner:['learner','student','student_id','studentid','learner_id','learnerid','user','user_id','userid','participant','participant_id','id'],behaviour:['behaviour','behavior','activity','action','code','state','event','event_type','behaviour_code','behavior_code'],start:['start','start_time','starttime','begin','begin_time','timestamp','time','start_min','onset'],end:['end','end_time','endtime','stop','stop_time','finish','end_min','offset']};
-var DEF={sessionLen:0,slice:5,frame:10,window:2,thick:'count',scope:'avg',edgeStyle:'swell',minShare:0,loops:true,merge:false,align:true,theme:'auto'};
+var ALIASES={learner:['learner','student','student_id','studentid','learner_id','learnerid','user','user_id','userid','participant','participant_id','id'],behaviour:['behaviour','behavior','activity','action','code','state','event','event_type','behaviour_code','behavior_code'],start:['start','start_time','starttime','begin','begin_time','timestamp','time','start_min','onset','start_s','start_sec','start_secs','start_seconds','start_ms','start_h','time_s','time_sec','time_ms','timestamp_s','timestamp_ms','onset_s','onset_ms'],end:['end','end_time','endtime','stop','stop_time','finish','end_min','offset','end_s','end_sec','end_secs','end_seconds','end_ms','end_h','offset_s','offset_ms']};
+var DEF={sessionLen:0,slice:0,frame:0,window:2,thick:'count',scope:'avg',edgeStyle:'swell',minShare:0,loops:true,merge:false,align:true,theme:'auto'};
 // Node colours avoid the violet-magenta-amber hues reserved for time. The first five pass the colour-vision
 // checks for every pair in both themes; slots 6-10 lean on the always-visible labels.
 var NODE_LIGHT=['#438CEB','#9A8F14','#32670C','#225B8D','#17C8B7','#61B1E6','#009AB0','#7F6B00','#2E9052','#92B824'];
@@ -472,7 +603,7 @@ function tokens(){var cs=getComputedStyle(document.documentElement);function g(n
 function splitRow(line,d){var out=[],cur='',q=false;for(var i=0;i<line.length;i++){var c=line[i];if(q){if(c==='"'){if(line[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}else{if(c==='"')q=true;else if(c===d){out.push(cur);cur='';}else cur+=c;}}out.push(cur);return out.map(function(s){return s.trim();});}
 function normH(h){return h.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');}
 function parseTime(v){v=(v||'').trim();if(v==='')return null;
-  if(/^-?\d+(\.\d+)?$/.test(v))return {min:parseFloat(v),clock:false};
+  if(/^-?\d+(\.\d+)?$/.test(v))return {min:parseFloat(v),clock:false,num:true};
   var m=v.match(/^(\d{1,2}):(\d{1,2})(?::(\d{1,2}(?:\.\d+)?))?$/);
   if(m){if(m[3]!==undefined)return {min:(+m[1])*60+(+m[2])+(+m[3])/60,clock:true};return {min:(+m[1])+(+m[2])/60,clock:false};}
   var d=Date.parse(v);if(!isNaN(d))return {min:d/60000,clock:true};return null;}
@@ -488,12 +619,19 @@ function readTable(text){
   return {delim:delim,names:names,hdr:names.map(normH),rows:lines.slice(1).map(function(l){return splitRow(l,delim);}),nums:nums.slice(1)};}
 function autoMap(hdr){var idx={};ROLES.forEach(function(k){idx[k]=hdr.findIndex(function(h){return ALIASES[k].indexOf(h)>=0;});});return idx;}
 function rowOk(r,idx){return !!(r[idx.learner]&&r[idx.behaviour]&&parseTime(r[idx.start]));}
-function parseRows(tb,idx){
+// Plain numbers in the time columns can be minutes, seconds, milliseconds or hours. guessUnit reads very large
+// values as Unix timestamps (seconds or milliseconds); the Check step lets the user change it.
+var NUM_UNITS={min:1,s:1/60,ms:1/60000,h:60},UNIT_NAME={min:'minutes',s:'seconds',ms:'milliseconds',h:'hours'};
+function guessUnit(tb,idx){var mx=0;if(!(idx.start>=0))return 'min';
+  var h=tb.hdr[idx.start]||'';if(/(^|_)(ms|msec|millis|milliseconds)$/.test(h))return 'ms';if(/(^|_)(s|sec|secs|seconds)$/.test(h))return 's';if(/(^|_)(h|hr|hrs|hours)$/.test(h))return 'h';if(/(^|_)(min|mins|minutes)$/.test(h))return 'min';tb.rows.forEach(function(r){var v=(r[idx.start]||'').trim();if(/^-?\d+(\.\d+)?$/.test(v))mx=Math.max(mx,Math.abs(+v));});return mx>1e11?'ms':mx>1e8?'s':'min';}
+function parseRows(tb,idx,unit){var uf=NUM_UNITS[unit]||1,nums=0;
+  // Scaled plain numbers beyond a year of minutes are timestamps, so they are treated like clock times.
+  function scale(t){if(!t||!t.num)return t;nums++;var m=t.min*uf;return {min:m,clock:Math.abs(m)>525600};}
   var miss=['learner','behaviour','start'].filter(function(k){return !(idx[k]>=0);});
   if(miss.length)return {error:'Missing column'+(miss.length>1?'s':'')+': '+miss.join(', ')+'. Choose which column holds '+(miss.length>1?'each':'it')+' below (end is optional).'};
   var used={};for(var q=0;q<ROLES.length;q++){var k=ROLES[q],c=idx[k];if(!(c>=0))continue;if(used[c])return {error:'The same column is chosen for '+used[c]+' and '+k+'. Each needs its own column.'};used[c]=k;}
   var hasEnd=idx.end>=0,ev=[],skipped=0,clock=false,bMap=Object.create(null),bNames=[],counts=[],lMap=Object.create(null),lNames=[],bad=[],two=0,neg=0;
-  tb.rows.forEach(function(r,i){var l=r[idx.learner],b=r[idx.behaviour],sv=r[idx.start]||'',evv=hasEnd?(r[idx.end]||''):'',s=parseTime(sv),e=hasEnd?parseTime(evv):null;
+  tb.rows.forEach(function(r,i){var l=r[idx.learner],b=r[idx.behaviour],sv=r[idx.start]||'',evv=hasEnd?(r[idx.end]||''):'',s=scale(parseTime(sv)),e=hasEnd?scale(parseTime(evv)):null;
     if(!l||!b||!s){skipped++;if(bad.length<3)bad.push(tb.nums[i]);return;}
     if(TWO_PART.test(sv.trim())||TWO_PART.test(evv.trim()))two++;
     if(s.clock)clock=true;var key=b.toLowerCase();
@@ -503,8 +641,8 @@ function parseRows(tb,idx){
     if(e&&e.min<s.min)neg++;
     ev.push({l:lMap[l],b:bMap[key],s:s.min,e:e?e.min:null});});
   if(!ev.length)return {error:'None of the rows could be read. Check that start times are minutes, mm:ss or hh:mm:ss.'};
-  return {ev:ev,behaviours:bNames,counts:counts,learners:lNames,clock:clock,skipped:skipped,bad:bad,hasEnd:hasEnd,rows:tb.rows.length,two:two,neg:neg};}
-function parseLog(text,idx){var tb=readTable(text);return tb.error?tb:parseRows(tb,idx||autoMap(tb.hdr));}
+  return {ev:ev,behaviours:bNames,counts:counts,learners:lNames,clock:clock,skipped:skipped,bad:bad,hasEnd:hasEnd,rows:tb.rows.length,two:two,neg:neg,nums:nums,unit:unit||'min'};}
+function parseLog(text,idx,unit){var tb=readTable(text);if(tb.error)return tb;idx=idx||autoMap(tb.hdr);return parseRows(tb,idx,unit||guessUnit(tb,idx));}
 
 /* ---------- derive ---------- */
 function derive(){
@@ -516,14 +654,17 @@ function derive(){
   else{var mn=Infinity;seqs.forEach(function(q){if(q.length)mn=Math.min(mn,q[0].s);});if(P.clock||mn<0){seqs.forEach(function(q){q.forEach(function(x){x.s-=mn;x.e-=mn;});});}}
   if(S.merge){seqs=seqs.map(function(q){var out=[];q.forEach(function(x){var last=out[out.length-1];if(last&&last.b===x.b){last.e=Math.max(last.e,x.e);}else out.push({b:x.b,s:x.s,e:x.e});});return out;});}
   var maxEnd=0;seqs.forEach(function(q){q.forEach(function(x){maxEnd=Math.max(maxEnd,x.e,x.s);});});
-  var sl=S.slice,L=S.sessionLen>0?S.sessionLen:Math.max(sl,Math.ceil((maxEnd-1e-9)/sl)*sl);
+  // Slice and frame lengths follow the session: about 12 clock-ring bars and 6 frames unless the user picks sizes that still fit.
+  var raw=S.sessionLen>0?S.sessionLen:Math.max(maxEnd,1e-6),okS=S.slice>0&&raw/S.slice>=1&&raw/S.slice<=144,sl=okS?S.slice:nice(raw/12);
+  // The session ends at the last episode, rounded up to a fine step (about 1/60 of it), so no invented uncoded time; the last slice may be partial.
+  var g=Math.min(sl,nice(raw/60)),L=S.sessionLen>0?S.sessionLen:Math.max(sl,Math.ceil((maxEnd-1e-9)/g)*g),okF=S.frame>0&&L/S.frame>=1&&L/S.frame<=24,fr=okF?S.frame:nice(L/6);
   var links=[],W=Math.max(2,S.window|0);
   seqs.forEach(function(q){for(var i=1;i<q.length;i++){for(var j=i-1;j>=Math.max(0,i-(W-1));j--){links.push({f:q[j].b,t:q[i].b,time:q[i].s,dur:Math.max(0,q[i].e-q[i].s)});}}});
-  D={seqs:seqs,links:links,L:L,filled:filled};}
+  D={seqs:seqs,links:links,L:L,sl:sl,fr:fr,filled:filled};TU=timeUnit(L);}
 
 function ov(a,b,c,d){return Math.max(0,Math.min(b,d)-Math.max(a,c));}
 function compute(t0,t1){
-  var n=P.learners.length,div=S.scope==='avg'?n:1,B=P.behaviours.length,L=D.L,sl=S.slice,NS=Math.ceil(L/sl-1e-9);
+  var n=P.learners.length,div=S.scope==='avg'?n:1,B=P.behaviours.length,L=D.L,sl=D.sl,NS=Math.ceil(L/sl-1e-9);
   var mins=new Array(B).fill(0),slc=[],shr=[];
   for(var b=0;b<B;b++){slc.push(new Array(NS).fill(0));shr.push(new Array(NS).fill(0));}
   D.seqs.forEach(function(q){q.forEach(function(x){mins[x.b]+=ov(x.s,x.e,t0,t1);
@@ -544,7 +685,7 @@ function compute(t0,t1){
 function qpt(a,q,b,t){var u=1-t;return {x:u*u*a.x+2*u*t*q.x+t*t*b.x,y:u*u*a.y+2*u*t*q.y+t*t*b.y};}
 function cpt(a,c1,c2,b,t){var u=1-t;return {x:u*u*u*a.x+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*b.x,y:u*u*u*a.y+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*b.y};}
 function swellSegs(bins,c,maxBin,T,at,op){var out='',so=op==null?'':' stroke-opacity="'+op.toFixed(2)+'"';bins.forEach(function(v,i){if(v<=0)return;var ta=(i+0.1)/c.nb,tb=(i+0.9)/c.nb,pts=[];for(var k=0;k<=6;k++)pts.push(at(ta+(tb-ta)*k/6));
-  var mid=Math.min(c.t1,c.t0+(i+0.5)*c.sl);out+='<polyline points="'+ptsStr(pts)+'" fill="none" stroke="'+ramp(mid/c.L,T.ramp)+'" stroke-width="'+f1(2+10*v/(maxBin||1))+'"'+so+' stroke-linecap="butt"><title>'+fmtMin(c.t0+i*c.sl)+'–'+fmtMin(Math.min(c.t1,c.t0+(i+1)*c.sl))+PR+': '+fmt(v)+'</title></polyline>';});return out;}
+  var mid=Math.min(c.t1,c.t0+(i+0.5)*c.sl);out+='<polyline points="'+ptsStr(pts)+'" fill="none" stroke="'+ramp(mid/c.L,T.ramp)+'" stroke-width="'+f1(2+10*v/(maxBin||1))+'"'+so+' stroke-linecap="butt"><title>'+tr(c.t0+i*c.sl,Math.min(c.t1,c.t0+(i+1)*c.sl))+': '+fw(v)+'</title></polyline>';});return out;}
 function polar(cx,cy,r,deg){var a=deg*Math.PI/180;return {x:cx+r*Math.sin(a),y:cy-r*Math.cos(a)};}
 function arcPath(cx,cy,r,a0,a1){var p0=polar(cx,cy,r,a0),p1=polar(cx,cy,r,a1);return 'M'+f1(p0.x)+' '+f1(p0.y)+' A'+f1(r)+' '+f1(r)+' 0 '+((a1-a0)>180?1:0)+' 1 '+f1(p1.x)+' '+f1(p1.y);}
 function ptsStr(arr){return arr.map(function(p){return f1(p.x)+','+f1(p.y);}).join(' ');}
@@ -568,7 +709,7 @@ function loopGeom(nd,B,al){var a=nd.a,ca=Math.cos(a),la;
   var s=at(nd.ro+1,la-d1),c1=at(rc,la-d2),c2=at(rc,la+d2),tip=at(nd.ro+2,la+d1),v=unit(c2.x-tip.x,c2.y-tip.y);
   return {s:s,c1:c1,c2:c2,tip:tip,e:{x:tip.x+v.x*al*0.85,y:tip.y+v.y*al*0.85},bb:{x:tip.x+v.x*al,y:tip.y+v.y*al},p:{x:-v.y,y:v.x}};}
 
-function unitLabel(){return (S.thick==='count'?'transitions':'min in B')+(S.scope==='avg'?' per learner':'');}
+function unitLabel(){return (S.thick==='count'?'transitions':au()+' in B')+(S.scope==='avg'?' per learner':'');}
 
 function sectorPath(cx,cy,r1,r2,a0,a1){var p1=polar(cx,cy,r2,a0),p2=polar(cx,cy,r2,a1),p3=polar(cx,cy,r1,a1),p4=polar(cx,cy,r1,a0),lg=(a1-a0)>180?1:0;
   return 'M'+f1(p1.x)+' '+f1(p1.y)+' A'+f1(r2)+' '+f1(r2)+' 0 '+lg+' 1 '+f1(p2.x)+' '+f1(p2.y)+' L'+f1(p3.x)+' '+f1(p3.y)+' A'+f1(r1)+' '+f1(r1)+' 0 '+lg+' 0 '+f1(p4.x)+' '+f1(p4.y)+'Z';}
@@ -576,7 +717,7 @@ function wrapText(s,max){var out=[],cur='';String(s).split(' ').forEach(function
 function haloText(T,x,y,size,weight,fill,anchor,str){var a='<text x="'+f1(x)+'" y="'+f1(y)+'" text-anchor="'+anchor+'" font-size="'+size+'"'+(weight?' font-weight="'+weight+'"':'');
   return '<g fill="'+T.bg+'" stroke="'+T.bg+'" stroke-width="4" stroke-linejoin="round">'+a+'>'+esc(str)+'</text></g>'+a+' fill="'+fill+'">'+esc(str)+'</text>';}
 function peakSlice(c,b){var pk=-1,pv=0;for(var k=0;k<c.NS;k++){var s0=k*c.sl,s1=Math.min((k+1)*c.sl,c.L);if(s1<=c.t0||s0>=c.t1)continue;if(c.shr[b][k]>pv){pv=c.shr[b][k];pk=k;}}
-  return pk<0?null:fmtMin(pk*c.sl)+'–'+fmtMin(Math.min((pk+1)*c.sl,c.L))+PR;}
+  return pk<0?null:tr(pk*c.sl,Math.min((pk+1)*c.sl,c.L));}
 
 function drawFigure(c){
   var T=tokens(),nodes=layoutNodes(c,T),B=c.B,L=c.L,t0=c.t0,t1=c.t1,win=t1-t0,avg=S.scope==='avg',W=800;
@@ -587,15 +728,15 @@ function drawFigure(c){
   function dimmed(e){return foc!=null&&e.f!==foc&&e.t!==foc;}
   var o=[];
   o.push('<defs><linearGradient id="tg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="'+T.ramp[0]+'"/><stop offset="0.5" stop-color="'+T.ramp[1]+'"/><stop offset="1" stop-color="'+T.ramp[2]+'"/></linearGradient></defs>');
-  o.push('<text x="24" y="46" font-size="28" font-weight="600" fill="'+T.ink+'">'+fmtMin(t0)+PR+' – '+fmtMin(t1)+PR+'</text>');
-  var sub=view.frame===-1?'Whole session':(view.frame>=0?'Frame '+(view.frame+1)+' of '+Math.ceil(L/S.frame-1e-9):'Custom window');
+  o.push('<text x="24" y="46" font-size="28" font-weight="600" fill="'+T.ink+'">'+tp(t0)+' – '+tp(t1)+'</text>');
+  var sub=view.frame===-1?'Whole session':(view.frame>=0?'Frame '+(view.frame+1)+' of '+Math.ceil(L/D.fr-1e-9):'Custom window');
   o.push('<text x="24" y="68" font-size="13" fill="'+T.muted+'">'+esc(sub)+', '+c.n+' learner'+(c.n===1?'':'s')+'</text>');
   if(foc!=null)o.push('<text x="24" y="88" font-size="13" font-weight="600" fill="'+T.ink+'">Highlighted: links of '+esc(P.behaviours[foc])+'</text>');
 
   // Edges: weakest first so strong links sit on top. In timeline mode the thin base line fades with link weight.
   var loops=[],others=[];shown.forEach(function(e){(e.f===e.t?loops:others).push(e);});
   others.sort(function(a,b){return a.w-b.w;});
-  others.forEach(function(e){var A=nodes[e.f],C=nodes[e.t],rel=e.w/maxW,tip=esc(A.name+' → '+C.name+': '+fmt(e.w)+' '+unitLabel()+', around minute '+Math.round(e.mean)),gop=dimmed(e)?' opacity="0.08"':'';
+  others.forEach(function(e){var A=nodes[e.f],C=nodes[e.t],rel=e.w/maxW,tip=esc(A.name+' → '+C.name+': '+fw(e.w)+' '+unitLabel()+', '+when(e.mean)),gop=dimmed(e)?' opacity="0.08"':'';
     if(S.edgeStyle==='swell'){var g=edgeGeom(A,C,10),parts=['<g'+gop+'><title>'+tip+'</title><path d="M'+f1(g.s.x)+' '+f1(g.s.y)+' Q'+f1(g.q.x)+' '+f1(g.q.y)+' '+f1(g.e.x)+' '+f1(g.e.y)+'" fill="none" stroke="'+T.muted+'" stroke-opacity="'+(0.18+0.62*rel).toFixed(2)+'" stroke-width="1.2"/>'];
       parts.push(swellSegs(e.bins,c,maxBin,T,function(t){return qpt(g.s,g.q,g.e,t);},0.35+0.65*rel));
       parts.push('<polygon points="'+arrowPts(g,4.8)+'" fill="'+ramp(e.mean/L,T.ramp)+'" fill-opacity="'+(0.4+0.6*rel).toFixed(2)+'"/></g>');o.push(parts.join(''));}
@@ -604,12 +745,12 @@ function drawFigure(c){
 
   // Nodes: disc (area = time share), then the clock ring: one bar per slice, length = share of that slice.
   var maxShr=0;c.shr.forEach(function(r){r.forEach(function(v){maxShr=Math.max(maxShr,v);});});maxShr=maxShr||1;
-  nodes.forEach(function(nd){var g=['<g data-b="'+nd.i+'" tabindex="0" role="button" aria-pressed="'+(foc===nd.i)+'" aria-label="'+esc(nd.name+', '+fmt(c.mins[nd.i])+' minutes'+(avg?' per learner':'')+'. Highlight its links')+'">'];
+  nodes.forEach(function(nd){var g=['<g data-b="'+nd.i+'" tabindex="0" role="button" aria-pressed="'+(foc===nd.i)+'" aria-label="'+esc(nd.name+', '+ta(c.mins[nd.i])+(avg?' per learner':'')+'. Highlight its links')+'">'];
     g.push('<circle cx="'+f1(nd.x)+'" cy="'+f1(nd.y)+'" r="'+f1(nd.ro+10)+'" fill="'+T.bg+'" fill-opacity="0"/>');
     g.push('<circle cx="'+f1(nd.x)+'" cy="'+f1(nd.y)+'" r="'+f1(nd.r0)+'" fill="none" stroke="'+T.line+'" stroke-width="1"/>');
     for(var k=0;k<c.NS;k++){var s0=k*c.sl,s1=Math.min((k+1)*c.sl,L),a0=360*s0/L,a1=360*s1/L,gap=Math.min(1.8,(a1-a0)*0.25);
       var v=c.shr[nd.i][k];if(v<=0)continue;var len=Math.max(1.5,BAR*v/maxShr),op=(s1<=t0||s0>=t1)?0.28:0.9;
-      g.push('<path d="'+sectorPath(nd.x,nd.y,nd.r0+0.5,nd.r0+0.5+len,a0+gap/2,a1-gap/2)+'" fill="'+nd.color+'" fill-opacity="'+op+'"><title>'+esc(nd.name+', '+fmtMin(s0)+'–'+fmtMin(s1)+PR+': '+Math.round(v*100)+'% of the slice')+'</title></path>');}
+      g.push('<path d="'+sectorPath(nd.x,nd.y,nd.r0+0.5,nd.r0+0.5+len,a0+gap/2,a1-gap/2)+'" fill="'+nd.color+'" fill-opacity="'+op+'"><title>'+esc(nd.name+', '+tr(s0,s1)+': '+Math.round(v*100)+'% of the slice')+'</title></path>');}
     g.push('<line x1="'+f1(nd.x)+'" y1="'+f1(nd.y-nd.r0+1)+'" x2="'+f1(nd.x)+'" y2="'+f1(nd.y-nd.ro-1)+'" stroke="'+T.ink+'" stroke-width="1.5"/>');
     g.push('<circle cx="'+f1(nd.x)+'" cy="'+f1(nd.y)+'" r="'+f1(nd.r)+'" fill="'+nd.color+'" fill-opacity="0.92"/>');
     g.push('<circle class="hl" cx="'+f1(nd.x)+'" cy="'+f1(nd.y)+'" r="'+f1(nd.r+2.5)+'" fill="none" stroke="'+T.ink+'" stroke-width="'+(foc===nd.i?2:0)+'"/>');
@@ -617,7 +758,7 @@ function drawFigure(c){
 
   loops.forEach(function(e){var nd=nodes[e.f],sw=S.edgeStyle==='swell',rel=e.w/maxW,wpx=sw?1.2:1.2+4.8*rel,al=sw?8:6+wpx*0.8,g=loopGeom(nd,B,al),col=ramp(e.mean/L,T.ramp);
     var d='M'+f1(g.s.x)+' '+f1(g.s.y)+' C'+f1(g.c1.x)+' '+f1(g.c1.y)+' '+f1(g.c2.x)+' '+f1(g.c2.y)+' '+f1(g.e.x)+' '+f1(g.e.y);
-    o.push('<g opacity="'+(dimmed(e)?0.08:0.92)+'"><title>'+esc(nd.name+' repeated: '+fmt(e.w)+' '+unitLabel()+', around minute '+Math.round(e.mean))+'</title><path d="'+d+'" fill="none" stroke="'+(sw?T.muted:col)+'" stroke-opacity="'+(sw?(0.18+0.62*rel).toFixed(2):1)+'" stroke-width="'+f1(wpx)+'"/>'+
+    o.push('<g opacity="'+(dimmed(e)?0.08:0.92)+'"><title>'+esc(nd.name+' repeated: '+fw(e.w)+' '+unitLabel()+', '+when(e.mean))+'</title><path d="'+d+'" fill="none" stroke="'+(sw?T.muted:col)+'" stroke-opacity="'+(sw?(0.18+0.62*rel).toFixed(2):1)+'" stroke-width="'+f1(wpx)+'"/>'+
       (sw?swellSegs(e.bins,c,maxBin,T,function(t){return cpt(g.s,g.c1,g.c2,g.e,t);},0.35+0.65*rel):'')+'<polygon points="'+arrowPts(g,sw?4:3+wpx*0.5)+'" fill="'+col+'"'+(sw?' fill-opacity="'+(0.4+0.6*rel).toFixed(2)+'"':'')+'/></g>');});
 
   // Labels: minute numbers at the quarter points of each clock ring, then name / minutes (share) / peak slice,
@@ -625,8 +766,8 @@ function drawFigure(c){
   var bottom=0;
   nodes.forEach(function(nd){var t=['<g pointer-events="none">'];
     [0,0.25,0.5,0.75].forEach(function(q){var d=nd.ro+4,p=polar(nd.x,nd.y,d,360*q),an=q===0.25?'start':q===0.75?'end':'middle',dy=q===0?-1:q===0.5?9:3.5;
-      t.push(haloText(T,p.x,p.y+dy,9.5,0,T.muted,an,fmtMin(L*q)+PR));});
-    var val=fmt(c.mins[nd.i])+' min'+(avg?'':' total')+' ('+Math.round(nd.share*100)+'%)',pk=peakSlice(c,nd.i),l3=pk?'peak '+pk:'none in this window';
+      t.push(haloText(T,p.x,p.y+dy,9.5,0,T.muted,an,tp(L*q)));});
+    var val=ta(c.mins[nd.i])+(avg?'':' total')+' ('+Math.round(nd.share*100)+'%)',pk=peakSlice(c,nd.i),l3=pk?'peak '+pk:'none in this window';
     var wEst=Math.max(nd.name.length*8.8,val.length*6.8,l3.length*6.4),dir=Math.cos(nd.a)>0?1:-1,sx=nd.x+dir*(nd.ro+28);
     var side=nd.side&&(dir>0?sx+wEst<W-8:sx-wEst>8),xs,an,ys;
     if(side){xs=sx;an=dir>0?'start':'end';ys=[nd.y-6,nd.y+11,nd.y+26];}
@@ -644,28 +785,28 @@ function drawFigure(c){
   var ccx=738,ccy=footY+48,cr=16,demo=[0.55,0.35,0.8,1,0.6,0.25,0.4,0.7,0.9,0.5,0.3,0.45];
   o.push('<circle cx="'+ccx+'" cy="'+ccy+'" r="'+cr+'" fill="none" stroke="'+T.line+'"/>');
   demo.forEach(function(v,k){var a0=30*k+1,a1=30*k+29;o.push('<path d="'+sectorPath(ccx,ccy,cr+0.5,cr+0.5+2+9*v,a0,a1)+'" fill="'+T.muted+'" fill-opacity="0.55"/>');});
-  [0,0.25,0.5,0.75].forEach(function(q){var p=polar(ccx,ccy,cr+15,360*q),an=q===0.25?'start':q===0.75?'end':'middle',dy=q===0?-1:q===0.5?9:3.5;o.push('<text x="'+f1(p.x)+'" y="'+f1(p.y+dy)+'" text-anchor="'+an+'" font-size="10" fill="'+T.muted+'">'+fmtMin(L*q)+PR+'</text>');});
-  o.push('<text x="'+ccx+'" y="'+(ccy+56)+'" text-anchor="middle" font-size="11" fill="'+T.muted+'">Clock ring = when</text><text x="'+ccx+'" y="'+(ccy+70)+'" text-anchor="middle" font-size="11" fill="'+T.muted+'">1 bar = '+fmtMin(c.sl)+'-min slice</text>');
+  [0,0.25,0.5,0.75].forEach(function(q){var p=polar(ccx,ccy,cr+15,360*q),an=q===0.25?'start':q===0.75?'end':'middle',dy=q===0?-1:q===0.5?9:3.5;o.push('<text x="'+f1(p.x)+'" y="'+f1(p.y+dy)+'" text-anchor="'+an+'" font-size="10" fill="'+T.muted+'">'+tp(L*q)+'</text>');});
+  o.push('<text x="'+ccx+'" y="'+(ccy+56)+'" text-anchor="middle" font-size="11" fill="'+T.muted+'">Clock ring = when</text><text x="'+ccx+'" y="'+(ccy+70)+'" text-anchor="middle" font-size="11" fill="'+T.muted+'">1 bar = '+td(c.sl)+' slice</text>');
   var H=Math.max(iy+10,footY+128);
   o.unshift('<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="'+T.bg+'"/>');
 
   var bx=572,bw=204,by=40;
-  o.push('<text x="'+bx+'" y="'+(by-8)+'" font-size="12" fill="'+T.muted+'">'+(S.edgeStyle==='swell'?'Swell colour = minute of session':'Arrow colour = minute of session')+'</text>');
+  o.push('<text x="'+bx+'" y="'+(by-8)+'" font-size="12" fill="'+T.muted+'">'+(S.edgeStyle==='swell'?'Swell':'Arrow')+' colour = '+tword()+' of session'+'</text>');
   o.push('<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="8" rx="4" fill="url(#tg)"/>');
   o.push('<rect x="'+f1(bx+bw*t0/L)+'" y="'+(by-3)+'" width="'+f1(Math.max(2,bw*win/L))+'" height="14" rx="3" fill="none" stroke="'+T.ink+'" stroke-width="1"/>');
-  o.push('<text x="'+bx+'" y="'+(by+26)+'" font-size="12" fill="'+T.muted+'">0'+PR+'</text><text x="'+(bx+bw/2)+'" y="'+(by+26)+'" font-size="12" text-anchor="middle" fill="'+T.muted+'">'+fmtMin(L/2)+PR+'</text><text x="'+(bx+bw)+'" y="'+(by+26)+'" font-size="12" text-anchor="end" fill="'+T.muted+'">'+fmtMin(L)+PR+'</text>');
+  o.push('<text x="'+bx+'" y="'+(by+26)+'" font-size="12" fill="'+T.muted+'">'+tp(0)+'</text><text x="'+(bx+bw/2)+'" y="'+(by+26)+'" font-size="12" text-anchor="middle" fill="'+T.muted+'">'+tp(L/2)+'</text><text x="'+(bx+bw)+'" y="'+(by+26)+'" font-size="12" text-anchor="end" fill="'+T.muted+'">'+tp(L)+'</text>');
 
   var svg=$('#net');svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.setAttribute('font-family',FONT);
-  svg.innerHTML='<title id="net-t">Temporal ordered network, '+fmtMin(t0)+' to '+fmtMin(t1)+' minutes</title><desc id="net-d">'+esc(ins.join(' '))+'</desc>'+o.join('');}
+  svg.innerHTML='<title id="net-t">Temporal ordered network, '+tp(t0)+' to '+tp(t1)+'</title><desc id="net-d">'+esc(ins.join(' '))+'</desc>'+o.join('');}
 
 function insights(c){var avg=S.scope==='avg',win=c.t1-c.t0,cap=win*(avg?1:c.n),top=0;
   for(var b=1;b<c.B;b++)if(c.mins[b]>c.mins[top])top=b;
-  var out=['Most time: '+P.behaviours[top]+' ('+fmt(c.mins[top])+' min'+(avg?' per learner':'')+', '+Math.round(cap>0?100*c.mins[top]/cap:0)+'% of the window).'];
+  var out=['Most time: '+P.behaviours[top]+' ('+ta(c.mins[top])+(avg?' per learner':'')+', '+Math.round(cap>0?100*c.mins[top]/cap:0)+'% of the window).'];
   var best=null;c.edges.forEach(function(e){if(e.f!==e.t&&(!best||e.w>best.w))best=e;});
-  out.push(best?'Strongest link: '+P.behaviours[best.f]+' → '+P.behaviours[best.t]+' ('+fmt(best.w)+' '+unitLabel()+'), around minute '+Math.round(best.mean)+'.':'No links between different behaviours in this window.');
+  out.push(best?'Strongest link: '+P.behaviours[best.f]+' → '+P.behaviours[best.t]+' ('+fw(best.w)+' '+unitLabel()+'), '+when(best.mean)+'.':'No links between different behaviours in this window.');
   var coded=c.mins.reduce(function(a,b){return a+b;},0);
-  if(coded>cap*1.001)out.push('Coded time ('+fmt(coded)+' min) is longer than the window, so some episodes overlap.');
-  else out.push('Coded behaviours cover '+fmt(coded)+' of '+fmt(cap)+' min'+(avg?' per learner':'')+'; '+fmt(cap-coded)+' min uncoded.');
+  if(coded>cap*1.001)out.push('Coded time ('+ta(coded)+') is longer than the window, so some episodes overlap.');
+  else out.push('Coded behaviours cover '+fmt(coded/af())+' of '+ta(cap)+(avg?' per learner':'')+'; '+ta(cap-coded)+' uncoded.');
   return out;}
 
 /* ---------- side panels ---------- */
@@ -675,49 +816,56 @@ function drawDetail(c){var T=tokens(),B=c.B,b=selected;
   for(var k=1;k<sl.length;k++)if(sl[k]>sl[bk])bk=k;
   var mx=Math.max.apply(null,sl)||1,bw=260/c.NS,bars='';
   for(k=0;k<c.NS;k++){var s0=k*c.sl,s1=Math.min((k+1)*c.sl,c.L),h=64*sl[k]/mx,inW=!(s1<=c.t0||s0>=c.t1);
-    bars+='<rect x="'+f1(10+k*bw+bw*0.12)+'" y="'+f1(76-h)+'" width="'+f1(Math.max(1,bw*0.76))+'" height="'+f1(Math.max(h,sl[k]>0?1:0))+'" fill="'+col+'" fill-opacity="'+(inW?0.9:0.3)+'"><title>'+fmtMin(s0)+'–'+fmtMin(s1)+PR+': '+fmt(sl[k])+' min</title></rect>';}
-  bars+='<line x1="10" x2="270" y1="76.5" y2="76.5" stroke="'+T.line+'"/><text x="10" y="92" font-size="11" fill="'+T.muted+'">0'+PR+'</text><text x="140" y="92" font-size="11" text-anchor="middle" fill="'+T.muted+'">'+fmtMin(c.L/2)+PR+'</text><text x="270" y="92" font-size="11" text-anchor="end" fill="'+T.muted+'">'+fmtMin(c.L)+PR+'</text>';
-  function list(arr,dir){if(!arr.length)return '<li><span class="m">None in this window</span></li>';return arr.slice(0,3).map(function(e){return '<li><span>'+(dir==='out'?'→ '+esc(P.behaviours[e.t]):esc(P.behaviours[e.f])+' →')+'</span><span>'+fmt(e.w)+'</span></li>';}).join('');}
+    bars+='<rect x="'+f1(10+k*bw+bw*0.12)+'" y="'+f1(76-h)+'" width="'+f1(Math.max(1,bw*0.76))+'" height="'+f1(Math.max(h,sl[k]>0?1:0))+'" fill="'+col+'" fill-opacity="'+(inW?0.9:0.3)+'"><title>'+tr(s0,s1)+': '+ta(sl[k])+'</title></rect>';}
+  bars+='<line x1="10" x2="270" y1="76.5" y2="76.5" stroke="'+T.line+'"/><text x="10" y="92" font-size="11" fill="'+T.muted+'">'+tp(0)+'</text><text x="140" y="92" font-size="11" text-anchor="middle" fill="'+T.muted+'">'+tp(c.L/2)+'</text><text x="270" y="92" font-size="11" text-anchor="end" fill="'+T.muted+'">'+tp(c.L)+'</text>';
+  function list(arr,dir){if(!arr.length)return '<li><span class="m">None in this window</span></li>';return arr.slice(0,3).map(function(e){return '<li><span>'+(dir==='out'?'→ '+esc(P.behaviours[e.t]):esc(P.behaviours[e.f])+' →')+'</span><span>'+fw(e.w)+'</span></li>';}).join('');}
   var outs=c.edges.filter(function(e){return e.f===b&&e.t!==b;}).sort(function(x,y){return y.w-x.w;}),ins=c.edges.filter(function(e){return e.t===b&&e.f!==b;}).sort(function(x,y){return y.w-x.w;}),self=c.edges.filter(function(e){return e.f===b&&e.t===b;})[0];
   $('#det').innerHTML='<h3><i style="background:'+col+'"></i>'+esc(P.behaviours[b])+'</h3>'+
-    '<p>'+fmt(c.mins[b])+' min'+(avg?' per learner':' in total')+' <span class="m">('+Math.round(cap>0?100*c.mins[b]/cap:0)+'% of the window)</span></p>'+
-    '<p class="m">Busiest '+fmtMin(c.sl)+'-min slice: '+fmtMin(bk*c.sl)+'–'+fmtMin(Math.min((bk+1)*c.sl,c.L))+PR+(self?', repeats itself '+fmt(self.w)+(S.thick==='count'?' times':' min'):'')+'</p>'+
+    '<p>'+ta(c.mins[b])+(avg?' per learner':' in total')+' <span class="m">('+Math.round(cap>0?100*c.mins[b]/cap:0)+'% of the window)</span></p>'+
+    '<p class="m">Busiest '+td(c.sl)+' slice: '+tr(bk*c.sl,Math.min((bk+1)*c.sl,c.L))+(self?', repeats itself '+(S.thick==='count'?fmt(self.w)+' times':ta(self.w)):'')+'</p>'+
     '<svg viewBox="0 0 280 96" role="img" aria-label="Minutes in each slice of the session">'+bars+'</svg>'+
     '<h4>Most often next <span class="m" style="font-weight:400">('+esc(unitLabel())+')</span></h4><ul>'+list(outs,'out')+'</ul>'+
     '<h4>Most often before</h4><ul>'+list(ins,'in')+'</ul>'+
     '<p class="hint">'+(selected==null?'Showing the behaviour with the most time. Click a disc to highlight its links and see its details.':'Click the disc again, or the background, to show all links.')+'</p>';}
 
 function drawLegend(){var T=tokens(),w=Math.max(2,S.window|0);
-  var q=[0.25,0.5,0.75].map(function(x){return fmtMin(D?D.L*x:0)+PR;}).join(', ');
-  $('#lg-ring').textContent='one bar per '+S.slice+'-minute slice, read like a clock: 0'+PR+' at the top (the dark tick), then '+q+' clockwise. A longer bar means more of that slice was spent in the behaviour. Faded bars fall outside the window. The label under each disc names its peak slice.';
+  var q=[0.25,0.5,0.75].map(function(x){return tp(D?D.L*x:0);}).join(', '),sl=D?D.sl:5;
+  $('#lg-ring').textContent='one bar per '+td(sl)+' slice, read like a clock: '+tp(0)+' at the top (the dark tick), then '+q+' clockwise. A longer bar means more of that slice was spent in the behaviour. Faded bars fall outside the window. The label under each disc names its peak slice.';
   $('#lg-arrow').textContent=w===2?'B came right after A':'B came within '+(w-1)+' actions after A';
-  $('#lg-thick').textContent='Thickness = '+(S.thick==='count'?'transitions':'minutes spent in B')+(S.scope==='avg'?' per learner.':' across the class.');
+  $('#lg-thick').textContent='Thickness = '+(S.thick==='count'?'transitions':'time spent in B')+(S.scope==='avg'?' per learner.':' across the class.');
   var ico=$('#lg-edge-ico');
   if(S.edgeStyle==='swell'){ico.innerHTML='<line x1="2" y1="15" x2="34" y2="15" stroke="currentColor" stroke-opacity=".4"/><line x1="8" y1="15" x2="14" y2="15" stroke="'+T.ramp[0]+'" stroke-width="3"/><line x1="17" y1="15" x2="24" y2="15" stroke="'+T.ramp[1]+'" stroke-width="8"/><polygon points="38,15 32,11 32,19" fill="currentColor" fill-opacity=".6"/>';
-    $('#lg-edge').innerHTML='<b>Timeline arrow</b>: every arrow is also a time axis for the window, running from '+fmtMin(view.t0)+PR+' at A to '+fmtMin(view.t1)+PR+' at B. It swells in the '+S.slice+'-minute slices where the link happened, coloured early to late. Fainter arrows are weaker links.';}
+    $('#lg-edge').innerHTML='<b>Timeline arrow</b>: every arrow is also a time axis for the window, running from '+tp(view.t0)+' at A to '+tp(view.t1)+' at B. It swells in the '+td(sl)+' slices where the link happened, coloured early to late. Fainter arrows are weaker links.';}
   else{ico.innerHTML='<line x1="2" y1="9" x2="36" y2="9" stroke="'+T.ramp[0]+'" stroke-width="3"/><line x1="2" y1="21" x2="36" y2="21" stroke="'+T.ramp[2]+'" stroke-width="3"/>';
-    $('#lg-edge').innerHTML='<b>Arrow colour</b> is the average minute the link happened, from early to late.';}
+    $('#lg-edge').innerHTML='<b>Arrow colour</b> is the average '+tword()+' the link happened, from early to late.';}
+  $('#lg-barmid').textContent='Arrow colour = '+tword()+' of session';
   $('#lg-bar').style.background='linear-gradient(90deg,'+T.ramp.join(',')+')';}
 
 /* ---------- frames and window ---------- */
-function buildFrames(){var L=D.L,F=S.frame,n=Math.ceil(L/F-1e-9),h=['<button data-f="-1">Whole session</button>'];
-  for(var i=0;i<n;i++)h.push('<button data-f="'+i+'">'+fmtMin(i*F)+'–'+fmtMin(Math.min((i+1)*F,L))+PR+'</button>');
+// Each frame button carries the number of episodes that start in it, so thin frames are visible before anyone reads them.
+function buildFrames(){var L=D.L,F=D.fr,n=Math.ceil(L/F-1e-9),cnt=new Array(n).fill(0),h=['<button data-f="-1">Whole session</button>'];
+  D.seqs.forEach(function(q){q.forEach(function(x){var k=Math.floor(x.s/F);if(k>=0&&k<n)cnt[k]++;else if(k===n&&x.s<=L)cnt[n-1]++;});});
+  for(var i=0;i<n;i++)h.push('<button data-f="'+i+'" title="'+plural(cnt[i],'episode')+' start in this frame" aria-label="'+tr(i*F,Math.min((i+1)*F,L))+', '+plural(cnt[i],'episode')+'">'+tr(i*F,Math.min((i+1)*F,L))+'<small>'+cnt[i]+'</small></button>');
   h.push('<button id="play" aria-label="Play through frames">Play</button>');
-  $('#frames').innerHTML=h.join('');
-  [$('#r0'),$('#r1')].forEach(function(r){r.max=String(L);r.step=L>240?'5':'1';});}
+  $('#frames').innerHTML=h.join('');timeSelects();
+  [$('#r0'),$('#r1')].forEach(function(r){r.max=String(L);r.step=String(nice(L/60));});}
+// Slice and frame menus offer Auto (with the size it picked) and only the sizes that make sense for this session.
+function timeSelects(){var L=D.L;
+  function fill(sel,cur,eff,ok){var h='<option value="0">Auto ('+lenLbl(eff)+')</option>';LADDER.forEach(function(v){if(ok(v))h+='<option value="'+v+'">'+lenLbl(v)+'</option>';});sel.innerHTML=h;sel.value=String(cur>0&&ok(cur)?cur:0);}
+  fill($('#s-slice'),S.slice,D.sl,function(v){return L/v>=2&&L/v<=144;});fill($('#s-frame'),S.frame,D.fr,function(v){return L/v>1&&L/v<=24;});}
 function syncWindowUI(){var L=D.L;$('#r0').value=String(view.t0);$('#r1').value=String(view.t1);
   var rf=$('#rfill');rf.style.left=(100*view.t0/L)+'%';rf.style.width=(100*(view.t1-view.t0)/L)+'%';
-  $('#winlbl').textContent=fmtMin(view.t0)+PR+' – '+fmtMin(view.t1)+PR;
+  $('#winlbl').textContent=tp(view.t0)+' – '+tp(view.t1);
   Array.prototype.forEach.call(document.querySelectorAll('#frames [data-f]'),function(b){b.setAttribute('aria-pressed',String(+b.dataset.f===view.frame));});
   Array.prototype.forEach.call(document.querySelectorAll('.arrows [data-e]'),function(b){b.setAttribute('aria-pressed',String(b.dataset.e===S.edgeStyle));});
   var pl=$('#play');if(pl){pl.textContent=playTimer?'Pause':'Play';pl.setAttribute('aria-pressed',String(!!playTimer));}}
-function setFrame(i){var L=D.L;if(i<0)view={t0:0,t1:L,frame:-1};else view={t0:i*S.frame,t1:Math.min((i+1)*S.frame,L),frame:i};render();}
+function setFrame(i){var L=D.L;if(i<0)view={t0:0,t1:L,frame:-1};else view={t0:i*D.fr,t1:Math.min((i+1)*D.fr,L),frame:i};render();}
 function stopPlay(){if(playTimer){clearInterval(playTimer);playTimer=null;}}
-function togglePlay(){if(playTimer){stopPlay();syncWindowUI();return;}var n=Math.ceil(D.L/S.frame-1e-9);setFrame(view.frame>=0&&view.frame<n-1?view.frame+1:0);
+function togglePlay(){if(playTimer){stopPlay();syncWindowUI();return;}var n=Math.ceil(D.L/D.fr-1e-9);setFrame(view.frame>=0&&view.frame<n-1?view.frame+1:0);
   playTimer=setInterval(function(){var nx=view.frame+1;if(nx>=n){stopPlay();setFrame(-1);return;}setFrame(nx);},1600);syncWindowUI();}
 
 var raf=0;
-function render(){if(!P||!D)return;cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var c=compute(view.t0,view.t1);lastC=c;drawFigure(c);drawDetail(c);drawLegend();syncWindowUI();});}
+function render(){if(!P||!D)return;cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var c=compute(view.t0,view.t1);lastC=c;drawFigure(c);drawDetail(c);drawLegend();syncWindowUI();aiAfterRender(c);});}
 
 /* ---------- data flow ---------- */
 function setStatus(msg,err){var s=$('#status');s.textContent=msg;s.className='status'+(err?' err':'');}
@@ -736,9 +884,9 @@ function showStage(s,focus){stage=s;
   if(focus){try{window.scrollTo(0,0);}catch(e){}var h=$('#stage-'+s+' h1');if(h)try{h.focus({preventScroll:true});}catch(e){}}}
 
 // Check step: read the text with a column map and describe what was found.
-function analyse(text,name,idx){var tb=readTable(text);
-  if(tb.error)pending={text:text,name:name,tb:null,idx:{},res:tb};
-  else{idx=idx||autoMap(tb.hdr);pending={text:text,name:name,tb:tb,idx:idx,res:parseRows(tb,idx)};}
+function analyse(text,name,idx,unit){var tb=readTable(text);
+  if(tb.error)pending={text:text,name:name,tb:null,idx:{},unit:'min',res:tb};
+  else{idx=idx||autoMap(tb.hdr);unit=NUM_UNITS[unit]?unit:guessUnit(tb,idx);pending={text:text,name:name,tb:tb,idx:idx,unit:unit,res:parseRows(tb,idx,unit)};}
   drawCheck();return pending.res;}
 function spanOf(res){var per=[],mx=0;
   res.ev.forEach(function(e){var end=e.e!=null&&e.e>e.s?e.e:e.s;if(res.clock){var p=per[e.l]||(per[e.l]={a:Infinity,b:-Infinity});p.a=Math.min(p.a,e.s);p.b=Math.max(p.b,end);}else mx=Math.max(mx,end);});
@@ -753,6 +901,7 @@ function drawCheck(){var pd=pending,res=pd.res,tb=pd.tb,T=tokens(),ok=!res.error
     if(tb)tb.names.forEach(function(n,i){h+='<option value="'+i+'">'+esc(n||'Column '+(i+1))+'</option>';});
     sel.innerHTML=h;sel.value=String(pd.idx[k]>=0?pd.idx[k]:-1);sel.disabled=!tb;
     sel.parentNode.classList.toggle('miss',!!tb&&k!=='end'&&!(pd.idx[k]>=0));});
+  $('#map-unit').value=pd.unit||'min';$('#unit-row').hidden=!(ok&&res.nums>0);
   setStatus(ok?'Read '+plural(res.ev.length,'episode')+' from '+plural(res.learners.length,'learner')+', '+plural(res.behaviours.length,'behaviour')+'.':res.error,!ok);
   var roleOf={};ROLES.forEach(function(k){if(pd.idx[k]>=0)roleOf[pd.idx[k]]=k;});
   var pv='',badShown=0;
@@ -762,7 +911,7 @@ function drawCheck(){var pd=pending,res=pd.res,tb=pd.tb,T=tokens(),ok=!res.error
     pv+='</tbody>';}
   $('#preview').innerHTML=pv;
   $('#pv-note').textContent=tb?'Showing '+Math.min(8,tb.rows.length)+' of '+plural(tb.rows.length,'row')+'.'+(badShown?' Rows in red can’t be read.':''):'';
-  var tiles=ok?[[res.ev.length,'episodes read'+(res.skipped?' of '+res.rows:'')],[res.learners.length,'learners'],[res.behaviours.length,'behaviours'],[fmtMin(spanOf(res))+PR,res.clock?'longest session':'last minute in the log']]:[];
+  var tiles=ok?[[res.ev.length,'episodes read'+(res.skipped?' of '+res.rows:'')],[res.learners.length,'learners'],[res.behaviours.length,'behaviours'],[tp(spanOf(res),timeUnit(spanOf(res))),res.clock?'longest session':'last time in the log']]:[];
   $('#tiles').innerHTML=tiles.map(function(t){return '<div class="tile"><b>'+esc(t[0])+'</b><span>'+esc(t[1])+'</span></div>';}).join('')||'<p class="hint" style="margin:0">Choose the columns to see a summary.</p>';
   $('#chips').innerHTML=ok?res.behaviours.map(function(b,i){return '<span class="chip"><i style="background:'+T.pal[i%T.pal.length]+'"></i>'+esc(b)+' <span>'+res.counts[i]+'</span></span>';}).join(''):'';
   var W=[];
@@ -773,11 +922,12 @@ function drawCheck(){var pd=pending,res=pd.res,tb=pd.tb,T=tokens(),ok=!res.error
     if(res.neg)W.push(['warn',plural(res.neg,'episode')+' end'+(res.neg===1?'s':'')+' before '+(res.neg===1?'it starts':'they start')+'. '+(res.neg===1?'It':'They')+' will run until the learner’s next episode instead.']);
     if(res.behaviours.length>10)W.push(['warn',res.behaviours.length+' behaviours. Above 10 the circle gets crowded and colours repeat; consider grouping codes.']);
     if(!res.hasEnd)W.push(['info','No end column: each episode lasts until the learner’s next one starts, so each learner’s last episode counts as 0 minutes.']);
-    W.push(['info',res.clock?'Clock times found, so each learner will start at 0'+PR+'. You can change this under Settings → Time.':'Times are read as minutes from the start of the session.']);
+    if(res.nums)W.push(['info','Plain numbers in the time columns are read as '+UNIT_NAME[res.unit]+(res.unit==='s'||res.unit==='ms'?(res.clock?' (they look like Unix timestamps)':''):'')+'. Change this under Columns if that is wrong.']);
+    W.push(['info',res.clock?'Clock times or timestamps found, so each learner will start at zero. You can change this under Settings → Time.':'Times are read from the start of the session.']);
     if(W.every(function(w){return w[0]==='info';}))W.unshift(['ok','Every row could be read.']);}
   $('#warns').innerHTML=W.map(function(w){return '<li class="'+w[0]+'">'+ICON[w[0]]+'<span>'+esc(w[1])+'</span></li>';}).join('');}
 function mapFromUI(){var idx={};ROLES.forEach(function(k){idx[k]=+$('#map-'+k).value;});return idx;}
-function mapNames(){var m={};if(pending&&pending.tb)ROLES.forEach(function(k){if(pending.idx[k]>=0)m[k]=pending.tb.names[pending.idx[k]];});return m;}
+function mapNames(){var m={};if(pending&&pending.tb){ROLES.forEach(function(k){if(pending.idx[k]>=0)m[k]=pending.tb.names[pending.idx[k]];});m.unit=pending.unit;}return m;}
 function mapFromNames(text,m){if(!m||typeof m!=='object')return null;var tb=readTable(text);if(tb.error)return null;var idx={};
   ROLES.forEach(function(k){idx[k]=typeof m[k]==='string'?tb.names.indexOf(m[k]):-1;});return idx.learner>=0&&idx.behaviour>=0&&idx.start>=0?idx:null;}
 function loadText(text,name){startMsg('');$('#data').value=text;analyse(text,name,null);showStage('check',true);}
@@ -793,18 +943,18 @@ function build(fromUser){var text=$('#data').value;
   P=res;if(fromUser){S.align=P.clock;$('#s-align').checked=S.align;}
   selected=null;stopPlay();derive();view={t0:0,t1:D.L,frame:-1};buildFrames();
   $('#ds-name').textContent=pending.name;
-  $('#summary').textContent=P.ev.length+' episodes from '+plural(P.learners.length,'learner')+', '+plural(P.behaviours.length,'behaviour')+' · session 0'+PR+'–'+fmtMin(D.L)+PR+(P.skipped?' · '+plural(P.skipped,'row')+' skipped':'');
+  $('#summary').textContent=P.ev.length+' episodes from '+plural(P.learners.length,'learner')+', '+plural(P.behaviours.length,'behaviour')+' · session '+tr(0,D.L)+(P.skipped?' · '+plural(P.skipped,'row')+' skipped':'');
   if(text.length<1500000){store('tona-data',text);store('tona-name',pending.name);store('tona-map',mapNames());}
   showStage('explore',fromUser);return true;}
 function rederive(){if(!P)return;stopPlay();derive();var L=D.L;buildFrames();
-  if(view.frame===-1)view={t0:0,t1:L,frame:-1};else if(view.frame>=0){var n=Math.ceil(L/S.frame-1e-9);if(view.frame<n)view={t0:view.frame*S.frame,t1:Math.min((view.frame+1)*S.frame,L),frame:view.frame};else view={t0:0,t1:L,frame:-1};}
+  if(view.frame===-1)view={t0:0,t1:L,frame:-1};else if(view.frame>=0){var n=Math.ceil(L/D.fr-1e-9);if(view.frame<n)view={t0:view.frame*D.fr,t1:Math.min((view.frame+1)*D.fr,L),frame:view.frame};else view={t0:0,t1:L,frame:-1};}
   else{view.t1=Math.min(view.t1,L);view.t0=Math.min(view.t0,view.t1-1);if(view.t0<0)view.t0=0;}
   render();}
 
 function readSettingsUI(){S.window=+$('#s-window').value;S.thick=$('#s-thick').value;S.scope=$('#s-scope').value;S.minShare=+$('#s-min').value;S.loops=$('#s-loops').checked;S.merge=$('#s-merge').checked;S.align=$('#s-align').checked;
   var len=parseFloat($('#s-len').value);S.sessionLen=isFinite(len)&&len>0?len:0;S.slice=+$('#s-slice').value;S.frame=+$('#s-frame').value;S.theme=$('#s-theme').value;}
 function writeSettingsUI(){$('#s-window').value=String(S.window);$('#s-thick').value=S.thick;$('#s-scope').value=S.scope;$('#s-min').value=String(S.minShare);$('#s-loops').checked=S.loops;$('#s-merge').checked=S.merge;$('#s-align').checked=S.align;
-  $('#s-len').value=S.sessionLen>0?String(S.sessionLen):'';$('#s-slice').value=String(S.slice);$('#s-frame').value=String(S.frame);$('#s-theme').value=S.theme;}
+  $('#s-len').value=S.sessionLen>0?String(S.sessionLen):'';if(D)timeSelects();else{$('#s-slice').value=String(S.slice);$('#s-frame').value=String(S.frame);}$('#s-theme').value=S.theme;}
 function applyTheme(){var r=document.documentElement;if(S.theme==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',S.theme);}
 
 /* ---------- sample ---------- */
@@ -825,9 +975,9 @@ function svgString(withFont){var svg=$('#net').cloneNode(true);svg.setAttribute(
   var s=new XMLSerializer().serializeToString(svg);
   if(withFont)s=s.replace(/(<svg[^>]*>)/,'$1<style>@import url(\'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&amp;display=swap\');</style>');
   return '<?xml version="1.0" encoding="UTF-8"?>\n'+s;}
-function fname(ext){return 'temporal-ona-'+fmtMin(view.t0)+'-'+fmtMin(view.t1)+'min.'+ext;}
+function fname(ext){return 'temporal-ona-'+tnum(view.t0)+'-'+tnum(view.t1)+TU.k+'.'+ext;}
 var standalone=!(window.claude&&typeof window.claude.use==='function');
-function browserSave(filename,data){return new Promise(function(res,rej){try{var mime=/\.png$/.test(filename)?'image/png':/\.svg$/.test(filename)?'image/svg+xml;charset=utf-8':'text/csv;charset=utf-8';
+function browserSave(filename,data){return new Promise(function(res,rej){try{var mime=/\.png$/.test(filename)?'image/png':/\.svg$/.test(filename)?'image/svg+xml;charset=utf-8':/\.html$/.test(filename)?'text/html;charset=utf-8':'text/csv;charset=utf-8';
   var blob=data instanceof Blob?data:new Blob([data],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.rel='noopener';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},4000);res();}catch(e){rej({code:'browser_error'});}});}
 function saveFile(filename,data,btn){var saver=downloads?function(){return downloads.save({filename:filename,data:data});}:(standalone?function(){return browserSave(filename,data);}:null);if(!saver)return;var old=btn.textContent;btn.textContent='Saving…';
   saver().then(function(){btn.textContent='Saved';setTimeout(function(){btn.textContent=old;},1400);},function(err){btn.textContent=old;var code=err&&err.code;
@@ -839,13 +989,167 @@ function savePNG(btn){var str=svgString(false),vb=$('#net').getAttribute('viewBo
   img.onerror=function(){URL.revokeObjectURL(url);$('#exp-note').hidden=false;$('#exp-note').textContent='The PNG couldn\'t be drawn here. Save the SVG instead.';};
   img.src=url;}
 
+/* ---------- caption and copying ---------- */
+function copyText(t,okMsg){var fail='Copying isn’t allowed here. Select the text and copy it yourself.';
+  function fallback(){try{var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    var ok=typeof document.execCommand==='function'&&document.execCommand('copy');ta.remove();toast(ok?okMsg:fail);}catch(e){toast(fail);}}
+  if(navigator.clipboard&&typeof navigator.clipboard.writeText==='function')navigator.clipboard.writeText(t).then(function(){toast(okMsg);},fallback);else fallback();}
+// The reporting details a reader needs to interpret the figure (sample, window, link window, weights, alignment, merging, coverage).
+function caption(c){var avg=S.scope==='avg',w=Math.max(2,S.window|0),cap=(c.t1-c.t0)*(avg?1:c.n),coded=c.mins.reduce(function(a,b){return a+b;},0),
+  wt=(S.thick==='count'?'transitions':'time spent in B')+(avg?' per learner':' across the class');
+  return 'Temporal ordered network (ONA-inspired, descriptive) of coded episodes from '+plural(c.n,'learner')+', '+tr(c.t0,c.t1)+' of a session lasting '+tp(c.L)+(view.frame>=0?' (frame '+(view.frame+1)+' of '+Math.ceil(c.L/D.fr-1e-9)+')':'')+'. '+
+    'Disc area is proportional to the share of the window spent in each behaviour ('+(avg?'mean per learner':'class total')+'); the ring of bars around each disc shows the share of each '+td(c.sl)+' slice of the session spent in that behaviour, read clockwise from '+tp(0)+' at the top. '+
+    'An arrow A \u2192 B means B began within '+(w-1)+' action'+(w>2?'s':'')+' after A (moving window, w = '+w+'). '+
+    (S.edgeStyle==='swell'?'Each arrow doubles as a timeline of the window: it swells in proportion to the '+wt+' in each '+td(c.sl)+' slice, coloured from early (violet) to late (amber), and fainter arrows are weaker links. ':'Arrow width shows '+wt+' and colour shows the mean '+tword()+' of the link, from early (violet) to late (amber). ')+
+    'Learners '+(S.align?'are aligned to their own first event':'share one clock')+'; back-to-back repeats are '+(S.merge?'merged':'not merged')+'; '+(S.minShare>0?'links below '+Math.round(S.minShare*100)+'% of the strongest are hidden':'all links are shown')+'; self-loops are '+(S.loops?'shown':'hidden')+'. '+
+    'Coded behaviours cover '+fmt(coded/af())+' of '+ta(cap)+(avg?' per learner':'')+' in the window. No statistical tests are involved.';}
+
+/* ---------- AI reading ---------- */
+// Optional and off until the user asks. Only figureBrief() leaves the page: aggregated numbers behind the current
+// figure plus the fixed instructions in AI_SYS. Raw rows and learner IDs are never sent.
+var AI_PROV={
+  anthropic:{model:'claude-opus-5-5',models:['claude-opus-5-5','claude-sonnet-5-5','claude-haiku-4-5'],key:true},
+  openai:{url:'https://api.openai.com/v1',models:[],key:true},
+  local:{url:'http://localhost:11434/v1',models:['llama3.1','qwen2.5','gemma2','mistral'],key:false}};
+var AI_SYS=['You help learning-analytics researchers read one figure: a temporal ordered network made with the Temporal ONA builder from a coded episode log, for example self-regulated learning codes, collaboration moves or clickstream events, over a session of minutes, hours or days. You receive the numbers behind the figure, not the image, and possibly a short description of the data from the researcher.',
+  '',
+  'How the figure encodes the data:',
+  '- Disc area = share of the time window spent in a behaviour (mean per learner unless stated as a class total).',
+  '- Clock ring around each disc = one bar per slice of the whole session, the session start at the top, clockwise; a longer bar means more of that slice was spent in the behaviour.',
+  '- Arrow A → B = B started within the link window after A in a learner’s sequence of episodes (ONA-style moving window). The link’s time is when B started.',
+  '- Timeline arrows swell in the slices of the window where the link happened, coloured early (violet) to late (amber). Loops = a behaviour followed by itself.',
+  '- The tool is ONA-inspired and descriptive: no normalisation, dimensional reduction or statistical tests. Values are averages (or totals) and can hide very different learners.',
+  '',
+  'Write a short reading of about 250–400 words in Markdown, using these headings:',
+  '### What the figure shows — time spent, timing within the session, order, and how time and order combine. Quote the numbers you rely on.',
+  '### Worth a closer look — two or three patterns, each with at least one alternative explanation (coding scheme, task design, window or slice choice, uneven learners, a short or thin window).',
+  '### Cautions — data or settings that limit the reading, such as uncoded time, few episodes in the window, merged repeats, the link window size, or averages hiding heterogeneity.',
+  '### Checks to run next — concrete checks in this tool or elsewhere: other link windows or frames, per-learner views, and ONA or permutation tests before comparing groups.',
+  'If the researcher asks a question, answer it first under the heading ### Your question, within the same limits.',
+  '',
+  'Rules: describe what the figure shows; do not claim causes, effects on learning, statistical significance or predictions. Say “in this sample” and “on average” where it applies. If the data are too thin to say something, say so. Use the researcher’s description to name things sensibly, but do not invent facts about the study. Use British spelling and the same time units as the data.'].join('\n');
+var AI=null,aiKeys={},aiCtl=null,aiFor=null,aiRaw='';
+function aiDefaults(){return {prov:'anthropic',remember:false,ctx:'',anthropic:{model:AI_PROV.anthropic.model},openai:{url:AI_PROV.openai.url,model:''},local:{url:AI_PROV.local.url,model:''}};}
+function aiLoad(){AI=aiDefaults();aiKeys={};var s=load('tona-ai');
+  if(s&&typeof s==='object'){if(AI_PROV[s.prov])AI.prov=s.prov;AI.remember=s.remember===true;if(typeof s.ctx==='string')AI.ctx=s.ctx;
+    Object.keys(AI_PROV).forEach(function(p){var v=s[p];if(!v||typeof v!=='object')return;if(typeof v.model==='string')AI[p].model=v.model;if(p!=='anthropic'&&typeof v.url==='string'&&v.url)AI[p].url=v.url;});}
+  var k=load('tona-ai-key');if(AI.remember&&k&&typeof k==='object')Object.keys(AI_PROV).forEach(function(p){if(typeof k[p]==='string')aiKeys[p]=k[p];});}
+function aiSave(){store('tona-ai',AI);try{if(AI.remember)localStorage.setItem('tona-ai-key',JSON.stringify(aiKeys));else localStorage.removeItem('tona-ai-key');}catch(e){}}
+function aiEndpoint(){var p=AI.prov;return p==='anthropic'?'https://api.anthropic.com/v1/messages':String(AI[p].url||'').replace(/\/+$/,'')+'/chat/completions';}
+function aiHost(){try{return new URL(aiEndpoint()).host;}catch(e){return 'the endpoint you entered';}}
+function aiIsLocal(){return /^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(aiHost());}
+function aiSendTo(){$('#ai-sendto').innerHTML=ICON.info+'<span>'+(aiIsLocal()?'Sends the summary to '+esc(aiHost())+' on this computer, so nothing leaves your device.':'Sends the summary to <b>'+esc(aiHost())+'</b> when you press the button. That provider’s data policy applies.')+'</span>';}
+function aiWriteUI(){var p=AI.prov,d=AI_PROV[p];$('#ai-prov').value=p;$('#ai-url-row').hidden=p==='anthropic';$('#ai-url').value=p==='anthropic'?'':AI[p].url;
+  $('#ai-model').value=AI[p].model||'';$('#ai-model').placeholder=p==='anthropic'?d.model:p==='local'?'e.g. llama3.1 (see: ollama list)':'Model name from your provider';
+  $('#ai-models').innerHTML=d.models.map(function(m){return '<option value="'+esc(m)+'">';}).join('');
+  $('#ai-key-row').hidden=!d.key;$('#ai-remember-row').hidden=!d.key;$('#ai-key').value=aiKeys[p]||'';$('#ai-remember').checked=AI.remember;$('#ai-ctx').value=AI.ctx||'';
+  $('#ai-key-hint').textContent=p==='anthropic'?'From console.anthropic.com; sent only to Anthropic':'Leave blank if your endpoint needs none';aiSendTo();}
+function aiReadUI(){var p=AI.prov;AI[p].model=$('#ai-model').value.trim();if(p!=='anthropic')AI[p].url=$('#ai-url').value.trim();if(AI_PROV[p].key)aiKeys[p]=$('#ai-key').value.trim();AI.remember=$('#ai-remember').checked;AI.ctx=$('#ai-ctx').value.trim();}
+
+function viewName(c){return view.frame===-1?'whole session':(view.frame>=0?'frame '+(view.frame+1)+' of '+Math.ceil(c.L/D.fr-1e-9):'custom window');}
+function figureBrief(c){var avg=S.scope==='avg',u=avg?' per learner':' (class total)',cap=(c.t1-c.t0)*(avg?1:c.n),w=Math.max(2,S.window|0),o=[],eps=0,inWin=0;
+  D.seqs.forEach(function(q){eps+=q.length;q.forEach(function(x){if(x.s>=c.t0&&(x.s<c.t1||(c.t1>=c.L&&x.s<=c.t1)))inWin++;});});
+  function sl(k){return tr(k*c.sl,Math.min((k+1)*c.sl,c.L));}
+  var coded=c.mins.reduce(function(a,b){return a+b;},0),unitName={s:'seconds (s)',min:'minutes (\u2032 for points in the session, min for amounts)',h:'hours (h)',d:'days (d) for points in the session, hours (h) for amounts'}[TU.k];
+  o.push('FIGURE: temporal ordered network (ONA-inspired, descriptive) of a coded episode log.');
+  o.push('Time units: '+unitName+'.');
+  o.push('Data: '+plural(c.n,'learner')+', '+plural(eps,'episode')+', '+plural(c.B,'behaviour')+'; session length '+tp(c.L)+'.'+(D.filled?' '+plural(D.filled,'episode')+' had no usable end time and run until the learner\u2019s next episode.':''));
+  o.push('Window shown: '+tr(c.t0,c.t1)+' ('+viewName(c)+'); '+plural(inWin,'episode')+' start in it.');
+  o.push('Settings: link window w = '+w+' (B counts as following A when it starts within '+(w-1)+' action'+(w>2?'s':'')+' after A); arrow weight = '+(S.thick==='count'?'transitions':'time spent in B ('+au()+')')+u+'; '+(S.minShare>0?'links below '+Math.round(S.minShare*100)+'% of the strongest are hidden':'all links shown')+'; self-loops '+(S.loops?'shown':'hidden')+'; back-to-back repeats '+(S.merge?'merged':'not merged')+'; learners '+(S.align?'aligned to their own first event':'on one shared clock')+'; clock-ring slice '+lenLbl(c.sl)+'.');
+  o.push('Coverage: coded behaviours fill '+fmt(coded/af())+' of '+ta(cap)+u+' in the window ('+(coded>cap*1.001?'episodes overlap':ta(cap-coded)+' uncoded')+').');
+  o.push('','BEHAVIOURS: time in the window'+u+', % of the window, busiest slice in the window, then the time profile over the whole session (% of each '+td(c.sl)+' slice spent in the behaviour, mean per learner'+(c.NS>24?'; empty slices left out':'')+').');
+  P.behaviours.forEach(function(name,b){var prof=[];for(var k=0;k<c.NS;k++){var pc=Math.round(c.shr[b][k]*100);if(pc>0||c.NS<=24)prof.push(sl(k)+' '+pc+'%');}
+    o.push('- '+name+': '+ta(c.mins[b])+', '+(cap>0?Math.round(100*c.mins[b]/cap):0)+'% of the window, peak '+(peakSlice(c,b)||'none in this window')+'. Profile: '+(prof.join(', ')||'none')+'.');});
+  var es=c.shown.slice().sort(function(a,b){return b.w-a.w;}),MAX=30;
+  o.push('','LINKS drawn in the figure, strongest first ('+es.length+(c.edges.length>es.length?'; '+(c.edges.length-es.length)+' weaker links hidden':'')+'). Weight'+u+', average time when B started, then weight by '+td(c.sl)+' slice of the window (empty slices left out).');
+  es.slice(0,MAX).forEach(function(e){var bins=[];e.bins.forEach(function(v,i){if(v>0)bins.push(tr(c.t0+i*c.sl,Math.min(c.t1,c.t0+(i+1)*c.sl))+' '+fw(v));});
+    o.push('- '+P.behaviours[e.f]+' \u2192 '+(e.f===e.t?'itself':P.behaviours[e.t])+': '+fw(e.w)+', '+when(e.mean)+'. By slice: '+(bins.join(', ')||'none')+'.');});
+  if(es.length>MAX)o.push('- '+(es.length-MAX)+' weaker links not listed.');
+  if(!es.length)o.push('- None in this window.');
+  o.push('','Figure footer: '+insights(c).join(' '));
+  return o.join('\n');}
+function aiPayload(c,q){var ctx=$('#ai-ctx').value.trim();return figureBrief(c)+(ctx?'\n\nABOUT THE DATA (from the researcher): '+ctx:'')+(q?'\n\nQUESTION FROM THE RESEARCHER: '+q:'');}
+
+// Claude is called through the Messages API directly (no SDK: the page is one file with no build step and must work offline).
+function aiRequest(user){var p=AI.prov,key=aiKeys[p]||'',model=AI[p].model||(p==='anthropic'?AI_PROV.anthropic.model:'');
+  if(p==='anthropic'){var h={'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body={model:model,max_tokens:16000,stream:true,system:AI_SYS,messages:[{role:'user',content:user}]};
+    if(/^claude-(opus-5|sonnet-5|fable-5)/.test(model))body.output_config={effort:'medium'};
+    // If a safety classifier declines, the API retries on a fallback model inside the same call.
+    if(/^claude-(opus-5|sonnet-5-5|fable-5-1)/.test(model)){h['anthropic-beta']='server-side-fallback-2026-07-01';body.fallbacks='default';}
+    return {url:aiEndpoint(),model:model,init:{method:'POST',headers:h,body:JSON.stringify(body)}};}
+  var h2={'content-type':'application/json'};if(key)h2.authorization='Bearer '+key;
+  return {url:aiEndpoint(),model:model,init:{method:'POST',headers:h2,body:JSON.stringify({model:model,stream:true,messages:[{role:'system',content:AI_SYS},{role:'user',content:user}]})}};}
+// Reads a server-sent event stream from either API shape (Anthropic content_block_delta, or OpenAI-style choices[].delta).
+function aiStream(res,onText){var st={stop:null},buf='';
+  function handle(d){var j;try{j=JSON.parse(d);}catch(e){return;}
+    if(j.type==='error'||(j.error&&!j.choices))throw new Error((j.error&&(j.error.message||j.error))||'The provider returned an error.');
+    if(j.type==='content_block_delta'&&j.delta&&j.delta.type==='text_delta')onText(j.delta.text||'');
+    else if(j.type==='message_delta'&&j.delta&&j.delta.stop_reason)st.stop=j.delta.stop_reason;
+    else if(j.choices&&j.choices[0]){var ch=j.choices[0];if(ch.delta&&typeof ch.delta.content==='string')onText(ch.delta.content);if(ch.finish_reason)st.stop=ch.finish_reason==='length'?'max_tokens':ch.finish_reason;}}
+  function eat(chunk,final){buf+=chunk;var lines=buf.split(/\r?\n/);buf=final?'':lines.pop();lines.forEach(function(l){if(l.slice(0,5)==='data:'){var d=l.slice(5).trim();if(d&&d!=='[DONE]')handle(d);}});}
+  var ct=(res.headers&&typeof res.headers.get==='function'&&res.headers.get('content-type'))||'';
+  if(/json/.test(ct))return res.json().then(function(j){
+    if(j.content)j.content.forEach(function(b){if(b.type==='text')onText(b.text||'');});else if(j.choices&&j.choices[0]&&j.choices[0].message)onText(j.choices[0].message.content||'');
+    st.stop=j.stop_reason||(j.choices&&j.choices[0]&&j.choices[0].finish_reason==='length'?'max_tokens':null);return st;});
+  if(res.body&&typeof res.body.getReader==='function'&&typeof TextDecoder!=='undefined'){var rd=res.body.getReader(),dec=new TextDecoder();
+    return (function pump(){return rd.read().then(function(r){if(r.done){eat(dec.decode(),true);return st;}eat(dec.decode(r.value,{stream:true}),false);return pump();});})();}
+  return res.text().then(function(t){eat(t,true);return st;});}
+function aiHttpError(res){return res.text().then(function(t){var m='';try{var j=JSON.parse(t);m=(j.error&&(j.error.message||j.error))||j.message||'';}catch(e){m=String(t||'').slice(0,200);}
+  var s=res.status,hint=s===401||s===403?'The provider did not accept the API key.':s===404?'The endpoint or model name was not found.':s===429?'Rate or credit limit reached. Wait a moment or check your plan.':s>=500?'The provider is busy or unavailable. Try again shortly.':'The request was rejected.';
+  throw new Error(hint+(m?' ('+String(m).slice(0,240)+')':''));});}
+
+// Minimal Markdown for model output: the text is escaped first, so nothing it contains can become live HTML.
+function mdInline(s){return esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|[^*])\*([^*\s][^*]*)\*/g,'$1<i>$2</i>');}
+function mdHtml(src){var out=[],list=null,para=[];
+  function flushP(){if(para.length){out.push('<p>'+mdInline(para.join(' '))+'</p>');para=[];}}
+  function flushL(){if(list){out.push('<'+list.t+'>'+list.items.map(function(x){return '<li>'+mdInline(x)+'</li>';}).join('')+'</'+list.t+'>');list=null;}}
+  String(src).replace(/\r/g,'').split('\n').forEach(function(line){var m;
+    if(!line.trim()){flushP();flushL();return;}
+    if((m=line.match(/^\s*#{1,6}\s+(.*)$/))){flushP();flushL();out.push('<h4>'+mdInline(m[1].replace(/\s*#+\s*$/,''))+'</h4>');return;}
+    if((m=line.match(/^\s*[-*•]\s+(.*)$/))||(m=line.match(/^\s*\d+[.)]\s+(.*)$/))){flushP();var t=/^\s*\d/.test(line)?'ol':'ul';if(list&&list.t!==t)flushL();if(!list)list={t:t,items:[]};list.items.push(m[1]);return;}
+    if(list&&/^\s{2,}\S/.test(line)){list.items[list.items.length-1]+=' '+line.trim();return;}
+    flushL();para.push(line.trim());});
+  flushP();flushL();return out.join('');}
+
+function aiBusy(on){$('#ai-busy').hidden=!on;$('#ai-go').hidden=on;$('#ai-stop').hidden=!on;['#ai-prov','#ai-url','#ai-model','#ai-key'].forEach(function(s){$(s).disabled=on;});}
+function aiFail(msg){var e=$('#ai-err');e.textContent=msg;e.hidden=!msg;}
+function aiPeek(){if(lastC&&$('#ai-peek').open)$('#ai-preview').textContent='INSTRUCTIONS (sent as the system prompt):\n'+AI_SYS+'\n\nDATA (sent as the message):\n'+aiPayload(lastC,$('#ai-q').value.trim());}
+function aiAfterRender(c){aiPeek();if(aiFor!=null&&!$('#ai-out').hidden)$('#ai-stale').hidden=figureBrief(c)===aiFor;}
+function aiRun(){if(!lastC||!P)return;aiReadUI();aiSave();aiFail('');var p=AI.prov;
+  if(p==='anthropic'&&!aiKeys[p]){aiFail('Paste your Anthropic API key first. You can create one at console.anthropic.com.');return;}
+  if(p!=='anthropic'&&!/^https?:\/\/\S+$/.test(AI[p].url)){aiFail('Enter an endpoint that starts with http:// or https://.');return;}
+  if(p!=='anthropic'&&!AI[p].model){aiFail(p==='local'?'Enter the name of a model you have installed (run “ollama list” to see them).':'Enter the model name your provider uses.');return;}
+  if(typeof window.fetch!=='function'){aiFail('This browser can’t send requests from the page. Try a current version of Chrome, Edge, Firefox or Safari.');return;}
+  var brief=figureBrief(lastC),req=aiRequest(aiPayload(lastC,$('#ai-q').value.trim())),host=aiHost(),local=aiIsLocal(),c=lastC;
+  aiCtl=typeof AbortController==='function'?new AbortController():null;if(aiCtl)req.init.signal=aiCtl.signal;
+  aiRaw='';aiFor=brief;$('#ai-text').innerHTML='';$('#ai-stale').hidden=true;$('#ai-out').hidden=true;
+  $('#ai-meta').textContent='Draft reading by '+req.model+(local?' (on this computer)':' via '+host)+' for '+tr(c.t0,c.t1)+', '+viewName(c)+'. Check every claim against the figure.';
+  aiBusy(true);var reached=false;
+  window.fetch(req.url,req.init).then(function(res){reached=true;if(!res.ok)return aiHttpError(res);
+      return aiStream(res,function(t){aiRaw+=t;$('#ai-out').hidden=false;$('#ai-text').innerHTML=mdHtml(aiRaw);});})
+    .then(function(st){aiBusy(false);aiCtl=null;
+      if(st&&st.stop==='refusal'){aiFail('The model declined this request. Try another model or rephrase your question.');if(!aiRaw.trim())$('#ai-out').hidden=true;return;}
+      if(!aiRaw.trim()){aiFail('The model returned no text. Try again or choose another model.');return;}
+      $('#ai-out').hidden=false;$('#ai-text').innerHTML=mdHtml(aiRaw);if(st&&st.stop==='max_tokens')aiFail('The reading was cut off at the model’s length limit.');})
+    .catch(function(e){aiBusy(false);aiCtl=null;if(!aiRaw.trim())$('#ai-out').hidden=true;
+      if(e&&e.name==='AbortError'){toast('Stopped.');return;}
+      aiFail(!reached&&e instanceof TypeError?(local?'Couldn’t reach '+host+'. Check that the model server is running and accepts requests from this page (for Ollama, set OLLAMA_ORIGINS; see the README).':'Couldn’t reach '+host+'. Check your connection and the endpoint, and that the provider accepts requests from a browser.'):(e&&e.message)||'Something went wrong.');});}
+
+/* ---------- side panel tabs and About ---------- */
+function showTab(k,focus){var found=false;
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs [data-tab]'),function(b){var on=b.dataset.tab===k;if(on)found=true;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;$('#'+b.getAttribute('aria-controls')).hidden=!on;if(on&&focus)b.focus();});
+  if(!found)return showTab('guide',focus);store('tona-tab',k);if(k==='ai')aiPeek();}
+function openAbout(){var d=$('#about');if(typeof d.showModal==='function'){if(!d.open)d.showModal();}else d.setAttribute('open','');}
+function closeAbout(){var d=$('#about');if(typeof d.close==='function'&&d.open)d.close();else d.removeAttribute('open');}
+
 /* ---------- wiring ---------- */
 function init(){
-  var saved=load('tona-settings-v2');if(saved&&typeof saved==='object')Object.keys(DEF).forEach(function(k){if(k in saved&&typeof saved[k]===typeof DEF[k])S[k]=saved[k];});
+  var saved=load('tona-settings-v3');if(!saved){saved=load('tona-settings-v2');if(saved&&typeof saved==='object'){delete saved.slice;delete saved.frame;}}if(saved&&typeof saved==='object')Object.keys(DEF).forEach(function(k){if(k in saved&&typeof saved[k]===typeof DEF[k])S[k]=saved[k];});
   applyTheme();writeSettingsUI();
   // Returning visitors land on their last figure; first-time visitors see the upload step.
   var text=load('tona-data');
-  if(typeof text==='string'&&text.trim()){var nm=load('tona-name');$('#data').value=text;analyse(text,typeof nm==='string'&&nm?nm:'Saved log',mapFromNames(text,load('tona-map')));
+  if(typeof text==='string'&&text.trim()){var nm=load('tona-name');$('#data').value=text;var mp=load('tona-map');analyse(text,typeof nm==='string'&&nm?nm:'Saved log',mapFromNames(text,mp),mp&&typeof mp.unit==='string'?mp.unit:null);
     if(!build(false))showStage('check');}
   else showStage('start');
 
@@ -866,7 +1170,8 @@ function init(){
   $('#sample').addEventListener('click',function(){var t=sampleCSV();startMsg('');$('#data').value=t;analyse(t,SAMPLE_NAME,null);build(true);});
 
   // Step 2: column map and build
-  ROLES.forEach(function(k){$('#map-'+k).addEventListener('change',function(){if(pending&&pending.tb)analyse(pending.text,pending.name,mapFromUI());});});
+  ROLES.forEach(function(k){$('#map-'+k).addEventListener('change',function(){if(pending&&pending.tb)analyse(pending.text,pending.name,mapFromUI(),pending.unit);});});
+  $('#map-unit').addEventListener('change',function(){if(pending&&pending.tb)analyse(pending.text,pending.name,pending.idx,this.value);});
   $('#build').addEventListener('click',function(){build(true);});
   $('#build-2').addEventListener('click',function(){build(true);});
   $('#back').addEventListener('click',function(){showStage('start',true);});
@@ -879,17 +1184,17 @@ function init(){
 
   // Step 3: settings and figure
   var derivers={'s-window':1,'s-merge':1,'s-align':1,'s-len':1,'s-slice':1,'s-frame':1};
-  Array.prototype.forEach.call(document.querySelectorAll('[id^="s-"]'),function(el){el.addEventListener('change',function(){readSettingsUI();store('tona-settings-v2',S);
+  Array.prototype.forEach.call(document.querySelectorAll('[id^="s-"]'),function(el){el.addEventListener('change',function(){readSettingsUI();store('tona-settings-v3',S);
     if(el.id==='s-theme'){applyTheme();render();if(pending)drawCheck();return;}if(derivers[el.id])rederive();else render();});});
-  document.querySelector('.arrows').addEventListener('click',function(e){var b=e.target.closest('[data-e]');if(!b)return;S.edgeStyle=b.dataset.e;store('tona-settings-v2',S);render();});
+  document.querySelector('.arrows').addEventListener('click',function(e){var b=e.target.closest('[data-e]');if(!b)return;S.edgeStyle=b.dataset.e;store('tona-settings-v3',S);render();});
   $('#frames').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!D)return;if(b.id==='play'){togglePlay();return;}stopPlay();setFrame(+b.dataset.f);});
   function onRange(which){if(!D)return;stopPlay();var a=+$('#r0').value,b=+$('#r1').value,step=+$('#r0').step||1;
     if(which===0&&a>b-step){a=b-step;$('#r0').value=String(a);}if(which===1&&b<a+step){b=a+step;$('#r1').value=String(b);}
     view={t0:Math.max(0,a),t1:Math.min(D.L,b),frame:(a===0&&b>=D.L)?-1:-2};render();}
   $('#r0').addEventListener('input',function(){onRange(0);});$('#r1').addEventListener('input',function(){onRange(1);});
   var net=$('#net');
-  // Clicking a disc highlights its links (and shows its details); clicking it again, or the background, shows all.
-  function toggleFocus(b){selected=(b==null||selected===b)?null:b;render();}
+  // Clicking a disc highlights its links and opens its details; clicking it again, or the background, shows all.
+  function toggleFocus(b){selected=(b==null||selected===b)?null:b;if(selected!=null)showTab('det');render();}
   net.addEventListener('click',function(e){var g=e.target.closest('[data-b]');toggleFocus(g?+g.dataset.b:null);});
   net.addEventListener('keydown',function(e){if(e.key==='Escape'){toggleFocus(null);return;}if(e.key!=='Enter'&&e.key!==' ')return;var g=e.target.closest('[data-b]');if(!g)return;e.preventDefault();var b=+g.dataset.b;toggleFocus(b);
     setTimeout(function(){var n=document.querySelector('#net [data-b="'+b+'"]');if(n)n.focus();},40);});
@@ -900,9 +1205,38 @@ function init(){
   $('#dl-png').addEventListener('click',function(){savePNG(this);});
   $('#dl-csv').addEventListener('click',function(){saveFile('sample-srl-log.csv',sampleCSV(),this);});
   $('#dl-template').addEventListener('click',function(){saveFile('temporal-ona-template.csv',TEMPLATE,this);});
-  $('#clear').addEventListener('click',function(){try{['tona-data','tona-name','tona-map','tona-settings-v2'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
-    stopPlay();S=Object.assign({},DEF);applyTheme();writeSettingsUI();P=null;D=null;pending=null;selected=null;$('#data').value='';
+  $('#clear').addEventListener('click',function(){try{['tona-data','tona-name','tona-map','tona-settings-v2','tona-settings-v3','tona-ai','tona-ai-key','tona-tab'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+    stopPlay();if(aiCtl)aiCtl.abort();S=Object.assign({},DEF);applyTheme();writeSettingsUI();P=null;D=null;pending=null;selected=null;lastC=null;$('#data').value='';
+    aiLoad();aiWriteUI();aiFor=null;$('#ai-out').hidden=true;$('#ai-q').value='';aiFail('');closeAbout();
     showStage('start',true);toast('Saved data cleared from this browser.');});
+  ['#dl-tool','#dl-tool-2','#dl-tool-3'].forEach(function(s){$(s).addEventListener('click',function(){if(SELF)saveFile('temporal-ona-builder.html',SELF,this);});});
+  $('#copy-cap').addEventListener('click',function(){if(lastC)copyText(caption(lastC),'Caption copied. Paste it under the figure.');});
+
+  // Side panel tabs (arrow keys move between them) and the About dialog
+  var tabs=document.querySelector('.tabs');
+  tabs.addEventListener('click',function(e){var b=e.target.closest('[data-tab]');if(b)showTab(b.dataset.tab);});
+  tabs.addEventListener('keydown',function(e){var ks=['ArrowLeft','ArrowRight','Home','End'];if(ks.indexOf(e.key)<0)return;e.preventDefault();
+    var all=Array.prototype.slice.call(tabs.querySelectorAll('[data-tab]')),i=all.indexOf(document.activeElement),n=all.length;
+    i=e.key==='Home'?0:e.key==='End'?n-1:(i+(e.key==='ArrowRight'?1:-1)+n)%n;showTab(all[i].dataset.tab,true);});
+  var tb=load('tona-tab');showTab(typeof tb==='string'?tb:'guide');
+  $('#about-btn').addEventListener('click',openAbout);$('#about-x').addEventListener('click',closeAbout);
+  $('#about').addEventListener('click',function(e){if(e.target===this)closeAbout();});
+
+  // AI reading
+  aiLoad();aiWriteUI();
+  $('#ai-prov').addEventListener('change',function(){aiReadUI();AI.prov=this.value;aiWriteUI();aiSave();});
+  ['#ai-url','#ai-model'].forEach(function(s){$(s).addEventListener('change',function(){aiReadUI();aiSave();aiSendTo();});});
+  $('#ai-url').addEventListener('input',function(){AI[AI.prov].url=this.value.trim();aiSendTo();});
+  $('#ai-key').addEventListener('change',function(){aiReadUI();aiSave();});
+  $('#ai-remember').addEventListener('change',function(){aiReadUI();aiSave();toast(AI.remember?'The key will be remembered in this browser.':'The key is no longer stored.');});
+  $('#ai-q').addEventListener('input',aiPeek);
+  $('#ai-ctx').addEventListener('input',aiPeek);
+  $('#ai-ctx').addEventListener('change',function(){aiReadUI();aiSave();});
+  $('#ai-q').addEventListener('keydown',function(e){if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();aiRun();}});
+  $('#ai-peek').addEventListener('toggle',aiPeek);
+  $('#ai-go').addEventListener('click',aiRun);
+  $('#ai-stop').addEventListener('click',function(){if(aiCtl)aiCtl.abort();});
+  $('#ai-copy').addEventListener('click',function(){if(aiRaw)copyText(aiRaw+'\n\n('+$('#ai-meta').textContent+')','Reading copied.');});
   var note=$('#exp-note');
   function saveReady(){$('#exp-btns').hidden=false;note.hidden=true;Array.prototype.forEach.call(document.querySelectorAll('[data-save]'),function(n){n.hidden=false;});}
   var noSave='Saving files isn\'t available in this view. Open the page in Claude to save a PNG or SVG.';
