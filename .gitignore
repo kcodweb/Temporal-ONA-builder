@@ -1,3 +1,12 @@
 node_modules/
-figures/
+/figures/
 .DS_Store
+# CoAuthor's own licence is not stated, so the derived files stay local; the converter rebuilds them.
+test-data/coauthor/*.csv
+test-data/coauthor/figures/
+# PyGuru is student data shared for the paper: keep it and everything derived from it local.
+test-data/pyguru/*
+!test-data/pyguru/convert_pyguru.py
+# The paper under blind review (drafts and the submission) must not appear in a public repo before the decision.
+docs/paper/
+__pycache__/

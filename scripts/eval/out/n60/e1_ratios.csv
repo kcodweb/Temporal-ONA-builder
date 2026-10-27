@@ -1,0 +1,41 @@
+case,title,view,channel,largest_element_ratio,element
+a,"Same order, different timing",Raincloud plots,raincloud,4.41,Help
+a,"Same order, different timing",Transition network (TNA),tna,1.23,Read>Help
+a,"Same order, different timing",Frequency-sized ordered network,ona_nodes,1.08,Help
+a,"Same order, different timing",Frequency-sized ordered network,ona_edges,1.32,Read>Help
+a,"Same order, different timing",Integrated temporal network,share,1.17,Help
+a,"Same order, different timing",Integrated temporal network,clock,3.87,Help
+a,"Same order, different timing",Integrated temporal network,links,1.32,Read>Help
+a,"Same order, different timing",Integrated temporal network,link_time,2.83,Help>Code
+b,"Same timing, different order",Raincloud plots,raincloud,1.05,Read
+b,"Same timing, different order",Transition network (TNA),tna,100.77,Code>Debug
+b,"Same timing, different order",Frequency-sized ordered network,ona_nodes,1.08,Debug
+b,"Same timing, different order",Frequency-sized ordered network,ona_edges,63.38,Debug>Code
+b,"Same timing, different order",Integrated temporal network,share,1.08,Read
+b,"Same timing, different order",Integrated temporal network,clock,1.05,Help
+b,"Same timing, different order",Integrated temporal network,links,63.38,Debug>Code
+b,"Same timing, different order",Integrated temporal network,link_time,11.75,Code>Debug
+c,"Same counts, different durations",Raincloud plots,raincloud,1.09,Debug
+c,"Same counts, different durations",Transition network (TNA),tna,1.12,Read>Code
+c,"Same counts, different durations",Frequency-sized ordered network,ona_nodes,1.38,Debug
+c,"Same counts, different durations",Frequency-sized ordered network,ona_edges,1.16,Code>Debug
+c,"Same counts, different durations",Integrated temporal network,share,30.67,Debug
+c,"Same counts, different durations",Integrated temporal network,clock,7.08,Debug
+c,"Same counts, different durations",Integrated temporal network,links,1.16,Code>Debug
+c,"Same counts, different durations",Integrated temporal network,link_time,1.15,Code>Read
+d,"Same transition, different moments",Raincloud plots,raincloud,1.07,Debug
+d,"Same transition, different moments",Transition network (TNA),tna,1.09,Debug>Plan
+d,"Same transition, different moments",Frequency-sized ordered network,ona_nodes,1.09,Debug
+d,"Same transition, different moments",Frequency-sized ordered network,ona_edges,1.17,Debug>Code
+d,"Same transition, different moments",Integrated temporal network,share,1.17,Debug
+d,"Same transition, different moments",Integrated temporal network,clock,1.08,Debug
+d,"Same transition, different moments",Integrated temporal network,links,1.17,Debug>Code
+d,"Same transition, different moments",Integrated temporal network,link_time,3.97,Debug>Help
+e,Negative control (no difference),Raincloud plots,raincloud,1.03,Help
+e,Negative control (no difference),Transition network (TNA),tna,1.12,Plan>Code
+e,Negative control (no difference),Frequency-sized ordered network,ona_nodes,1.09,Plan
+e,Negative control (no difference),Frequency-sized ordered network,ona_edges,1.25,Plan>Code
+e,Negative control (no difference),Integrated temporal network,share,1.08,Code
+e,Negative control (no difference),Integrated temporal network,clock,1.04,Help
+e,Negative control (no difference),Integrated temporal network,links,1.25,Plan>Code
+e,Negative control (no difference),Integrated temporal network,link_time,1.09,Read>Help

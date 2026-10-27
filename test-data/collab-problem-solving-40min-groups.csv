@@ -1,0 +1,1328 @@
+student_id,code,start_time,end_time,group
+G1-01,Propose idea,14:00:02,14:00:23,Driver
+G1-01,Agree,14:00:35,14:00:41,Driver
+G1-01,Propose idea,14:00:58,14:01:45,Driver
+G1-01,Propose idea,14:02:03,14:02:33,Driver
+G1-01,Agree,14:02:33,14:02:46,Driver
+G1-01,Propose idea,14:02:46,14:03:36,Driver
+G1-01,Propose idea,14:03:46,14:04:24,Driver
+G1-01,Ask question,14:04:45,14:05:05,Driver
+G1-01,Explain,14:05:27,14:06:50,Driver
+G1-01,Propose idea,14:06:50,14:07:29,Driver
+G1-01,Propose idea,14:07:29,14:08:29,Driver
+G1-01,Explain,14:08:29,14:09:44,Driver
+G1-01,Explain,14:09:49,14:10:56,Driver
+G1-01,Explain,14:10:56,14:11:30,Driver
+G1-01,Ask question,14:11:34,14:11:52,Driver
+G1-01,Ask question,14:11:52,14:12:01,Driver
+G1-01,Explain,14:12:01,14:12:51,Driver
+G1-01,Explain,14:12:55,14:14:03,Driver
+G1-01,Explain,14:14:03,14:15:22,Driver
+G1-01,Agree,14:15:22,14:15:31,Driver
+G1-01,Ask question,14:15:44,14:15:53,Driver
+G1-01,Explain,14:15:53,14:17:01,Driver
+G1-01,Propose idea,14:17:01,14:17:36,Driver
+G1-01,Explain,14:17:36,14:18:53,Driver
+G1-01,Disagree,14:19:05,14:19:24,Driver
+G1-01,Summarise,14:19:24,14:20:26,Driver
+G1-01,Agree,14:20:26,14:20:33,Driver
+G1-01,Explain,14:20:33,14:21:42,Driver
+G1-01,Disagree,14:21:42,14:22:02,Driver
+G1-01,Explain,14:22:02,14:23:23,Driver
+G1-01,Propose idea,14:23:39,14:24:14,Driver
+G1-01,Explain,14:24:14,14:24:59,Driver
+G1-01,Agree,14:25:08,14:25:14,Driver
+G1-01,Explain,14:25:19,14:26:35,Driver
+G1-01,Explain,14:26:46,14:27:35,Driver
+G1-01,Explain,14:27:35,14:28:13,Driver
+G1-01,Explain,14:28:37,14:29:11,Driver
+G1-01,Agree,14:29:22,14:29:34,Driver
+G1-01,Summarise,14:29:50,14:31:04,Driver
+G1-01,Explain,14:31:04,14:32:26,Driver
+G1-01,Explain,14:32:26,14:33:30,Driver
+G1-01,Agree,14:33:30,14:33:37,Driver
+G1-01,Ask question,14:33:37,14:33:53,Driver
+G1-01,Ask question,14:33:53,14:34:04,Driver
+G1-01,Summarise,14:34:20,14:35:13,Driver
+G1-01,Explain,14:35:13,14:36:39,Driver
+G1-01,Agree,14:36:39,14:36:45,Driver
+G1-01,Summarise,14:36:45,14:37:23,Driver
+G1-01,Agree,14:37:23,14:37:29,Driver
+G1-01,Summarise,14:37:29,14:38:12,Driver
+G1-01,Propose idea,14:38:12,14:39:11,Driver
+G1-01,Agree,14:39:11,14:39:16,Driver
+G1-01,Summarise,14:39:35,14:40:00,Driver
+G1-02,Propose idea,14:00:01,14:00:37,Driver
+G1-02,Propose idea,14:00:52,14:01:23,Driver
+G1-02,Agree,14:01:23,14:01:34,Driver
+G1-02,Propose idea,14:01:51,14:02:17,Driver
+G1-02,Explain,14:02:17,14:03:41,Driver
+G1-02,Propose idea,14:04:04,14:04:50,Driver
+G1-02,Ask question,14:04:50,14:05:09,Driver
+G1-02,Explain,14:05:09,14:05:54,Driver
+G1-02,Ask question,14:06:08,14:06:19,Driver
+G1-02,Explain,14:06:19,14:07:40,Driver
+G1-02,Ask question,14:07:40,14:07:54,Driver
+G1-02,Propose idea,14:08:02,14:08:40,Driver
+G1-02,Ask question,14:08:59,14:09:16,Driver
+G1-02,Propose idea,14:09:16,14:09:52,Driver
+G1-02,Propose idea,14:09:52,14:10:27,Driver
+G1-02,Explain,14:10:27,14:10:59,Driver
+G1-02,Explain,14:10:59,14:11:56,Driver
+G1-02,Propose idea,14:11:56,14:12:46,Driver
+G1-02,Propose idea,14:12:46,14:13:09,Driver
+G1-02,Explain,14:13:09,14:14:17,Driver
+G1-02,Explain,14:14:17,14:15:35,Driver
+G1-02,Ask question,14:15:35,14:15:50,Driver
+G1-02,Explain,14:15:50,14:16:46,Driver
+G1-02,Agree,14:16:46,14:16:59,Driver
+G1-02,Propose idea,14:16:59,14:17:25,Driver
+G1-02,Explain,14:17:25,14:18:00,Driver
+G1-02,Explain,14:18:00,14:19:24,Driver
+G1-02,Explain,14:19:24,14:20:20,Driver
+G1-02,Propose idea,14:20:20,14:20:44,Driver
+G1-02,Explain,14:20:44,14:21:29,Driver
+G1-02,Propose idea,14:21:29,14:22:12,Driver
+G1-02,Explain,14:22:28,14:23:58,Driver
+G1-02,Agree,14:24:12,14:24:24,Driver
+G1-02,Disagree,14:24:24,14:24:43,Driver
+G1-02,Explain,14:24:43,14:26:08,Driver
+G1-02,Explain,14:26:08,14:27:31,Driver
+G1-02,Explain,14:27:31,14:28:58,Driver
+G1-02,Agree,14:28:58,14:29:08,Driver
+G1-02,Summarise,14:29:08,14:30:18,Driver
+G1-02,Summarise,14:30:18,14:31:24,Driver
+G1-02,Explain,14:31:24,14:32:29,Driver
+G1-02,Agree,14:32:29,14:32:39,Driver
+G1-02,Disagree,14:32:39,14:33:08,Driver
+G1-02,Explain,14:33:08,14:34:16,Driver
+G1-02,Off-task,14:34:16,14:36:44,Driver
+G1-02,Summarise,14:37:01,14:38:10,Driver
+G1-02,Disagree,14:38:10,14:38:34,Driver
+G1-02,Explain,14:38:34,14:39:41,Driver
+G1-02,Summarise,14:39:55,14:40:00,Driver
+G1-03,Propose idea,14:00:08,14:00:50,Driver
+G1-03,Summarise,14:00:50,14:01:43,Driver
+G1-03,Propose idea,14:01:43,14:02:35,Driver
+G1-03,Propose idea,14:02:43,14:03:06,Driver
+G1-03,Propose idea,14:03:06,14:03:39,Driver
+G1-03,Agree,14:03:39,14:03:48,Driver
+G1-03,Propose idea,14:03:48,14:04:21,Driver
+G1-03,Explain,14:04:21,14:05:30,Driver
+G1-03,Agree,14:05:30,14:05:42,Driver
+G1-03,Propose idea,14:05:42,14:06:03,Driver
+G1-03,Explain,14:06:03,14:07:13,Driver
+G1-03,Propose idea,14:07:31,14:08:02,Driver
+G1-03,Explain,14:08:13,14:09:01,Driver
+G1-03,Ask question,14:09:05,14:09:23,Driver
+G1-03,Propose idea,14:09:42,14:10:05,Driver
+G1-03,Disagree,14:10:05,14:10:18,Driver
+G1-03,Explain,14:10:18,14:11:07,Driver
+G1-03,Explain,14:11:07,14:12:27,Driver
+G1-03,Agree,14:12:27,14:12:33,Driver
+G1-03,Explain,14:12:33,14:13:57,Driver
+G1-03,Ask question,14:13:57,14:14:09,Driver
+G1-03,Explain,14:14:09,14:15:03,Driver
+G1-03,Agree,14:15:03,14:15:09,Driver
+G1-03,Explain,14:15:26,14:16:21,Driver
+G1-03,Disagree,14:16:21,14:16:41,Driver
+G1-03,Explain,14:16:41,14:17:13,Driver
+G1-03,Disagree,14:17:17,14:17:47,Driver
+G1-03,Explain,14:17:47,14:18:28,Driver
+G1-03,Propose idea,14:18:28,14:19:09,Driver
+G1-03,Explain,14:19:09,14:19:44,Driver
+G1-03,Explain,14:20:04,14:20:55,Driver
+G1-03,Explain,14:20:55,14:21:44,Driver
+G1-03,Off-task,14:21:55,14:24:05,Driver
+G1-03,Agree,14:24:18,14:24:27,Driver
+G1-03,Explain,14:24:49,14:25:33,Driver
+G1-03,Agree,14:25:45,14:26:00,Driver
+G1-03,Ask question,14:26:00,14:26:20,Driver
+G1-03,Explain,14:26:20,14:27:08,Driver
+G1-03,Propose idea,14:27:21,14:28:11,Driver
+G1-03,Agree,14:28:24,14:28:31,Driver
+G1-03,Explain,14:28:52,14:30:01,Driver
+G1-03,Summarise,14:30:01,14:30:45,Driver
+G1-03,Explain,14:30:45,14:31:38,Driver
+G1-03,Agree,14:31:38,14:31:46,Driver
+G1-03,Summarise,14:31:46,14:32:45,Driver
+G1-03,Disagree,14:32:45,14:33:06,Driver
+G1-03,Disagree,14:33:10,14:33:32,Driver
+G1-03,Agree,14:33:32,14:33:38,Driver
+G1-03,Summarise,14:33:53,14:34:31,Driver
+G1-03,Explain,14:34:31,14:35:26,Driver
+G1-03,Agree,14:35:33,14:35:41,Driver
+G1-03,Summarise,14:35:41,14:36:29,Driver
+G1-03,Explain,14:36:29,14:37:23,Driver
+G1-03,Summarise,14:37:23,14:38:23,Driver
+G1-03,Summarise,14:38:23,14:39:34,Driver
+G1-03,Agree,14:39:34,14:39:47,Driver
+G1-03,Explain,14:39:47,14:40:00,Driver
+G1-04,Propose idea,14:00:19,14:00:47,Driver
+G1-04,Propose idea,14:00:59,14:01:35,Driver
+G1-04,Propose idea,14:01:52,14:02:20,Driver
+G1-04,Propose idea,14:02:20,14:03:07,Driver
+G1-04,Ask question,14:03:27,14:03:37,Driver
+G1-04,Propose idea,14:03:37,14:04:23,Driver
+G1-04,Ask question,14:04:23,14:04:46,Driver
+G1-04,Explain,14:05:02,14:05:46,Driver
+G1-04,Propose idea,14:05:46,14:06:07,Driver
+G1-04,Propose idea,14:06:23,14:06:53,Driver
+G1-04,Propose idea,14:06:53,14:07:42,Driver
+G1-04,Explain,14:07:54,14:08:34,Driver
+G1-04,Propose idea,14:08:34,14:09:01,Driver
+G1-04,Ask question,14:09:01,14:09:10,Driver
+G1-04,Propose idea,14:09:10,14:09:47,Driver
+G1-04,Propose idea,14:09:47,14:10:36,Driver
+G1-04,Explain,14:10:51,14:11:55,Driver
+G1-04,Explain,14:12:07,14:12:48,Driver
+G1-04,Summarise,14:12:48,14:13:56,Driver
+G1-04,Ask question,14:14:17,14:14:37,Driver
+G1-04,Explain,14:14:44,14:15:54,Driver
+G1-04,Propose idea,14:15:54,14:16:16,Driver
+G1-04,Explain,14:16:16,14:17:27,Driver
+G1-04,Propose idea,14:17:50,14:18:11,Driver
+G1-04,Explain,14:18:26,14:19:43,Driver
+G1-04,Ask question,14:19:43,14:20:08,Driver
+G1-04,Explain,14:20:23,14:21:15,Driver
+G1-04,Explain,14:21:15,14:21:45,Driver
+G1-04,Explain,14:21:45,14:22:37,Driver
+G1-04,Propose idea,14:22:37,14:23:19,Driver
+G1-04,Explain,14:23:19,14:23:59,Driver
+G1-04,Explain,14:24:20,14:25:43,Driver
+G1-04,Disagree,14:25:55,14:26:07,Driver
+G1-04,Explain,14:26:07,14:26:54,Driver
+G1-04,Ask question,14:26:54,14:27:06,Driver
+G1-04,Ask question,14:27:06,14:27:22,Driver
+G1-04,Ask question,14:27:41,14:27:50,Driver
+G1-04,Summarise,14:28:11,14:28:48,Driver
+G1-04,Propose idea,14:28:48,14:29:21,Driver
+G1-04,Agree,14:29:21,14:29:32,Driver
+G1-04,Summarise,14:29:32,14:30:11,Driver
+G1-04,Explain,14:30:11,14:31:36,Driver
+G1-04,Agree,14:31:36,14:31:41,Driver
+G1-04,Summarise,14:31:54,14:32:34,Driver
+G1-04,Explain,14:32:43,14:33:32,Driver
+G1-04,Agree,14:33:32,14:33:42,Driver
+G1-04,Summarise,14:33:56,14:35:02,Driver
+G1-04,Ask question,14:35:02,14:35:25,Driver
+G1-04,Propose idea,14:35:25,14:36:24,Driver
+G1-04,Explain,14:36:24,14:37:40,Driver
+G1-04,Disagree,14:37:52,14:38:05,Driver
+G1-04,Agree,14:38:05,14:38:14,Driver
+G1-04,Agree,14:38:14,14:38:21,Driver
+G1-04,Summarise,14:38:28,14:39:02,Driver
+G1-04,Summarise,14:39:13,14:39:59,Driver
+G1-05,Propose idea,14:00:18,14:00:47,Driver
+G1-05,Agree,14:01:07,14:01:16,Driver
+G1-05,Propose idea,14:01:23,14:01:51,Driver
+G1-05,Agree,14:01:51,14:02:00,Driver
+G1-05,Explain,14:02:00,14:03:17,Driver
+G1-05,Propose idea,14:03:17,14:03:50,Driver
+G1-05,Propose idea,14:03:50,14:04:31,Driver
+G1-05,Disagree,14:04:54,14:05:21,Driver
+G1-05,Explain,14:05:21,14:06:01,Driver
+G1-05,Propose idea,14:06:01,14:06:23,Driver
+G1-05,Propose idea,14:06:34,14:07:20,Driver
+G1-05,Propose idea,14:07:42,14:08:21,Driver
+G1-05,Propose idea,14:08:36,14:09:14,Driver
+G1-05,Disagree,14:09:19,14:09:41,Driver
+G1-05,Propose idea,14:09:41,14:10:22,Driver
+G1-05,Explain,14:10:36,14:11:20,Driver
+G1-05,Ask question,14:11:20,14:11:33,Driver
+G1-05,Explain,14:11:33,14:12:52,Driver
+G1-05,Disagree,14:12:52,14:13:15,Driver
+G1-05,Explain,14:13:29,14:14:10,Driver
+G1-05,Agree,14:14:34,14:14:48,Driver
+G1-05,Explain,14:15:00,14:15:43,Driver
+G1-05,Explain,14:15:56,14:16:50,Driver
+G1-05,Agree,14:16:50,14:16:57,Driver
+G1-05,Summarise,14:17:05,14:17:40,Driver
+G1-05,Explain,14:17:40,14:19:07,Driver
+G1-05,Ask question,14:19:07,14:19:29,Driver
+G1-05,Explain,14:19:29,14:20:54,Driver
+G1-05,Propose idea,14:21:06,14:22:05,Driver
+G1-05,Propose idea,14:22:17,14:23:07,Driver
+G1-05,Disagree,14:23:17,14:23:35,Driver
+G1-05,Propose idea,14:23:35,14:23:55,Driver
+G1-05,Explain,14:24:05,14:25:06,Driver
+G1-05,Disagree,14:25:06,14:25:35,Driver
+G1-05,Explain,14:25:42,14:26:12,Driver
+G1-05,Disagree,14:26:26,14:26:40,Driver
+G1-05,Explain,14:26:40,14:27:42,Driver
+G1-05,Propose idea,14:27:42,14:28:28,Driver
+G1-05,Ask question,14:28:28,14:28:49,Driver
+G1-05,Summarise,14:28:49,14:29:22,Driver
+G1-05,Summarise,14:29:22,14:30:27,Driver
+G1-05,Explain,14:30:27,14:31:16,Driver
+G1-05,Explain,14:31:16,14:32:15,Driver
+G1-05,Summarise,14:32:29,14:33:12,Driver
+G1-05,Off-task,14:33:12,14:34:50,Driver
+G1-05,Agree,14:34:50,14:35:01,Driver
+G1-05,Summarise,14:35:01,14:35:50,Driver
+G1-05,Agree,14:35:59,14:36:13,Driver
+G1-05,Summarise,14:36:13,14:37:11,Driver
+G1-05,Summarise,14:37:11,14:38:22,Driver
+G1-05,Agree,14:38:22,14:38:32,Driver
+G1-05,Agree,14:38:32,14:38:44,Driver
+G1-05,Summarise,14:38:44,14:39:34,Driver
+G1-05,Propose idea,14:39:39,14:40:00,Driver
+G1-06,Explain,14:00:04,14:00:59,Driver
+G1-06,Propose idea,14:01:22,14:02:17,Driver
+G1-06,Propose idea,14:02:17,14:03:05,Driver
+G1-06,Ask question,14:03:05,14:03:26,Driver
+G1-06,Explain,14:03:26,14:04:51,Driver
+G1-06,Propose idea,14:04:51,14:05:48,Driver
+G1-06,Propose idea,14:05:48,14:06:18,Driver
+G1-06,Propose idea,14:06:18,14:06:44,Driver
+G1-06,Propose idea,14:06:47,14:07:37,Driver
+G1-06,Explain,14:07:37,14:08:26,Driver
+G1-06,Propose idea,14:08:40,14:09:30,Driver
+G1-06,Ask question,14:09:30,14:09:50,Driver
+G1-06,Explain,14:10:11,14:10:45,Driver
+G1-06,Propose idea,14:10:56,14:11:43,Driver
+G1-06,Explain,14:11:43,14:12:16,Driver
+G1-06,Off-task,14:12:27,14:13:07,Driver
+G1-06,Off-task,14:13:07,14:15:23,Driver
+G1-06,Explain,14:15:23,14:16:05,Driver
+G1-06,Propose idea,14:16:05,14:16:42,Driver
+G1-06,Disagree,14:16:59,14:17:22,Driver
+G1-06,Explain,14:17:31,14:18:26,Driver
+G1-06,Explain,14:18:26,14:19:49,Driver
+G1-06,Agree,14:19:49,14:20:04,Driver
+G1-06,Explain,14:20:18,14:21:20,Driver
+G1-06,Agree,14:21:20,14:21:29,Driver
+G1-06,Off-task,14:21:39,14:22:47,Driver
+G1-06,Ask question,14:22:47,14:23:10,Driver
+G1-06,Propose idea,14:23:10,14:24:03,Driver
+G1-06,Ask question,14:24:28,14:24:47,Driver
+G1-06,Explain,14:25:06,14:26:10,Driver
+G1-06,Agree,14:26:33,14:26:39,Driver
+G1-06,Explain,14:26:39,14:27:41,Driver
+G1-06,Explain,14:27:41,14:28:46,Driver
+G1-06,Propose idea,14:29:11,14:30:04,Driver
+G1-06,Agree,14:30:07,14:30:13,Driver
+G1-06,Off-task,14:30:13,14:32:33,Driver
+G1-06,Ask question,14:32:41,14:33:02,Driver
+G1-06,Ask question,14:33:02,14:33:20,Driver
+G1-06,Disagree,14:33:26,14:33:51,Driver
+G1-06,Summarise,14:33:51,14:34:50,Driver
+G1-06,Agree,14:34:50,14:34:55,Driver
+G1-06,Agree,14:35:03,14:35:17,Driver
+G1-06,Summarise,14:35:17,14:35:52,Driver
+G1-06,Agree,14:35:52,14:35:59,Driver
+G1-06,Summarise,14:35:59,14:36:54,Driver
+G1-06,Ask question,14:36:54,14:37:14,Driver
+G1-06,Explain,14:37:33,14:38:38,Driver
+G1-06,Agree,14:38:38,14:38:45,Driver
+G1-06,Summarise,14:38:59,14:39:37,Driver
+G1-06,Agree,14:39:50,14:40:00,Driver
+G2-07,Propose idea,14:00:02,14:00:51,Driver
+G2-07,Explain,14:00:51,14:02:15,Driver
+G2-07,Propose idea,14:02:15,14:02:41,Driver
+G2-07,Agree,14:02:55,14:03:00,Driver
+G2-07,Propose idea,14:03:00,14:03:34,Driver
+G2-07,Propose idea,14:03:43,14:04:06,Driver
+G2-07,Explain,14:04:16,14:05:44,Driver
+G2-07,Propose idea,14:05:56,14:06:41,Driver
+G2-07,Explain,14:06:57,14:07:59,Driver
+G2-07,Propose idea,14:08:04,14:09:00,Driver
+G2-07,Ask question,14:09:00,14:09:24,Driver
+G2-07,Propose idea,14:09:24,14:10:06,Driver
+G2-07,Disagree,14:10:06,14:10:31,Driver
+G2-07,Explain,14:10:42,14:11:14,Driver
+G2-07,Explain,14:11:14,14:12:36,Driver
+G2-07,Explain,14:12:36,14:13:11,Driver
+G2-07,Propose idea,14:13:35,14:14:34,Driver
+G2-07,Explain,14:14:50,14:15:52,Driver
+G2-07,Disagree,14:15:52,14:16:11,Driver
+G2-07,Explain,14:16:26,14:17:39,Driver
+G2-07,Propose idea,14:17:39,14:18:09,Driver
+G2-07,Explain,14:18:09,14:19:14,Driver
+G2-07,Propose idea,14:19:27,14:20:20,Driver
+G2-07,Ask question,14:20:25,14:20:42,Driver
+G2-07,Off-task,14:20:42,14:21:42,Driver
+G2-07,Propose idea,14:22:05,14:22:36,Driver
+G2-07,Explain,14:22:36,14:23:23,Driver
+G2-07,Disagree,14:23:23,14:23:52,Driver
+G2-07,Disagree,14:23:52,14:24:16,Driver
+G2-07,Summarise,14:24:25,14:25:20,Driver
+G2-07,Off-task,14:25:20,14:26:04,Driver
+G2-07,Explain,14:26:04,14:27:16,Driver
+G2-07,Ask question,14:27:16,14:27:31,Driver
+G2-07,Disagree,14:27:52,14:28:06,Driver
+G2-07,Agree,14:28:22,14:28:37,Driver
+G2-07,Ask question,14:28:37,14:28:57,Driver
+G2-07,Summarise,14:28:57,14:29:34,Driver
+G2-07,Summarise,14:29:51,14:31:04,Driver
+G2-07,Agree,14:31:04,14:31:14,Driver
+G2-07,Summarise,14:31:14,14:32:12,Driver
+G2-07,Agree,14:32:12,14:32:22,Driver
+G2-07,Summarise,14:32:22,14:33:01,Driver
+G2-07,Explain,14:33:01,14:34:05,Driver
+G2-07,Agree,14:34:05,14:34:16,Driver
+G2-07,Summarise,14:34:35,14:35:46,Driver
+G2-07,Propose idea,14:35:46,14:36:27,Driver
+G2-07,Explain,14:36:27,14:37:37,Driver
+G2-07,Ask question,14:37:37,14:37:49,Driver
+G2-07,Explain,14:37:49,14:39:16,Driver
+G2-07,Summarise,14:39:16,14:40:00,Driver
+G2-08,Propose idea,14:00:05,14:00:47,Driver
+G2-08,Explain,14:01:08,14:02:15,Driver
+G2-08,Propose idea,14:02:19,14:02:54,Driver
+G2-08,Agree,14:03:07,14:03:20,Driver
+G2-08,Ask question,14:03:20,14:03:37,Driver
+G2-08,Propose idea,14:03:37,14:04:24,Driver
+G2-08,Ask question,14:04:48,14:04:59,Driver
+G2-08,Explain,14:04:59,14:05:51,Driver
+G2-08,Propose idea,14:05:55,14:06:24,Driver
+G2-08,Propose idea,14:06:24,14:06:44,Driver
+G2-08,Agree,14:06:44,14:06:51,Driver
+G2-08,Propose idea,14:06:51,14:07:36,Driver
+G2-08,Propose idea,14:07:36,14:08:20,Driver
+G2-08,Ask question,14:08:20,14:08:44,Driver
+G2-08,Propose idea,14:08:44,14:09:30,Driver
+G2-08,Explain,14:09:46,14:10:48,Driver
+G2-08,Explain,14:11:00,14:11:53,Driver
+G2-08,Propose idea,14:11:53,14:12:45,Driver
+G2-08,Explain,14:12:45,14:13:41,Driver
+G2-08,Agree,14:13:41,14:13:47,Driver
+G2-08,Explain,14:13:47,14:14:24,Driver
+G2-08,Ask question,14:14:24,14:14:35,Driver
+G2-08,Explain,14:14:35,14:15:44,Driver
+G2-08,Agree,14:15:55,14:16:05,Driver
+G2-08,Explain,14:16:19,14:17:26,Driver
+G2-08,Ask question,14:17:47,14:18:11,Driver
+G2-08,Propose idea,14:18:18,14:19:13,Driver
+G2-08,Agree,14:19:13,14:19:20,Driver
+G2-08,Off-task,14:19:44,14:20:50,Driver
+G2-08,Ask question,14:20:58,14:21:16,Driver
+G2-08,Explain,14:21:22,14:22:01,Driver
+G2-08,Disagree,14:22:01,14:22:27,Driver
+G2-08,Explain,14:22:27,14:23:09,Driver
+G2-08,Summarise,14:23:09,14:23:41,Driver
+G2-08,Propose idea,14:23:51,14:24:29,Driver
+G2-08,Propose idea,14:24:29,14:25:16,Driver
+G2-08,Explain,14:25:34,14:27:02,Driver
+G2-08,Summarise,14:27:15,14:27:52,Driver
+G2-08,Agree,14:28:07,14:28:19,Driver
+G2-08,Disagree,14:28:19,14:28:35,Driver
+G2-08,Agree,14:28:46,14:28:56,Driver
+G2-08,Summarise,14:28:56,14:29:39,Driver
+G2-08,Agree,14:29:39,14:29:46,Driver
+G2-08,Summarise,14:29:46,14:30:31,Driver
+G2-08,Explain,14:30:31,14:31:16,Driver
+G2-08,Summarise,14:31:16,14:31:51,Driver
+G2-08,Agree,14:31:59,14:32:10,Driver
+G2-08,Summarise,14:32:10,14:32:40,Driver
+G2-08,Explain,14:33:03,14:34:28,Driver
+G2-08,Summarise,14:34:28,14:35:39,Driver
+G2-08,Agree,14:35:39,14:35:45,Driver
+G2-08,Agree,14:35:54,14:36:01,Driver
+G2-08,Summarise,14:36:07,14:36:50,Driver
+G2-08,Summarise,14:36:58,14:37:35,Driver
+G2-08,Explain,14:37:35,14:38:56,Driver
+G2-08,Ask question,14:38:56,14:39:04,Driver
+G2-08,Summarise,14:39:14,14:39:45,Driver
+G2-08,Explain,14:39:45,14:40:00,Driver
+G2-09,Explain,14:00:09,14:01:38,Driver
+G2-09,Ask question,14:01:50,14:02:07,Driver
+G2-09,Propose idea,14:02:07,14:02:34,Driver
+G2-09,Propose idea,14:02:34,14:03:06,Driver
+G2-09,Propose idea,14:03:31,14:04:28,Driver
+G2-09,Agree,14:04:50,14:05:04,Driver
+G2-09,Propose idea,14:05:13,14:05:37,Driver
+G2-09,Explain,14:05:37,14:06:48,Driver
+G2-09,Explain,14:06:48,14:08:15,Driver
+G2-09,Propose idea,14:08:32,14:09:06,Driver
+G2-09,Propose idea,14:09:20,14:10:05,Driver
+G2-09,Explain,14:10:08,14:10:55,Driver
+G2-09,Explain,14:10:55,14:11:29,Driver
+G2-09,Explain,14:11:29,14:12:42,Driver
+G2-09,Explain,14:12:42,14:14:04,Driver
+G2-09,Propose idea,14:14:22,14:14:44,Driver
+G2-09,Explain,14:14:59,14:15:34,Driver
+G2-09,Propose idea,14:15:39,14:16:09,Driver
+G2-09,Agree,14:16:09,14:16:22,Driver
+G2-09,Propose idea,14:16:22,14:17:00,Driver
+G2-09,Ask question,14:17:15,14:17:38,Driver
+G2-09,Ask question,14:17:51,14:18:08,Driver
+G2-09,Explain,14:18:08,14:19:14,Driver
+G2-09,Ask question,14:19:33,14:19:54,Driver
+G2-09,Explain,14:19:59,14:20:37,Driver
+G2-09,Agree,14:20:37,14:20:52,Driver
+G2-09,Ask question,14:20:52,14:21:03,Driver
+G2-09,Explain,14:21:03,14:22:29,Driver
+G2-09,Explain,14:22:29,14:23:48,Driver
+G2-09,Disagree,14:23:48,14:24:12,Driver
+G2-09,Disagree,14:24:21,14:24:40,Driver
+G2-09,Propose idea,14:24:40,14:25:00,Driver
+G2-09,Disagree,14:25:10,14:25:24,Driver
+G2-09,Explain,14:25:24,14:26:33,Driver
+G2-09,Ask question,14:26:33,14:26:51,Driver
+G2-09,Explain,14:26:51,14:27:45,Driver
+G2-09,Explain,14:27:45,14:28:55,Driver
+G2-09,Propose idea,14:28:55,14:29:40,Driver
+G2-09,Explain,14:30:04,14:31:09,Driver
+G2-09,Explain,14:31:09,14:32:25,Driver
+G2-09,Agree,14:32:41,14:32:47,Driver
+G2-09,Explain,14:32:47,14:34:10,Driver
+G2-09,Agree,14:34:10,14:34:23,Driver
+G2-09,Summarise,14:34:23,14:34:55,Driver
+G2-09,Agree,14:34:55,14:35:04,Driver
+G2-09,Summarise,14:35:04,14:36:01,Driver
+G2-09,Summarise,14:36:26,14:37:07,Driver
+G2-09,Agree,14:37:26,14:37:32,Driver
+G2-09,Summarise,14:37:44,14:38:17,Driver
+G2-09,Agree,14:38:17,14:38:26,Driver
+G2-09,Summarise,14:38:26,14:39:28,Driver
+G2-09,Ask question,14:39:28,14:39:43,Driver
+G2-09,Agree,14:39:43,14:39:52,Driver
+G2-10,Propose idea,14:00:06,14:00:54,Questioner
+G2-10,Summarise,14:00:54,14:02:00,Questioner
+G2-10,Ask question,14:02:00,14:02:11,Questioner
+G2-10,Ask question,14:02:11,14:02:30,Questioner
+G2-10,Explain,14:02:30,14:03:51,Questioner
+G2-10,Propose idea,14:03:57,14:04:23,Questioner
+G2-10,Ask question,14:04:23,14:04:45,Questioner
+G2-10,Propose idea,14:04:45,14:05:19,Questioner
+G2-10,Disagree,14:05:19,14:05:45,Questioner
+G2-10,Ask question,14:06:04,14:06:25,Questioner
+G2-10,Propose idea,14:06:41,14:07:30,Questioner
+G2-10,Propose idea,14:07:30,14:08:22,Questioner
+G2-10,Explain,14:08:22,14:09:07,Questioner
+G2-10,Ask question,14:09:07,14:09:26,Questioner
+G2-10,Ask question,14:09:26,14:09:45,Questioner
+G2-10,Ask question,14:09:45,14:09:55,Questioner
+G2-10,Ask question,14:09:55,14:10:16,Questioner
+G2-10,Ask question,14:10:21,14:10:42,Questioner
+G2-10,Ask question,14:10:42,14:10:59,Questioner
+G2-10,Explain,14:10:59,14:12:13,Questioner
+G2-10,Ask question,14:12:13,14:12:28,Questioner
+G2-10,Explain,14:12:28,14:13:46,Questioner
+G2-10,Ask question,14:13:46,14:14:11,Questioner
+G2-10,Agree,14:14:11,14:14:24,Questioner
+G2-10,Ask question,14:14:24,14:14:36,Questioner
+G2-10,Ask question,14:14:36,14:14:56,Questioner
+G2-10,Ask question,14:14:56,14:15:13,Questioner
+G2-10,Explain,14:15:18,14:15:57,Questioner
+G2-10,Ask question,14:15:57,14:16:20,Questioner
+G2-10,Summarise,14:16:20,14:16:51,Questioner
+G2-10,Disagree,14:16:51,14:17:10,Questioner
+G2-10,Ask question,14:17:10,14:17:24,Questioner
+G2-10,Explain,14:17:33,14:18:11,Questioner
+G2-10,Ask question,14:18:11,14:18:31,Questioner
+G2-10,Explain,14:18:31,14:19:52,Questioner
+G2-10,Ask question,14:19:52,14:20:14,Questioner
+G2-10,Disagree,14:20:14,14:20:38,Questioner
+G2-10,Explain,14:20:38,14:21:50,Questioner
+G2-10,Disagree,14:21:50,14:22:04,Questioner
+G2-10,Propose idea,14:22:07,14:23:01,Questioner
+G2-10,Ask question,14:23:24,14:23:34,Questioner
+G2-10,Explain,14:23:34,14:24:52,Questioner
+G2-10,Disagree,14:24:52,14:25:05,Questioner
+G2-10,Agree,14:25:05,14:25:16,Questioner
+G2-10,Explain,14:25:34,14:26:05,Questioner
+G2-10,Ask question,14:26:27,14:26:49,Questioner
+G2-10,Agree,14:26:49,14:26:57,Questioner
+G2-10,Ask question,14:27:21,14:27:38,Questioner
+G2-10,Agree,14:28:01,14:28:14,Questioner
+G2-10,Summarise,14:28:32,14:29:45,Questioner
+G2-10,Ask question,14:29:45,14:30:02,Questioner
+G2-10,Summarise,14:30:02,14:31:04,Questioner
+G2-10,Ask question,14:31:04,14:31:12,Questioner
+G2-10,Agree,14:31:21,14:31:26,Questioner
+G2-10,Summarise,14:31:37,14:32:11,Questioner
+G2-10,Summarise,14:32:11,14:33:21,Questioner
+G2-10,Ask question,14:33:38,14:34:01,Questioner
+G2-10,Summarise,14:34:07,14:35:12,Questioner
+G2-10,Agree,14:35:12,14:35:21,Questioner
+G2-10,Summarise,14:35:21,14:36:10,Questioner
+G2-10,Summarise,14:36:10,14:37:19,Questioner
+G2-10,Summarise,14:37:19,14:38:24,Questioner
+G2-10,Ask question,14:38:24,14:38:48,Questioner
+G2-10,Summarise,14:38:48,14:39:25,Questioner
+G2-10,Agree,14:39:25,14:39:31,Questioner
+G2-10,Explain,14:39:52,14:40:00,Questioner
+G2-11,Ask question,14:00:02,14:00:23,Questioner
+G2-11,Disagree,14:00:43,14:01:02,Questioner
+G2-11,Explain,14:01:12,14:02:00,Questioner
+G2-11,Propose idea,14:02:13,14:03:01,Questioner
+G2-11,Ask question,14:03:01,14:03:16,Questioner
+G2-11,Explain,14:03:16,14:03:53,Questioner
+G2-11,Ask question,14:03:59,14:04:12,Questioner
+G2-11,Agree,14:04:30,14:04:43,Questioner
+G2-11,Ask question,14:04:43,14:05:06,Questioner
+G2-11,Ask question,14:05:06,14:05:21,Questioner
+G2-11,Explain,14:05:21,14:06:04,Questioner
+G2-11,Propose idea,14:06:18,14:07:17,Questioner
+G2-11,Propose idea,14:07:22,14:07:48,Questioner
+G2-11,Ask question,14:07:48,14:08:03,Questioner
+G2-11,Summarise,14:08:24,14:09:03,Questioner
+G2-11,Propose idea,14:09:03,14:09:39,Questioner
+G2-11,Ask question,14:09:39,14:10:03,Questioner
+G2-11,Explain,14:10:03,14:10:50,Questioner
+G2-11,Ask question,14:11:14,14:11:35,Questioner
+G2-11,Agree,14:11:44,14:11:54,Questioner
+G2-11,Disagree,14:11:54,14:12:05,Questioner
+G2-11,Ask question,14:12:05,14:12:15,Questioner
+G2-11,Explain,14:12:15,14:13:30,Questioner
+G2-11,Explain,14:13:30,14:14:33,Questioner
+G2-11,Ask question,14:14:33,14:14:52,Questioner
+G2-11,Agree,14:14:52,14:15:00,Questioner
+G2-11,Summarise,14:15:12,14:15:50,Questioner
+G2-11,Agree,14:15:50,14:16:03,Questioner
+G2-11,Ask question,14:16:03,14:16:21,Questioner
+G2-11,Explain,14:16:21,14:17:03,Questioner
+G2-11,Ask question,14:17:18,14:17:30,Questioner
+G2-11,Agree,14:17:38,14:17:45,Questioner
+G2-11,Disagree,14:17:45,14:17:55,Questioner
+G2-11,Explain,14:18:16,14:18:57,Questioner
+G2-11,Disagree,14:18:57,14:19:26,Questioner
+G2-11,Explain,14:19:33,14:20:18,Questioner
+G2-11,Ask question,14:20:18,14:20:27,Questioner
+G2-11,Explain,14:20:27,14:21:41,Questioner
+G2-11,Ask question,14:21:41,14:21:57,Questioner
+G2-11,Agree,14:21:57,14:22:09,Questioner
+G2-11,Ask question,14:22:09,14:22:19,Questioner
+G2-11,Explain,14:22:19,14:23:46,Questioner
+G2-11,Ask question,14:23:46,14:24:02,Questioner
+G2-11,Explain,14:24:19,14:25:35,Questioner
+G2-11,Ask question,14:25:55,14:26:05,Questioner
+G2-11,Ask question,14:26:05,14:26:14,Questioner
+G2-11,Agree,14:26:14,14:26:26,Questioner
+G2-11,Disagree,14:26:26,14:26:40,Questioner
+G2-11,Ask question,14:26:55,14:27:05,Questioner
+G2-11,Off-task,14:27:10,14:28:25,Questioner
+G2-11,Ask question,14:28:25,14:28:50,Questioner
+G2-11,Ask question,14:28:50,14:29:14,Questioner
+G2-11,Summarise,14:29:14,14:30:07,Questioner
+G2-11,Agree,14:30:07,14:30:19,Questioner
+G2-11,Ask question,14:30:24,14:30:47,Questioner
+G2-11,Agree,14:30:47,14:30:53,Questioner
+G2-11,Ask question,14:30:53,14:31:01,Questioner
+G2-11,Summarise,14:31:01,14:31:44,Questioner
+G2-11,Summarise,14:31:44,14:32:42,Questioner
+G2-11,Summarise,14:32:42,14:33:51,Questioner
+G2-11,Agree,14:33:51,14:34:03,Questioner
+G2-11,Summarise,14:34:03,14:35:17,Questioner
+G2-11,Agree,14:35:17,14:35:23,Questioner
+G2-11,Propose idea,14:35:23,14:36:23,Questioner
+G2-11,Agree,14:36:41,14:36:53,Questioner
+G2-11,Explain,14:36:53,14:38:07,Questioner
+G2-11,Summarise,14:38:31,14:39:10,Questioner
+G2-11,Propose idea,14:39:10,14:39:34,Questioner
+G2-11,Ask question,14:39:34,14:39:43,Questioner
+G2-11,Agree,14:39:53,14:40:00,Questioner
+G2-12,Ask question,14:00:02,14:00:13,Questioner
+G2-12,Explain,14:00:13,14:00:59,Questioner
+G2-12,Ask question,14:00:59,14:01:23,Questioner
+G2-12,Explain,14:01:35,14:02:22,Questioner
+G2-12,Ask question,14:02:22,14:02:39,Questioner
+G2-12,Explain,14:02:57,14:03:49,Questioner
+G2-12,Ask question,14:03:49,14:03:58,Questioner
+G2-12,Propose idea,14:03:58,14:04:30,Questioner
+G2-12,Ask question,14:04:30,14:04:43,Questioner
+G2-12,Ask question,14:04:43,14:05:06,Questioner
+G2-12,Ask question,14:05:06,14:05:16,Questioner
+G2-12,Propose idea,14:05:40,14:06:05,Questioner
+G2-12,Propose idea,14:06:05,14:06:37,Questioner
+G2-12,Agree,14:06:45,14:06:56,Questioner
+G2-12,Ask question,14:06:56,14:07:09,Questioner
+G2-12,Agree,14:07:09,14:07:18,Questioner
+G2-12,Propose idea,14:07:18,14:07:56,Questioner
+G2-12,Ask question,14:08:05,14:08:19,Questioner
+G2-12,Propose idea,14:08:19,14:08:41,Questioner
+G2-12,Agree,14:09:00,14:09:07,Questioner
+G2-12,Off-task,14:09:07,14:10:44,Questioner
+G2-12,Ask question,14:10:44,14:10:58,Questioner
+G2-12,Explain,14:10:58,14:11:37,Questioner
+G2-12,Disagree,14:11:46,14:11:58,Questioner
+G2-12,Ask question,14:11:58,14:12:08,Questioner
+G2-12,Explain,14:12:08,14:12:40,Questioner
+G2-12,Ask question,14:12:57,14:13:12,Questioner
+G2-12,Agree,14:13:12,14:13:27,Questioner
+G2-12,Explain,14:13:35,14:14:36,Questioner
+G2-12,Ask question,14:14:36,14:14:58,Questioner
+G2-12,Explain,14:15:13,14:15:45,Questioner
+G2-12,Ask question,14:15:45,14:15:57,Questioner
+G2-12,Explain,14:15:57,14:16:53,Questioner
+G2-12,Ask question,14:17:10,14:17:35,Questioner
+G2-12,Propose idea,14:17:58,14:18:49,Questioner
+G2-12,Ask question,14:18:49,14:19:09,Questioner
+G2-12,Disagree,14:19:09,14:19:31,Questioner
+G2-12,Ask question,14:19:36,14:20:00,Questioner
+G2-12,Disagree,14:20:00,14:20:14,Questioner
+G2-12,Ask question,14:20:26,14:20:45,Questioner
+G2-12,Off-task,14:20:45,14:22:40,Questioner
+G2-12,Ask question,14:23:00,14:23:15,Questioner
+G2-12,Agree,14:23:27,14:23:38,Questioner
+G2-12,Explain,14:23:53,14:25:17,Questioner
+G2-12,Ask question,14:25:17,14:25:29,Questioner
+G2-12,Disagree,14:25:29,14:25:52,Questioner
+G2-12,Agree,14:25:52,14:26:00,Questioner
+G2-12,Ask question,14:26:00,14:26:24,Questioner
+G2-12,Ask question,14:26:32,14:26:54,Questioner
+G2-12,Ask question,14:26:54,14:27:14,Questioner
+G2-12,Explain,14:27:14,14:28:41,Questioner
+G2-12,Ask question,14:29:00,14:29:20,Questioner
+G2-12,Agree,14:29:40,14:29:48,Questioner
+G2-12,Propose idea,14:29:55,14:30:38,Questioner
+G2-12,Agree,14:30:44,14:30:57,Questioner
+G2-12,Summarise,14:30:57,14:31:51,Questioner
+G2-12,Agree,14:31:51,14:31:58,Questioner
+G2-12,Agree,14:31:58,14:32:12,Questioner
+G2-12,Summarise,14:32:12,14:32:43,Questioner
+G2-12,Ask question,14:32:48,14:33:04,Questioner
+G2-12,Explain,14:33:04,14:34:10,Questioner
+G2-12,Ask question,14:34:26,14:34:34,Questioner
+G2-12,Explain,14:34:34,14:35:53,Questioner
+G2-12,Agree,14:35:53,14:36:03,Questioner
+G2-12,Summarise,14:36:24,14:37:29,Questioner
+G2-12,Ask question,14:37:33,14:37:53,Questioner
+G2-12,Ask question,14:37:53,14:38:05,Questioner
+G2-12,Ask question,14:38:05,14:38:19,Questioner
+G2-12,Agree,14:38:19,14:38:28,Questioner
+G2-12,Summarise,14:38:46,14:39:51,Questioner
+G2-12,Off-task,14:39:51,14:40:00,Questioner
+G3-13,Ask question,14:00:15,14:00:32,Questioner
+G3-13,Explain,14:00:32,14:02:01,Questioner
+G3-13,Ask question,14:02:01,14:02:09,Questioner
+G3-13,Ask question,14:02:09,14:02:22,Questioner
+G3-13,Explain,14:02:22,14:03:41,Questioner
+G3-13,Summarise,14:03:49,14:04:21,Questioner
+G3-13,Ask question,14:04:21,14:04:45,Questioner
+G3-13,Ask question,14:04:45,14:04:59,Questioner
+G3-13,Ask question,14:05:17,14:05:26,Questioner
+G3-13,Explain,14:05:26,14:06:50,Questioner
+G3-13,Propose idea,14:06:50,14:07:20,Questioner
+G3-13,Ask question,14:07:42,14:08:04,Questioner
+G3-13,Agree,14:08:04,14:08:12,Questioner
+G3-13,Ask question,14:08:12,14:08:35,Questioner
+G3-13,Propose idea,14:08:35,14:09:01,Questioner
+G3-13,Ask question,14:09:17,14:09:30,Questioner
+G3-13,Ask question,14:09:34,14:09:48,Questioner
+G3-13,Explain,14:09:48,14:11:07,Questioner
+G3-13,Explain,14:11:28,14:12:00,Questioner
+G3-13,Propose idea,14:12:08,14:12:29,Questioner
+G3-13,Disagree,14:12:46,14:13:07,Questioner
+G3-13,Ask question,14:13:07,14:13:22,Questioner
+G3-13,Off-task,14:13:22,14:14:08,Questioner
+G3-13,Ask question,14:14:08,14:14:26,Questioner
+G3-13,Explain,14:14:26,14:15:28,Questioner
+G3-13,Ask question,14:15:48,14:16:05,Questioner
+G3-13,Explain,14:16:05,14:17:12,Questioner
+G3-13,Off-task,14:17:37,14:19:37,Questioner
+G3-13,Ask question,14:19:37,14:19:58,Questioner
+G3-13,Agree,14:19:58,14:20:05,Questioner
+G3-13,Ask question,14:20:05,14:20:17,Questioner
+G3-13,Explain,14:20:38,14:21:41,Questioner
+G3-13,Ask question,14:21:41,14:22:05,Questioner
+G3-13,Ask question,14:22:15,14:22:40,Questioner
+G3-13,Agree,14:22:51,14:22:57,Questioner
+G3-13,Agree,14:22:57,14:23:05,Questioner
+G3-13,Ask question,14:23:05,14:23:27,Questioner
+G3-13,Explain,14:23:51,14:25:10,Questioner
+G3-13,Summarise,14:25:24,14:26:02,Questioner
+G3-13,Ask question,14:26:02,14:26:12,Questioner
+G3-13,Disagree,14:26:12,14:26:29,Questioner
+G3-13,Explain,14:26:29,14:27:29,Questioner
+G3-13,Disagree,14:27:39,14:27:55,Questioner
+G3-13,Ask question,14:27:55,14:28:04,Questioner
+G3-13,Summarise,14:28:04,14:29:14,Questioner
+G3-13,Agree,14:29:29,14:29:39,Questioner
+G3-13,Summarise,14:29:39,14:30:11,Questioner
+G3-13,Explain,14:30:11,14:31:04,Questioner
+G3-13,Ask question,14:31:04,14:31:18,Questioner
+G3-13,Off-task,14:31:18,14:33:34,Questioner
+G3-13,Ask question,14:33:34,14:33:44,Questioner
+G3-13,Agree,14:33:44,14:33:51,Questioner
+G3-13,Propose idea,14:33:51,14:34:16,Questioner
+G3-13,Summarise,14:34:21,14:35:07,Questioner
+G3-13,Explain,14:35:07,14:35:49,Questioner
+G3-13,Summarise,14:35:49,14:36:32,Questioner
+G3-13,Agree,14:36:32,14:36:41,Questioner
+G3-13,Summarise,14:36:41,14:37:46,Questioner
+G3-13,Summarise,14:38:09,14:39:18,Questioner
+G3-13,Summarise,14:39:27,14:40:00,Questioner
+G3-14,Ask question,14:00:05,14:00:27,Questioner
+G3-14,Agree,14:00:27,14:00:37,Questioner
+G3-14,Ask question,14:00:37,14:00:58,Questioner
+G3-14,Explain,14:01:11,14:02:20,Questioner
+G3-14,Propose idea,14:02:20,14:03:08,Questioner
+G3-14,Ask question,14:03:12,14:03:24,Questioner
+G3-14,Agree,14:03:24,14:03:30,Questioner
+G3-14,Propose idea,14:03:30,14:04:03,Questioner
+G3-14,Disagree,14:04:20,14:04:48,Questioner
+G3-14,Ask question,14:04:48,14:05:11,Questioner
+G3-14,Explain,14:05:11,14:06:34,Questioner
+G3-14,Ask question,14:06:43,14:06:59,Questioner
+G3-14,Agree,14:06:59,14:07:06,Questioner
+G3-14,Ask question,14:07:06,14:07:18,Questioner
+G3-14,Agree,14:07:27,14:07:36,Questioner
+G3-14,Ask question,14:07:36,14:08:00,Questioner
+G3-14,Disagree,14:08:00,14:08:23,Questioner
+G3-14,Ask question,14:08:23,14:08:38,Questioner
+G3-14,Explain,14:08:38,14:09:09,Questioner
+G3-14,Ask question,14:09:09,14:09:20,Questioner
+G3-14,Propose idea,14:09:41,14:10:06,Questioner
+G3-14,Explain,14:10:06,14:11:34,Questioner
+G3-14,Disagree,14:11:34,14:11:54,Questioner
+G3-14,Ask question,14:11:54,14:12:04,Questioner
+G3-14,Ask question,14:12:25,14:12:35,Questioner
+G3-14,Agree,14:12:40,14:12:54,Questioner
+G3-14,Disagree,14:13:01,14:13:16,Questioner
+G3-14,Ask question,14:13:20,14:13:40,Questioner
+G3-14,Disagree,14:13:46,14:14:08,Questioner
+G3-14,Agree,14:14:08,14:14:21,Questioner
+G3-14,Propose idea,14:14:21,14:15:20,Questioner
+G3-14,Explain,14:15:43,14:17:11,Questioner
+G3-14,Ask question,14:17:11,14:17:27,Questioner
+G3-14,Explain,14:17:48,14:19:11,Questioner
+G3-14,Ask question,14:19:11,14:19:36,Questioner
+G3-14,Propose idea,14:19:36,14:20:01,Questioner
+G3-14,Disagree,14:20:01,14:20:25,Questioner
+G3-14,Ask question,14:20:25,14:20:49,Questioner
+G3-14,Explain,14:21:13,14:22:37,Questioner
+G3-14,Ask question,14:22:37,14:22:55,Questioner
+G3-14,Explain,14:23:08,14:24:18,Questioner
+G3-14,Ask question,14:24:18,14:24:27,Questioner
+G3-14,Explain,14:24:27,14:25:17,Questioner
+G3-14,Explain,14:25:17,14:26:35,Questioner
+G3-14,Ask question,14:26:35,14:26:56,Questioner
+G3-14,Explain,14:26:56,14:27:28,Questioner
+G3-14,Summarise,14:27:28,14:28:42,Questioner
+G3-14,Explain,14:28:42,14:29:17,Questioner
+G3-14,Summarise,14:29:28,14:30:23,Questioner
+G3-14,Agree,14:30:28,14:30:40,Questioner
+G3-14,Summarise,14:30:40,14:31:35,Questioner
+G3-14,Agree,14:31:48,14:32:00,Questioner
+G3-14,Summarise,14:32:00,14:33:06,Questioner
+G3-14,Summarise,14:33:06,14:33:58,Questioner
+G3-14,Agree,14:34:17,14:34:24,Questioner
+G3-14,Summarise,14:34:24,14:35:20,Questioner
+G3-14,Summarise,14:35:20,14:36:05,Questioner
+G3-14,Agree,14:36:11,14:36:25,Questioner
+G3-14,Agree,14:36:25,14:36:33,Questioner
+G3-14,Agree,14:36:40,14:36:54,Questioner
+G3-14,Explain,14:36:54,14:37:41,Questioner
+G3-14,Summarise,14:37:57,14:38:40,Questioner
+G3-14,Explain,14:38:40,14:39:39,Questioner
+G3-14,Agree,14:39:39,14:39:53,Questioner
+G3-14,Summarise,14:39:53,14:40:00,Questioner
+G3-15,Ask question,14:00:17,14:00:29,Questioner
+G3-15,Explain,14:00:29,14:01:50,Questioner
+G3-15,Propose idea,14:01:50,14:02:26,Questioner
+G3-15,Agree,14:02:26,14:02:36,Questioner
+G3-15,Ask question,14:02:36,14:02:50,Questioner
+G3-15,Explain,14:02:50,14:04:14,Questioner
+G3-15,Ask question,14:04:14,14:04:37,Questioner
+G3-15,Ask question,14:04:37,14:05:01,Questioner
+G3-15,Agree,14:05:12,14:05:25,Questioner
+G3-15,Ask question,14:05:25,14:05:44,Questioner
+G3-15,Ask question,14:05:59,14:06:17,Questioner
+G3-15,Ask question,14:06:17,14:06:37,Questioner
+G3-15,Agree,14:06:48,14:06:55,Questioner
+G3-15,Ask question,14:06:55,14:07:07,Questioner
+G3-15,Off-task,14:07:07,14:09:26,Questioner
+G3-15,Ask question,14:09:50,14:09:59,Questioner
+G3-15,Propose idea,14:09:59,14:10:24,Questioner
+G3-15,Ask question,14:10:24,14:10:47,Questioner
+G3-15,Agree,14:10:47,14:10:54,Questioner
+G3-15,Ask question,14:10:54,14:11:14,Questioner
+G3-15,Explain,14:11:14,14:11:52,Questioner
+G3-15,Explain,14:11:52,14:13:00,Questioner
+G3-15,Disagree,14:13:00,14:13:21,Questioner
+G3-15,Ask question,14:13:21,14:13:34,Questioner
+G3-15,Propose idea,14:13:42,14:14:08,Questioner
+G3-15,Ask question,14:14:25,14:14:44,Questioner
+G3-15,Explain,14:14:44,14:16:06,Questioner
+G3-15,Ask question,14:16:27,14:16:47,Questioner
+G3-15,Explain,14:16:47,14:17:32,Questioner
+G3-15,Ask question,14:17:32,14:17:43,Questioner
+G3-15,Explain,14:17:43,14:19:07,Questioner
+G3-15,Agree,14:19:07,14:19:18,Questioner
+G3-15,Ask question,14:19:18,14:19:32,Questioner
+G3-15,Disagree,14:19:32,14:19:59,Questioner
+G3-15,Agree,14:19:59,14:20:10,Questioner
+G3-15,Explain,14:20:10,14:21:39,Questioner
+G3-15,Ask question,14:21:39,14:21:51,Questioner
+G3-15,Propose idea,14:21:51,14:22:34,Questioner
+G3-15,Summarise,14:22:46,14:23:23,Questioner
+G3-15,Ask question,14:23:23,14:23:47,Questioner
+G3-15,Explain,14:23:47,14:24:28,Questioner
+G3-15,Agree,14:24:51,14:25:01,Questioner
+G3-15,Ask question,14:25:08,14:25:29,Questioner
+G3-15,Explain,14:25:29,14:26:04,Questioner
+G3-15,Disagree,14:26:04,14:26:25,Questioner
+G3-15,Explain,14:26:40,14:27:31,Questioner
+G3-15,Explain,14:27:31,14:28:46,Questioner
+G3-15,Summarise,14:28:46,14:29:35,Questioner
+G3-15,Agree,14:29:35,14:29:47,Questioner
+G3-15,Summarise,14:29:47,14:30:51,Questioner
+G3-15,Ask question,14:30:51,14:31:00,Questioner
+G3-15,Summarise,14:31:00,14:31:55,Questioner
+G3-15,Agree,14:32:00,14:32:05,Questioner
+G3-15,Summarise,14:32:14,14:33:00,Questioner
+G3-15,Summarise,14:33:00,14:34:08,Questioner
+G3-15,Agree,14:34:12,14:34:17,Questioner
+G3-15,Summarise,14:34:17,14:35:21,Questioner
+G3-15,Explain,14:35:38,14:36:46,Questioner
+G3-15,Agree,14:36:46,14:36:58,Questioner
+G3-15,Ask question,14:36:58,14:37:22,Questioner
+G3-15,Ask question,14:37:40,14:38:03,Questioner
+G3-15,Off-task,14:38:03,14:38:49,Questioner
+G3-15,Ask question,14:38:49,14:39:13,Questioner
+G3-15,Agree,14:39:13,14:39:21,Questioner
+G3-15,Explain,14:39:21,14:40:00,Questioner
+G3-16,Propose idea,14:00:02,14:00:45,Questioner
+G3-16,Agree,14:00:53,14:01:00,Questioner
+G3-16,Ask question,14:01:00,14:01:21,Questioner
+G3-16,Summarise,14:01:21,14:02:32,Questioner
+G3-16,Ask question,14:02:32,14:02:44,Questioner
+G3-16,Ask question,14:02:44,14:03:01,Questioner
+G3-16,Disagree,14:03:01,14:03:27,Questioner
+G3-16,Ask question,14:03:27,14:03:37,Questioner
+G3-16,Explain,14:03:37,14:04:16,Questioner
+G3-16,Propose idea,14:04:16,14:04:39,Questioner
+G3-16,Ask question,14:04:39,14:04:54,Questioner
+G3-16,Agree,14:04:54,14:05:01,Questioner
+G3-16,Ask question,14:05:01,14:05:24,Questioner
+G3-16,Propose idea,14:05:24,14:05:56,Questioner
+G3-16,Disagree,14:05:56,14:06:09,Questioner
+G3-16,Explain,14:06:17,14:06:56,Questioner
+G3-16,Agree,14:06:56,14:07:05,Questioner
+G3-16,Propose idea,14:07:05,14:07:30,Questioner
+G3-16,Ask question,14:07:43,14:07:54,Questioner
+G3-16,Ask question,14:07:54,14:08:14,Questioner
+G3-16,Agree,14:08:14,14:08:27,Questioner
+G3-16,Propose idea,14:08:45,14:09:20,Questioner
+G3-16,Ask question,14:09:20,14:09:38,Questioner
+G3-16,Ask question,14:09:52,14:10:04,Questioner
+G3-16,Explain,14:10:04,14:11:13,Questioner
+G3-16,Disagree,14:11:13,14:11:29,Questioner
+G3-16,Propose idea,14:11:29,14:12:10,Questioner
+G3-16,Disagree,14:12:21,14:12:47,Questioner
+G3-16,Agree,14:12:56,14:13:07,Questioner
+G3-16,Explain,14:13:18,14:13:52,Questioner
+G3-16,Summarise,14:14:15,14:15:11,Questioner
+G3-16,Disagree,14:15:11,14:15:24,Questioner
+G3-16,Disagree,14:15:24,14:15:52,Questioner
+G3-16,Explain,14:15:52,14:16:31,Questioner
+G3-16,Ask question,14:16:31,14:16:39,Questioner
+G3-16,Explain,14:17:00,14:18:11,Questioner
+G3-16,Explain,14:18:27,14:19:56,Questioner
+G3-16,Ask question,14:19:56,14:20:05,Questioner
+G3-16,Explain,14:20:05,14:21:07,Questioner
+G3-16,Explain,14:21:13,14:22:01,Questioner
+G3-16,Ask question,14:22:11,14:22:31,Questioner
+G3-16,Explain,14:22:31,14:23:34,Questioner
+G3-16,Ask question,14:23:34,14:23:49,Questioner
+G3-16,Explain,14:23:57,14:24:38,Questioner
+G3-16,Ask question,14:24:38,14:25:01,Questioner
+G3-16,Agree,14:25:01,14:25:16,Questioner
+G3-16,Disagree,14:25:16,14:25:39,Questioner
+G3-16,Ask question,14:25:39,14:25:52,Questioner
+G3-16,Explain,14:25:52,14:26:34,Questioner
+G3-16,Agree,14:26:34,14:26:47,Questioner
+G3-16,Ask question,14:26:53,14:27:05,Questioner
+G3-16,Explain,14:27:16,14:28:11,Questioner
+G3-16,Summarise,14:28:11,14:29:16,Questioner
+G3-16,Agree,14:29:39,14:29:50,Questioner
+G3-16,Off-task,14:30:10,14:31:58,Questioner
+G3-16,Agree,14:31:58,14:32:12,Questioner
+G3-16,Summarise,14:32:12,14:32:47,Questioner
+G3-16,Summarise,14:32:47,14:33:32,Questioner
+G3-16,Agree,14:33:32,14:33:46,Questioner
+G3-16,Summarise,14:33:46,14:34:34,Questioner
+G3-16,Ask question,14:34:41,14:34:52,Questioner
+G3-16,Ask question,14:34:52,14:35:08,Questioner
+G3-16,Explain,14:35:08,14:36:16,Questioner
+G3-16,Agree,14:36:41,14:36:53,Questioner
+G3-16,Agree,14:36:53,14:37:01,Questioner
+G3-16,Summarise,14:37:06,14:37:57,Questioner
+G3-16,Explain,14:37:57,14:38:53,Questioner
+G3-16,Agree,14:39:15,14:39:26,Questioner
+G3-16,Ask question,14:39:26,14:39:48,Questioner
+G3-16,Explain,14:39:48,14:40:00,Questioner
+G3-17,Ask question,14:00:15,14:00:33,Questioner
+G3-17,Explain,14:00:33,14:01:54,Questioner
+G3-17,Ask question,14:01:54,14:02:05,Questioner
+G3-17,Propose idea,14:02:05,14:02:46,Questioner
+G3-17,Ask question,14:02:46,14:02:56,Questioner
+G3-17,Summarise,14:03:19,14:04:11,Questioner
+G3-17,Propose idea,14:04:33,14:04:55,Questioner
+G3-17,Ask question,14:04:55,14:05:18,Questioner
+G3-17,Disagree,14:05:35,14:06:05,Questioner
+G3-17,Ask question,14:06:09,14:06:22,Questioner
+G3-17,Ask question,14:06:22,14:06:37,Questioner
+G3-17,Propose idea,14:06:52,14:07:50,Questioner
+G3-17,Ask question,14:07:50,14:08:08,Questioner
+G3-17,Explain,14:08:08,14:08:45,Questioner
+G3-17,Ask question,14:08:53,14:09:10,Questioner
+G3-17,Propose idea,14:09:10,14:09:46,Questioner
+G3-17,Ask question,14:10:00,14:10:11,Questioner
+G3-17,Disagree,14:10:16,14:10:39,Questioner
+G3-17,Ask question,14:10:48,14:11:07,Questioner
+G3-17,Explain,14:11:07,14:12:00,Questioner
+G3-17,Explain,14:12:16,14:13:16,Questioner
+G3-17,Ask question,14:13:38,14:14:01,Questioner
+G3-17,Explain,14:14:01,14:15:30,Questioner
+G3-17,Ask question,14:15:30,14:15:50,Questioner
+G3-17,Explain,14:15:50,14:16:56,Questioner
+G3-17,Ask question,14:16:56,14:17:14,Questioner
+G3-17,Disagree,14:17:19,14:17:42,Questioner
+G3-17,Ask question,14:17:42,14:17:56,Questioner
+G3-17,Off-task,14:18:07,14:19:35,Questioner
+G3-17,Ask question,14:19:51,14:20:06,Questioner
+G3-17,Ask question,14:20:11,14:20:32,Questioner
+G3-17,Ask question,14:20:42,14:20:52,Questioner
+G3-17,Explain,14:21:15,14:22:34,Questioner
+G3-17,Agree,14:22:34,14:22:43,Questioner
+G3-17,Disagree,14:23:00,14:23:12,Questioner
+G3-17,Explain,14:23:12,14:24:08,Questioner
+G3-17,Propose idea,14:24:08,14:25:06,Questioner
+G3-17,Explain,14:25:06,14:26:00,Questioner
+G3-17,Disagree,14:26:23,14:26:37,Questioner
+G3-17,Explain,14:26:48,14:27:44,Questioner
+G3-17,Ask question,14:27:44,14:28:01,Questioner
+G3-17,Agree,14:28:01,14:28:10,Questioner
+G3-17,Summarise,14:28:10,14:29:02,Questioner
+G3-17,Ask question,14:29:02,14:29:21,Questioner
+G3-17,Summarise,14:29:21,14:30:34,Questioner
+G3-17,Ask question,14:30:34,14:30:45,Questioner
+G3-17,Agree,14:30:45,14:30:57,Questioner
+G3-17,Summarise,14:30:57,14:31:47,Questioner
+G3-17,Agree,14:31:47,14:32:02,Questioner
+G3-17,Summarise,14:32:02,14:32:55,Questioner
+G3-17,Ask question,14:33:00,14:33:15,Questioner
+G3-17,Summarise,14:33:15,14:34:14,Questioner
+G3-17,Agree,14:34:14,14:34:19,Questioner
+G3-17,Summarise,14:34:19,14:35:26,Questioner
+G3-17,Ask question,14:35:45,14:36:00,Questioner
+G3-17,Agree,14:36:00,14:36:09,Questioner
+G3-17,Summarise,14:36:27,14:37:32,Questioner
+G3-17,Summarise,14:37:40,14:38:52,Questioner
+G3-17,Ask question,14:38:52,14:39:09,Questioner
+G3-17,Summarise,14:39:29,14:40:00,Questioner
+G3-18,Ask question,14:00:12,14:00:28,Drifter
+G3-18,Off-task,14:00:28,14:01:31,Drifter
+G3-18,Ask question,14:01:31,14:01:50,Drifter
+G3-18,Explain,14:01:50,14:03:12,Drifter
+G3-18,Ask question,14:03:12,14:03:33,Drifter
+G3-18,Propose idea,14:03:33,14:04:04,Drifter
+G3-18,Ask question,14:04:04,14:04:13,Drifter
+G3-18,Explain,14:04:13,14:04:59,Drifter
+G3-18,Propose idea,14:05:17,14:06:02,Drifter
+G3-18,Ask question,14:06:02,14:06:25,Drifter
+G3-18,Explain,14:06:25,14:07:32,Drifter
+G3-18,Off-task,14:07:32,14:08:34,Drifter
+G3-18,Ask question,14:08:47,14:09:03,Drifter
+G3-18,Explain,14:09:03,14:10:25,Drifter
+G3-18,Agree,14:10:25,14:10:33,Drifter
+G3-18,Explain,14:10:33,14:11:40,Drifter
+G3-18,Propose idea,14:11:40,14:12:04,Drifter
+G3-18,Explain,14:12:04,14:13:06,Drifter
+G3-18,Off-task,14:13:06,14:14:57,Drifter
+G3-18,Summarise,14:15:13,14:15:52,Drifter
+G3-18,Propose idea,14:16:15,14:16:43,Drifter
+G3-18,Agree,14:16:43,14:16:49,Drifter
+G3-18,Explain,14:17:11,14:18:12,Drifter
+G3-18,Off-task,14:18:12,14:19:00,Drifter
+G3-18,Ask question,14:19:00,14:19:22,Drifter
+G3-18,Explain,14:19:22,14:20:52,Drifter
+G3-18,Ask question,14:20:52,14:21:05,Drifter
+G3-18,Ask question,14:21:28,14:21:47,Drifter
+G3-18,Off-task,14:21:47,14:22:50,Drifter
+G3-18,Summarise,14:22:57,14:24:08,Drifter
+G3-18,Explain,14:24:08,14:24:43,Drifter
+G3-18,Agree,14:24:43,14:24:57,Drifter
+G3-18,Disagree,14:24:57,14:25:13,Drifter
+G3-18,Explain,14:25:13,14:26:32,Drifter
+G3-18,Propose idea,14:26:32,14:27:29,Drifter
+G3-18,Ask question,14:27:29,14:27:42,Drifter
+G3-18,Explain,14:27:42,14:28:21,Drifter
+G3-18,Summarise,14:28:21,14:29:24,Drifter
+G3-18,Disagree,14:29:24,14:29:42,Drifter
+G3-18,Ask question,14:29:42,14:29:55,Drifter
+G3-18,Summarise,14:29:55,14:30:29,Drifter
+G3-18,Agree,14:30:29,14:30:42,Drifter
+G3-18,Summarise,14:30:42,14:31:50,Drifter
+G3-18,Agree,14:31:50,14:32:04,Drifter
+G3-18,Summarise,14:32:04,14:33:16,Drifter
+G3-18,Summarise,14:33:16,14:34:23,Drifter
+G3-18,Explain,14:34:42,14:35:14,Drifter
+G3-18,Agree,14:35:14,14:35:27,Drifter
+G3-18,Summarise,14:35:27,14:36:25,Drifter
+G3-18,Explain,14:36:25,14:37:06,Drifter
+G3-18,Summarise,14:37:06,14:38:03,Drifter
+G3-18,Agree,14:38:15,14:38:25,Drifter
+G3-18,Summarise,14:38:25,14:38:59,Drifter
+G3-18,Agree,14:38:59,14:39:08,Drifter
+G3-18,Agree,14:39:21,14:39:26,Drifter
+G3-18,Ask question,14:39:26,14:39:35,Drifter
+G3-18,Ask question,14:39:48,14:40:00,Drifter
+G4-19,Propose idea,14:00:05,14:00:25,Drifter
+G4-19,Agree,14:00:30,14:00:43,Drifter
+G4-19,Propose idea,14:00:52,14:01:20,Drifter
+G4-19,Ask question,14:01:20,14:01:41,Drifter
+G4-19,Propose idea,14:01:41,14:02:07,Drifter
+G4-19,Agree,14:02:07,14:02:21,Drifter
+G4-19,Propose idea,14:02:21,14:03:20,Drifter
+G4-19,Ask question,14:03:20,14:03:39,Drifter
+G4-19,Agree,14:03:58,14:04:05,Drifter
+G4-19,Propose idea,14:04:05,14:05:05,Drifter
+G4-19,Ask question,14:05:05,14:05:18,Drifter
+G4-19,Propose idea,14:05:18,14:05:57,Drifter
+G4-19,Propose idea,14:06:17,14:07:08,Drifter
+G4-19,Ask question,14:07:14,14:07:26,Drifter
+G4-19,Ask question,14:07:26,14:07:44,Drifter
+G4-19,Ask question,14:07:44,14:08:04,Drifter
+G4-19,Propose idea,14:08:04,14:08:25,Drifter
+G4-19,Disagree,14:08:25,14:08:47,Drifter
+G4-19,Agree,14:08:53,14:09:06,Drifter
+G4-19,Propose idea,14:09:06,14:09:35,Drifter
+G4-19,Explain,14:09:35,14:10:18,Drifter
+G4-19,Ask question,14:10:36,14:10:54,Drifter
+G4-19,Explain,14:10:54,14:12:00,Drifter
+G4-19,Ask question,14:12:00,14:12:25,Drifter
+G4-19,Explain,14:12:48,14:13:32,Drifter
+G4-19,Ask question,14:13:38,14:13:53,Drifter
+G4-19,Explain,14:13:53,14:14:34,Drifter
+G4-19,Summarise,14:14:39,14:15:31,Drifter
+G4-19,Explain,14:15:31,14:16:45,Drifter
+G4-19,Agree,14:16:45,14:16:52,Drifter
+G4-19,Summarise,14:17:03,14:17:52,Drifter
+G4-19,Ask question,14:17:52,14:18:04,Drifter
+G4-19,Off-task,14:18:04,14:18:49,Drifter
+G4-19,Propose idea,14:18:56,14:19:21,Drifter
+G4-19,Off-task,14:19:21,14:20:29,Drifter
+G4-19,Ask question,14:20:29,14:20:45,Drifter
+G4-19,Ask question,14:20:45,14:21:09,Drifter
+G4-19,Explain,14:21:13,14:22:03,Drifter
+G4-19,Propose idea,14:22:09,14:22:33,Drifter
+G4-19,Off-task,14:22:39,14:24:02,Drifter
+G4-19,Explain,14:24:02,14:25:15,Drifter
+G4-19,Off-task,14:25:15,14:26:34,Drifter
+G4-19,Off-task,14:26:34,14:28:33,Drifter
+G4-19,Summarise,14:28:33,14:29:21,Drifter
+G4-19,Agree,14:29:21,14:29:31,Drifter
+G4-19,Off-task,14:29:31,14:30:51,Drifter
+G4-19,Summarise,14:30:56,14:31:36,Drifter
+G4-19,Summarise,14:31:36,14:32:36,Drifter
+G4-19,Agree,14:32:36,14:32:45,Drifter
+G4-19,Summarise,14:32:45,14:33:18,Drifter
+G4-19,Agree,14:33:32,14:33:37,Drifter
+G4-19,Summarise,14:33:52,14:34:27,Drifter
+G4-19,Agree,14:34:27,14:34:42,Drifter
+G4-19,Agree,14:35:06,14:35:14,Drifter
+G4-19,Summarise,14:35:19,14:36:21,Drifter
+G4-19,Disagree,14:36:21,14:36:50,Drifter
+G4-19,Agree,14:37:07,14:37:14,Drifter
+G4-19,Agree,14:37:14,14:37:20,Drifter
+G4-19,Agree,14:37:44,14:37:58,Drifter
+G4-19,Agree,14:37:58,14:38:06,Drifter
+G4-19,Summarise,14:38:06,14:38:58,Drifter
+G4-19,Off-task,14:38:58,14:40:00,Drifter
+G4-20,Summarise,14:00:15,14:01:24,Drifter
+G4-20,Ask question,14:01:24,14:01:38,Drifter
+G4-20,Agree,14:01:38,14:01:46,Drifter
+G4-20,Propose idea,14:01:46,14:02:43,Drifter
+G4-20,Propose idea,14:02:54,14:03:38,Drifter
+G4-20,Agree,14:03:38,14:03:46,Drifter
+G4-20,Ask question,14:03:46,14:04:09,Drifter
+G4-20,Explain,14:04:09,14:04:44,Drifter
+G4-20,Ask question,14:05:05,14:05:24,Drifter
+G4-20,Explain,14:05:32,14:06:40,Drifter
+G4-20,Agree,14:07:00,14:07:12,Drifter
+G4-20,Propose idea,14:07:12,14:08:03,Drifter
+G4-20,Ask question,14:08:13,14:08:34,Drifter
+G4-20,Propose idea,14:08:56,14:09:30,Drifter
+G4-20,Ask question,14:09:30,14:09:42,Drifter
+G4-20,Explain,14:09:42,14:10:31,Drifter
+G4-20,Propose idea,14:10:31,14:11:13,Drifter
+G4-20,Explain,14:11:13,14:11:47,Drifter
+G4-20,Propose idea,14:12:05,14:12:49,Drifter
+G4-20,Explain,14:12:49,14:14:00,Drifter
+G4-20,Off-task,14:14:00,14:15:06,Drifter
+G4-20,Ask question,14:15:14,14:15:34,Drifter
+G4-20,Explain,14:15:34,14:16:58,Drifter
+G4-20,Propose idea,14:17:20,14:17:42,Drifter
+G4-20,Explain,14:17:52,14:19:03,Drifter
+G4-20,Off-task,14:19:03,14:20:57,Drifter
+G4-20,Ask question,14:20:57,14:21:13,Drifter
+G4-20,Explain,14:21:13,14:22:07,Drifter
+G4-20,Explain,14:22:11,14:22:45,Drifter
+G4-20,Ask question,14:22:45,14:22:53,Drifter
+G4-20,Disagree,14:22:53,14:23:08,Drifter
+G4-20,Explain,14:23:08,14:24:16,Drifter
+G4-20,Ask question,14:24:16,14:24:34,Drifter
+G4-20,Explain,14:24:34,14:25:19,Drifter
+G4-20,Ask question,14:25:24,14:25:37,Drifter
+G4-20,Explain,14:25:37,14:26:39,Drifter
+G4-20,Ask question,14:26:39,14:26:52,Drifter
+G4-20,Explain,14:27:02,14:27:49,Drifter
+G4-20,Off-task,14:27:49,14:29:14,Drifter
+G4-20,Summarise,14:29:14,14:30:13,Drifter
+G4-20,Ask question,14:30:17,14:30:41,Drifter
+G4-20,Agree,14:30:41,14:30:53,Drifter
+G4-20,Off-task,14:30:53,14:33:20,Drifter
+G4-20,Summarise,14:33:20,14:34:02,Drifter
+G4-20,Ask question,14:34:20,14:34:32,Drifter
+G4-20,Agree,14:34:32,14:34:44,Drifter
+G4-20,Summarise,14:34:44,14:35:52,Drifter
+G4-20,Agree,14:35:52,14:36:04,Drifter
+G4-20,Ask question,14:36:04,14:36:25,Drifter
+G4-20,Summarise,14:36:25,14:37:35,Drifter
+G4-20,Agree,14:37:58,14:38:12,Drifter
+G4-20,Summarise,14:38:12,14:38:59,Drifter
+G4-20,Ask question,14:39:20,14:39:41,Drifter
+G4-20,Summarise,14:39:41,14:40:00,Drifter
+G4-21,Ask question,14:00:06,14:00:24,Drifter
+G4-21,Explain,14:00:24,14:01:51,Drifter
+G4-21,Agree,14:01:51,14:02:02,Drifter
+G4-21,Ask question,14:02:02,14:02:19,Drifter
+G4-21,Agree,14:02:29,14:02:36,Drifter
+G4-21,Propose idea,14:03:00,14:03:59,Drifter
+G4-21,Propose idea,14:04:15,14:05:03,Drifter
+G4-21,Explain,14:05:19,14:06:40,Drifter
+G4-21,Ask question,14:06:40,14:06:52,Drifter
+G4-21,Propose idea,14:06:52,14:07:29,Drifter
+G4-21,Ask question,14:07:29,14:07:42,Drifter
+G4-21,Propose idea,14:07:56,14:08:27,Drifter
+G4-21,Ask question,14:08:27,14:08:44,Drifter
+G4-21,Ask question,14:08:44,14:08:54,Drifter
+G4-21,Propose idea,14:09:09,14:09:32,Drifter
+G4-21,Propose idea,14:09:32,14:10:15,Drifter
+G4-21,Explain,14:10:15,14:11:39,Drifter
+G4-21,Explain,14:11:39,14:12:20,Drifter
+G4-21,Propose idea,14:12:20,14:13:00,Drifter
+G4-21,Agree,14:13:00,14:13:13,Drifter
+G4-21,Off-task,14:13:13,14:14:38,Drifter
+G4-21,Ask question,14:14:42,14:15:03,Drifter
+G4-21,Explain,14:15:26,14:16:53,Drifter
+G4-21,Ask question,14:16:53,14:17:13,Drifter
+G4-21,Explain,14:17:38,14:18:52,Drifter
+G4-21,Off-task,14:18:52,14:21:13,Drifter
+G4-21,Explain,14:21:13,14:21:58,Drifter
+G4-21,Off-task,14:21:58,14:23:45,Drifter
+G4-21,Ask question,14:23:45,14:23:53,Drifter
+G4-21,Off-task,14:23:53,14:25:52,Drifter
+G4-21,Explain,14:25:52,14:27:10,Drifter
+G4-21,Ask question,14:27:10,14:27:19,Drifter
+G4-21,Agree,14:27:19,14:27:34,Drifter
+G4-21,Explain,14:27:34,14:28:44,Drifter
+G4-21,Off-task,14:29:03,14:30:41,Drifter
+G4-21,Agree,14:30:51,14:31:06,Drifter
+G4-21,Summarise,14:31:31,14:32:15,Drifter
+G4-21,Agree,14:32:15,14:32:25,Drifter
+G4-21,Summarise,14:32:25,14:33:18,Drifter
+G4-21,Explain,14:33:18,14:34:15,Drifter
+G4-21,Agree,14:34:15,14:34:20,Drifter
+G4-21,Summarise,14:34:33,14:35:42,Drifter
+G4-21,Agree,14:35:57,14:36:05,Drifter
+G4-21,Summarise,14:36:11,14:36:51,Drifter
+G4-21,Summarise,14:36:51,14:37:50,Drifter
+G4-21,Explain,14:37:50,14:38:54,Drifter
+G4-21,Propose idea,14:38:54,14:39:24,Drifter
+G4-21,Agree,14:39:24,14:39:38,Drifter
+G4-21,Summarise,14:39:46,14:40:00,Drifter
+G4-22,Ask question,14:00:18,14:00:27,Drifter
+G4-22,Explain,14:00:27,14:01:43,Drifter
+G4-22,Ask question,14:01:43,14:01:55,Drifter
+G4-22,Propose idea,14:01:55,14:02:26,Drifter
+G4-22,Ask question,14:02:49,14:03:14,Drifter
+G4-22,Propose idea,14:03:14,14:03:43,Drifter
+G4-22,Propose idea,14:04:06,14:04:59,Drifter
+G4-22,Off-task,14:04:59,14:06:49,Drifter
+G4-22,Ask question,14:07:14,14:07:34,Drifter
+G4-22,Explain,14:07:34,14:08:19,Drifter
+G4-22,Ask question,14:08:19,14:08:37,Drifter
+G4-22,Propose idea,14:08:37,14:09:06,Drifter
+G4-22,Ask question,14:09:06,14:09:20,Drifter
+G4-22,Propose idea,14:09:31,14:09:56,Drifter
+G4-22,Explain,14:09:56,14:11:04,Drifter
+G4-22,Propose idea,14:11:04,14:12:03,Drifter
+G4-22,Off-task,14:12:16,14:13:21,Drifter
+G4-22,Ask question,14:13:26,14:13:38,Drifter
+G4-22,Explain,14:13:38,14:14:58,Drifter
+G4-22,Summarise,14:14:58,14:15:54,Drifter
+G4-22,Explain,14:15:54,14:16:39,Drifter
+G4-22,Agree,14:16:39,14:16:50,Drifter
+G4-22,Off-task,14:16:50,14:18:17,Drifter
+G4-22,Ask question,14:18:33,14:18:50,Drifter
+G4-22,Explain,14:18:50,14:19:51,Drifter
+G4-22,Summarise,14:20:05,14:20:58,Drifter
+G4-22,Off-task,14:20:58,14:21:44,Drifter
+G4-22,Ask question,14:22:06,14:22:24,Drifter
+G4-22,Explain,14:22:42,14:23:30,Drifter
+G4-22,Off-task,14:23:30,14:24:28,Drifter
+G4-22,Propose idea,14:24:42,14:25:23,Drifter
+G4-22,Off-task,14:25:32,14:27:09,Drifter
+G4-22,Ask question,14:27:34,14:27:48,Drifter
+G4-22,Off-task,14:27:48,14:28:48,Drifter
+G4-22,Explain,14:28:48,14:29:20,Drifter
+G4-22,Ask question,14:29:45,14:29:59,Drifter
+G4-22,Summarise,14:29:59,14:30:52,Drifter
+G4-22,Agree,14:30:52,14:31:02,Drifter
+G4-22,Propose idea,14:31:02,14:31:43,Drifter
+G4-22,Explain,14:31:57,14:33:13,Drifter
+G4-22,Agree,14:33:13,14:33:23,Drifter
+G4-22,Summarise,14:33:23,14:34:23,Drifter
+G4-22,Ask question,14:34:23,14:34:36,Drifter
+G4-22,Summarise,14:34:36,14:35:23,Drifter
+G4-22,Explain,14:35:45,14:36:29,Drifter
+G4-22,Summarise,14:36:51,14:38:01,Drifter
+G4-22,Propose idea,14:38:01,14:38:42,Drifter
+G4-22,Summarise,14:38:42,14:39:43,Drifter
+G4-22,Off-task,14:39:43,14:40:00,Drifter
+G4-23,Ask question,14:00:18,14:00:40,Drifter
+G4-23,Off-task,14:00:45,14:01:56,Drifter
+G4-23,Ask question,14:01:56,14:02:17,Drifter
+G4-23,Explain,14:02:31,14:03:40,Drifter
+G4-23,Summarise,14:03:40,14:04:55,Drifter
+G4-23,Agree,14:04:55,14:05:05,Drifter
+G4-23,Explain,14:05:05,14:06:10,Drifter
+G4-23,Ask question,14:06:22,14:06:35,Drifter
+G4-23,Propose idea,14:06:35,14:07:20,Drifter
+G4-23,Explain,14:07:31,14:08:19,Drifter
+G4-23,Off-task,14:08:19,14:09:50,Drifter
+G4-23,Disagree,14:10:01,14:10:21,Drifter
+G4-23,Explain,14:10:21,14:11:25,Drifter
+G4-23,Ask question,14:11:28,14:11:41,Drifter
+G4-23,Explain,14:11:54,14:13:08,Drifter
+G4-23,Ask question,14:13:08,14:13:26,Drifter
+G4-23,Explain,14:13:26,14:14:46,Drifter
+G4-23,Explain,14:14:46,14:16:01,Drifter
+G4-23,Agree,14:16:16,14:16:23,Drifter
+G4-23,Summarise,14:16:41,14:17:26,Drifter
+G4-23,Explain,14:17:26,14:18:02,Drifter
+G4-23,Ask question,14:18:08,14:18:23,Drifter
+G4-23,Explain,14:18:48,14:20:12,Drifter
+G4-23,Propose idea,14:20:12,14:21:07,Drifter
+G4-23,Summarise,14:21:07,14:22:09,Drifter
+G4-23,Explain,14:22:09,14:23:03,Drifter
+G4-23,Off-task,14:23:03,14:24:47,Drifter
+G4-23,Ask question,14:24:47,14:25:12,Drifter
+G4-23,Off-task,14:25:12,14:27:11,Drifter
+G4-23,Ask question,14:27:11,14:27:34,Drifter
+G4-23,Explain,14:27:39,14:28:22,Drifter
+G4-23,Agree,14:28:22,14:28:27,Drifter
+G4-23,Explain,14:28:27,14:29:21,Drifter
+G4-23,Ask question,14:29:43,14:29:57,Drifter
+G4-23,Summarise,14:30:05,14:31:13,Drifter
+G4-23,Ask question,14:31:13,14:31:33,Drifter
+G4-23,Agree,14:31:53,14:32:02,Drifter
+G4-23,Off-task,14:32:02,14:32:55,Drifter
+G4-23,Ask question,14:32:55,14:33:05,Drifter
+G4-23,Explain,14:33:05,14:34:27,Drifter
+G4-23,Propose idea,14:34:27,14:35:00,Drifter
+G4-23,Summarise,14:35:00,14:36:04,Drifter
+G4-23,Ask question,14:36:14,14:36:25,Drifter
+G4-23,Summarise,14:36:25,14:36:56,Drifter
+G4-23,Agree,14:36:56,14:37:10,Drifter
+G4-23,Summarise,14:37:10,14:38:05,Drifter
+G4-23,Ask question,14:38:05,14:38:19,Drifter
+G4-23,Explain,14:38:31,14:39:17,Drifter
+G4-23,Ask question,14:39:17,14:39:28,Drifter
+G4-23,Summarise,14:39:38,14:40:00,Drifter
