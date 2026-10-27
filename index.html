@@ -105,7 +105,8 @@ input[type=range]{accent-color:var(--accent)}
 .check-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
 @media (max-width:980px){.check-grid{grid-template-columns:minmax(0,1fr)}}
 .ck-side{display:flex;flex-direction:column;gap:18px;min-width:0}
-.maps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.maps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:1100px){.maps{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:640px){.maps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .maps label{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight:600}
 .maps label small{font-weight:400;color:var(--muted);font-size:12px}
@@ -176,11 +177,12 @@ table.pv tr.bad td:first-child{box-shadow:inset 3px 0 0 var(--danger)}
 .frames button small{margin-left:5px;font-size:11.5px;color:var(--muted)}
 .frames #play{display:inline-flex;align-items:center;gap:6px}
 .frames #play svg{width:10px;height:10px}
-.win{display:flex;align-items:center;gap:12px;margin:10px 4px 2px;font-size:13px;color:var(--muted)}
-.range2{position:relative;flex:1;height:26px}
-.range2 .rt{position:absolute;left:9px;right:9px;top:11px;height:4px;border-radius:2px;background:var(--track)}
+.win{display:flex;align-items:flex-end;gap:12px;margin:8px 4px 2px;font-size:13px;color:var(--muted)}
+.win>span{padding-bottom:5px}
+.range2{position:relative;flex:1;height:44px}
+.range2 .rt{position:absolute;left:9px;right:9px;top:29px;height:4px;border-radius:2px;background:var(--track)}
 .range2 .rf{position:absolute;top:0;height:4px;border-radius:2px;background:var(--accent)}
-.range2 input{position:absolute;left:0;top:3px;width:100%;margin:0;height:20px;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+.range2 input{position:absolute;left:0;top:21px;width:100%;margin:0;height:20px;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
 .range2 input::-webkit-slider-runnable-track{background:none;height:20px}
 .range2 input::-moz-range-track{background:none}
 .range2 input::-webkit-slider-thumb{pointer-events:auto;-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--panel);border:2px solid var(--accent);cursor:grab;margin-top:1px}
@@ -209,6 +211,96 @@ svg#net [data-b]:focus-visible .hl{stroke-width:2}
 .note{font-size:13px;color:var(--muted);margin:8px 0 0}
 .about p{font-size:14px;line-height:1.55;margin:0 0 10px}
 .about .m{color:var(--muted)}
+
+/* check: code manager */
+.codes-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.codes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;max-height:340px;overflow:auto}
+.codes li{display:grid;grid-template-columns:12px minmax(0,1fr) auto auto auto auto;align-items:center;gap:6px;padding:3px 4px;border-radius:6px}
+.codes li:hover{background:var(--bg)}
+.codes li>i{width:10px;height:10px;border-radius:50%;box-sizing:border-box}
+.codes input[type=text]{font:inherit;font-size:13.5px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:3px 7px;width:100%;min-width:0}
+.codes input[type=checkbox]{accent-color:var(--accent);margin:0 2px}
+.codes .n{font-size:12px;color:var(--muted);min-width:2.6em;text-align:right}
+.codes .icon-btn{padding:3px}
+.codes .icon-btn svg{width:13px;height:13px}
+.codes .icon-btn:disabled{opacity:.25;cursor:default;background:none}
+.codes li.off input[type=text]{color:var(--muted);text-decoration:line-through}
+.codes .mg{grid-column:2/-1;font-size:11.5px;color:var(--muted);margin:-2px 0 2px 2px}
+
+/* explore: group picker and the side-by-side comparison */
+.grpsel{display:flex;align-items:center;gap:6px}
+.grpsel select{width:auto;font-size:13px;padding:4px 8px}
+.compare{margin-top:6px}
+.cmp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;margin-top:8px}
+.cmp-grid figure{margin:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cmp-grid svg{display:block;width:100%;height:auto}
+.cmp-diff{margin-top:16px}
+.cmp-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:6px}
+.cmp-head h3{font-size:15px;font-weight:600;margin:0}
+.cmp-head label{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.cmp-head select{width:auto;font-size:13px;padding:3px 6px}
+.cmp-diff table{width:100%;border-collapse:collapse;font-size:13px}
+.cmp-diff th,.cmp-diff td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp-diff thead th{font-weight:600;background:var(--bg)}
+.cmp-diff td.d{font-weight:600;white-space:nowrap}
+.cmp-diff .m{color:var(--muted)}
+
+/* explore: dataset title, export menu, hover card, activity strip, keys hint */
+.title-row{display:flex;align-items:center;gap:6px;min-width:0}
+.title-row h1{min-width:0}
+.title-row h1[contenteditable="true"]{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;text-overflow:clip;white-space:normal}
+.icon-btn{border:0;background:none;padding:4px;border-radius:6px;color:var(--muted);line-height:0}
+.icon-btn:hover{color:var(--ink);background:var(--accent-soft)}
+.icon-btn svg{width:16px;height:16px}
+details.menu{position:relative}
+details.menu>summary{list-style:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none;font-size:14px;line-height:1.3;border-radius:6px;padding:6px 12px;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent)}
+details.menu>summary::-webkit-details-marker{display:none}
+details.menu>summary svg{width:12px;height:12px;transition:transform .15s}
+details.menu[open]>summary svg{transform:rotate(180deg)}
+.menu-pop{position:absolute;right:0;top:calc(100% + 6px);z-index:20;min-width:250px;display:flex;flex-direction:column;gap:2px;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.16);padding:6px}
+.menu-pop button{display:block;width:100%;text-align:left;border:0;border-radius:6px;padding:8px 10px;background:none}
+.menu-pop button:hover,.menu-pop button:focus-visible{background:var(--accent-soft)}
+.menu-pop small{display:block;font-size:12px;color:var(--muted)}
+#exp-btns{display:contents}
+.figbox{position:relative}
+.tipcard{position:absolute;z-index:6;pointer-events:none;width:250px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.18);padding:9px 11px 10px;font-size:13px;line-height:1.4}
+.tipcard b{display:block;font-size:14px;font-weight:600;margin-bottom:2px}
+.tipcard .m{color:var(--muted)}
+.tipcard svg{display:block;width:100%;height:30px;margin-top:7px}
+.tipcard .ax{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+#net .edge,#net [data-b]{transition:opacity .12s}
+#net.hov .edge{opacity:.07}
+#net.hov .edge.on{opacity:1}
+#net.hov [data-b]{opacity:.4}
+#net.hov [data-b].on{opacity:1}
+.range2 .act{position:absolute;left:9px;right:9px;top:6px;height:14px}
+.range2 .act svg{display:block;width:100%;height:100%}
+.range2 .act rect.in{fill:var(--accent);fill-opacity:.32}
+.range2 .act rect.out{fill:var(--muted);fill-opacity:.16}
+
+.keys{margin:8px 6px 0;font-size:12px;color:var(--muted)}
+.keys kbd{font-family:inherit;font-size:11px;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 4px;background:var(--bg)}
+@media (hover:none){.keys{display:none}}
+@media (prefers-reduced-motion: reduce){#net .edge,#net [data-b],details.menu>summary svg{transition:none}}
+
+/* simpler explore view: quiet buttons, a View menu, short guide, collapsed setting groups */
+button.ghost{border-color:transparent;background:none;color:var(--muted)}
+button.ghost:hover{color:var(--ink);background:var(--accent-soft);border-color:transparent}
+details.menu.view>summary{background:var(--panel);color:var(--ink);border-color:var(--line);font-size:13px;padding:4px 10px}
+details.menu.view>summary:hover{border-color:var(--muted)}
+.fighead .frames{flex:1 1 auto}
+.menu-pop .arrows{display:flex;align-items:center;gap:6px;padding:6px 10px 10px;margin-bottom:4px;border-bottom:1px solid var(--line);font-size:13px}
+.menu-pop .arrows button{display:inline-block;width:auto;white-space:nowrap;border:1px solid var(--line);border-radius:6px;padding:4px 10px;font-size:13px}
+.menu-pop .arrows button[aria-pressed="true"]{border-color:var(--accent)}
+.menu-pop>button[aria-pressed]{position:relative;padding-right:30px}
+.menu-pop>button[aria-pressed="true"]::after{content:"\2713";position:absolute;right:11px;top:8px;color:var(--accent);font-weight:600}
+.lg .long{display:none}
+.lg.full .long{display:inline}
+.guide-foot{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.guide-foot .keys{margin:0}
+.grp>summary .chg{margin-left:auto;margin-right:12px;font-size:11.5px;font-weight:600;color:var(--accent)}
+.codes-head .linkbtn{font-size:13px}
+#codes-box{margin-top:8px}
 
 /* app bar actions and the About dialog */
 .bar-actions{display:flex;gap:6px;align-items:center;padding-left:14px;border-left:1px solid var(--line)}
@@ -370,6 +462,7 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
           <label>Behaviour<select id="map-behaviour"></select></label>
           <label>Start<select id="map-start"></select></label>
           <label><span>End <small>(optional)</small></span><select id="map-end"></select></label>
+          <label><span>Group <small>(optional)</small></span><select id="map-group"></select></label>
         </div>
         <label class="unitrow" id="unit-row" hidden>Plain numbers in the time columns are in
           <select id="map-unit"><option value="min">minutes</option><option value="s">seconds</option><option value="ms">milliseconds</option><option value="h">hours</option></select></label>
@@ -381,9 +474,13 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
         <div class="panel">
           <h2>Summary</h2>
           <div class="tiles" id="tiles"></div>
-          <h2 style="margin-top:16px">Behaviours</h2>
+          <div class="codes-head"><h2 style="margin:16px 0 6px">Behaviours</h2><span><button class="linkbtn" id="codes-reset" hidden>Undo changes</button> <button class="linkbtn" id="codes-edit" aria-expanded="false" aria-controls="codes-box">Rename, merge or reorder</button></span></div>
           <div class="chips" id="chips"></div>
-          <p class="hint">Colours match the network. Spellings are grouped regardless of case.</p>
+          <div id="codes-box" hidden>
+          <p class="hint" style="margin:0 0 8px">Rename a code, give two codes the same name to merge them, untick one to leave it out (its time then counts as uncoded), and use the arrows to set the order around the circle. Colours match the network.</p>
+          <ul class="codes" id="codes"></ul>
+          </div>
+          <p class="hint" id="codes-note"></p>
         </div>
         <div class="panel">
           <h2>Before you build</h2>
@@ -398,19 +495,22 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
   <section class="stage" id="stage-explore" aria-labelledby="ds-name" hidden>
     <div class="toolbar">
       <div class="ds">
-        <p class="eyebrow">Step 3 of 3</p>
-        <h1 id="ds-name" tabindex="-1">Network</h1>
+        <div class="title-row"><h1 id="ds-name" tabindex="-1">Network</h1><button class="icon-btn" id="rename" aria-label="Rename this dataset" title="Rename (the name appears on the figure)"><svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10.5 2.5l3 3L5 14H2v-3z"/></svg></button></div>
         <p class="lede" id="summary"></p>
       </div>
       <div class="row">
-        <button id="to-check">Edit data</button>
-        <button id="to-start">New file</button>
-        <span class="sep" aria-hidden="true"></span>
-        <button id="copy-cap" title="Copy a figure caption with the settings a reader needs">Copy caption</button>
-        <span id="exp-btns" class="row" style="margin:0" hidden>
-          <button id="dl-svg">Save SVG</button>
-          <button class="primary" id="dl-png">Save PNG</button>
-        </span>
+        <button class="ghost" id="to-check">Edit data</button>
+        <button class="ghost" id="to-start">New file</button>
+        <details class="menu" id="export-menu"><summary>Export<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+          <div class="menu-pop">
+            <span id="exp-btns" hidden>
+              <button id="dl-png">Figure as PNG<small>For slides and documents</small></button>
+              <button id="dl-svg">Figure as SVG<small>Sharp at any size, for papers</small></button>
+              <button id="dl-num">Numbers as CSV<small>Behaviours and links in this window</small></button>
+            </span>
+            <button id="copy-cap">Copy caption<small>The settings a reader needs to interpret the figure</small></button>
+          </div>
+        </details>
       </div>
       <p class="note" id="exp-note">Checking whether saving files is available here…</p>
     </div>
@@ -418,37 +518,45 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
     <div class="layout">
       <section class="panel fig" aria-label="Network figure">
         <div class="fighead">
+          <label class="grpsel" id="grp-wrap" hidden><span class="lbl">Learners</span><select id="grp" aria-label="Which learners to show"></select></label>
           <div class="frames" id="frames" role="group" aria-label="Time frames"></div>
-          <div class="arrows" role="group" aria-label="Arrow style"><span class="lbl">Arrows</span><button data-e="swell">Timeline</button><button data-e="colour">Colour only</button></div>
+          <details class="menu view" id="view-menu"><summary>View<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+            <div class="menu-pop">
+              <div class="arrows"><span class="lbl">Arrows</span><span role="group" aria-label="Arrow style" style="display:contents"><button data-e="swell">Timeline</button><button data-e="colour">Colour only</button></span></div>
+              <button id="kp" aria-pressed="false">Key points<small>Number the main findings on the figure (K)</small></button>
+              <button id="win-toggle" aria-pressed="false">Custom window<small>Drag to choose any stretch of the session (W)</small></button>
+            </div>
+          </details>
         </div>
-        <div class="win">
+        <div class="win" id="win" hidden>
           <span>Window</span>
-          <div class="range2"><div class="rt"><div class="rf" id="rfill"></div></div>
+          <div class="range2"><div class="act" id="act" aria-hidden="true"></div><div class="rt"><div class="rf" id="rfill"></div></div>
             <input type="range" id="r0" min="0" max="60" step="1" value="0" aria-label="Window start">
             <input type="range" id="r1" min="0" max="60" step="1" value="60" aria-label="Window end">
           </div>
           <span class="winlbl" id="winlbl">0′ – 60′</span>
         </div>
-        <div class="figbox" id="figbox"><svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Temporal ordered network</title><desc id="net-d">Build a network to see it here.</desc></svg></div>
+        <div class="figbox" id="figbox"><svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Temporal ordered network</title><desc id="net-d">Build a network to see it here.</desc></svg><div class="tipcard" id="tip" hidden></div></div>
+        <div class="compare" id="compare" hidden><p class="hint" id="cmp-note" style="margin:0"></p><div class="cmp-grid" id="cmp-grid"></div><div class="cmp-diff" id="cmp-diff"></div></div>
         <p class="swipe">Swipe sideways to see the whole figure.</p>
       </section>
 
       <aside class="panel side" aria-label="Figure tools">
         <div class="tabs" role="tablist" aria-label="Figure tools">
-          <button role="tab" id="tab-guide" aria-controls="pane-guide" aria-selected="true" data-tab="guide">How to read</button>
+          <button role="tab" id="tab-guide" aria-controls="pane-guide" aria-selected="true" data-tab="guide">Guide</button>
           <button role="tab" id="tab-set" aria-controls="pane-set" aria-selected="false" tabindex="-1" data-tab="set">Settings</button>
           <button role="tab" id="tab-det" aria-controls="pane-det" aria-selected="false" tabindex="-1" data-tab="det">Behaviour</button>
-          <button role="tab" id="tab-ai" aria-controls="pane-ai" aria-selected="false" tabindex="-1" data-tab="ai">AI reading<span class="new">Beta</span></button>
+          <button role="tab" id="tab-ai" aria-controls="pane-ai" aria-selected="false" tabindex="-1" data-tab="ai">AI reading</button>
         </div>
 
         <div class="tabpanel" role="tabpanel" id="pane-guide" aria-labelledby="tab-guide">
-          <div class="lg">
+          <div class="lg" id="lg">
             <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="11" cy="17" r="6" fill="#438CEB"/><circle cx="28" cy="15" r="10" fill="#438CEB"/></svg>
-            <div><b>Disc area</b> is the share of the window spent in that behaviour. The size key under the figure shows 10% and 25%.</div>
+            <div><b>Disc size</b>: share of the window spent in the behaviour.<span class="long"> Area, not width, is proportional; the size key under the figure shows 10% and 25%.</span></div>
             <svg viewBox="0 0 40 32" aria-hidden="true"><circle cx="20" cy="16" r="7" fill="none" stroke="currentColor" stroke-opacity=".25"/><path d="M20.7 3A13 13 0 0 1 25.9 4.4L23.4 9.3A7.5 7.5 0 0 0 20.4 8.5ZM27.4 4.7A13.5 13.5 0 0 1 31.3 8.6L26.3 11.9A7.5 7.5 0 0 0 24.1 9.7ZM30.7 10.6A12 12 0 0 1 32 15.4L27.5 15.6A7.5 7.5 0 0 0 26.7 12.6ZM30.7 16.6A10.75 10.75 0 0 1 29.6 20.9L26.7 19.4A7.5 7.5 0 0 0 27.5 16.4ZM28.4 21.4A10 10 0 0 1 25.4 24.4L24.1 22.3A7.5 7.5 0 0 0 26.3 20.1ZM24.3 24.5A9.5 9.5 0 0 1 20.5 25.5L20.4 23.5A7.5 7.5 0 0 0 23.4 22.7ZM19.5 25.2A9.25 9.25 0 0 1 15.8 24.2L16.6 22.7A7.5 7.5 0 0 0 19.6 23.5ZM14.7 24.2A9.75 9.75 0 0 1 11.8 21.3L13.7 20.1A7.5 7.5 0 0 0 15.9 22.3ZM10.9 20.7A10.25 10.25 0 0 1 9.8 16.5L12.5 16.4A7.5 7.5 0 0 0 13.3 19.4ZM9 15.4A11 11 0 0 1 10.2 11L13.3 12.6A7.5 7.5 0 0 0 12.5 15.6ZM10.4 9.7A11.5 11.5 0 0 1 13.7 6.4L15.9 9.7A7.5 7.5 0 0 0 13.7 11.9ZM14.4 5.1A12.25 12.25 0 0 1 19.4 3.8L19.6 8.5A7.5 7.5 0 0 0 16.6 9.3Z" fill="#32670C"/><circle cx="20" cy="16" r="4" fill="#32670C"/><line x1="20" y1="2" x2="20" y2="-1" stroke="currentColor" stroke-width="1.4"/></svg>
-            <div><b>Clock ring</b>: <span id="lg-ring">one bar per 5-minute slice, read like a clock: 0′ at the top, then clockwise.</span></div>
+            <div><b>Ring</b>: when it happened, read like a clock from the top.<span class="long"> <span id="lg-ring">one bar per 5-minute slice, read like a clock: 0′ at the top, then clockwise.</span></span></div>
             <svg viewBox="0 0 40 30" aria-hidden="true"><path d="M4 22 Q20 4 32 16" fill="none" stroke="#B0489A" stroke-width="3"/><polygon points="36,20 27,17 32,11" fill="#B0489A"/></svg>
-            <div><b>Arrow A → B</b>: <span id="lg-arrow">B came right after A</span>. <span id="lg-thick">Thickness = transitions per learner.</span> Click a disc to highlight only its links.</div>
+            <div><b>Arrow A → B</b>: B followed A. <span id="lg-thick">Thickness = transitions per learner.</span><span class="long"> <span id="lg-arrow">B came right after A</span>. Click a disc to highlight only its links.</span></div>
             <svg viewBox="0 0 40 30" aria-hidden="true"><circle cx="14" cy="18" r="7" fill="#32670C"/><path d="M19 13 C30 2 36 16 22 20" fill="none" stroke="#B0489A" stroke-width="2"/></svg>
             <div><b>Loop</b>: the behaviour followed itself.</div>
             <svg viewBox="0 0 40 30" aria-hidden="true" id="lg-edge-ico"></svg>
@@ -456,29 +564,42 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
           </div>
           <div class="bar" id="lg-bar"></div>
           <div class="barlbl"><span>Early</span><span id="lg-barmid">Arrow colour = minute of session</span><span>Late</span></div>
-          <p class="hint" style="margin-top:14px">This is a descriptive, ONA-inspired figure. Differences between frames or windows are exploratory; it runs no statistical tests.</p>
+          <div class="guide-foot">
+            <button class="linkbtn" id="lg-more" aria-expanded="false" aria-controls="lg" style="align-self:flex-start">Show full explanations</button>
+            <p class="hint keys">Point at an arrow or disc for details. Keys: <kbd>←</kbd> <kbd>→</kbd> frames, <kbd>Space</kbd> play, <kbd>K</kbd> key points, <kbd>W</kbd> custom window, <kbd>Esc</kbd> clear.</p>
+            <p class="hint" style="margin:0">A descriptive, ONA-inspired figure. Differences between frames, windows or groups are exploratory; it runs no statistical tests.</p>
+          </div>
         </div>
 
         <div class="tabpanel ctl" role="tabpanel" id="pane-set" aria-labelledby="tab-set" hidden>
-          <details class="grp" open>
+          <details class="grp" open data-keys="window thick minShare">
             <summary>Links</summary>
             <div>
               <label class="f"><span>Link window<small>B counts as following A when it comes within this many actions</small></span>
                 <select id="s-window"><option value="2">Next action</option><option value="3">Within 2</option><option value="4">Within 3</option><option value="5">Within 4</option><option value="6">Within 5</option></select></label>
               <label class="f"><span>Arrow thickness</span>
-                <select id="s-thick"><option value="count">Transitions</option><option value="min">Minutes in B</option></select></label>
-              <label class="f"><span>Values</span>
-                <select id="s-scope"><option value="avg">Per learner</option><option value="sum">Class total</option></select></label>
-              <label class="f"><span>Hide weak links<small>Below this share of the strongest</small></span>
-                <select id="s-min"><option value="0">Show all</option><option value="0.1">10%</option><option value="0.2">20%</option><option value="0.3">30%</option><option value="0.5">50%</option></select></label>
-              <label class="check"><input type="checkbox" id="s-loops"><span>Show loops<small>A behaviour followed by itself</small></span></label>
-              <label class="check"><input type="checkbox" id="s-merge"><span>Merge back-to-back repeats<small>Collapse consecutive rows of the same behaviour into one episode</small></span></label>
+                <select id="s-thick"><option value="count">Transitions</option><option value="min">Minutes in B</option><option value="lift">Times more than chance</option></select></label>
+              <label class="f"><span>Hide weak links<small>Auto keeps the strongest links, twice as many as behaviours; or hide those below a share of the strongest</small></span>
+                <select id="s-min"><option value="-1">Auto</option><option value="0">Show all</option><option value="0.1">10%</option><option value="0.2">20%</option><option value="0.3">30%</option><option value="0.5">50%</option></select></label>
             </div>
           </details>
-          <details class="grp" open>
+          <details class="grp" data-keys="scope minLearners loops merge stab">
+            <summary>More link options</summary>
+            <div>
+              <label class="f"><span>Values</span>
+                <select id="s-scope"><option value="avg">Per learner</option><option value="sum">Class total</option></select></label>
+              <label class="f"><span>Fewest learners per link<small>Hide links that only a few learners made</small></span>
+                <select id="s-minl"><option value="0">Any</option><option value="2">2</option><option value="3">3</option><option value="5">5</option><option value="-10">10% of learners</option><option value="-25">25% of learners</option></select></label>
+              <label class="check"><input type="checkbox" id="s-loops"><span>Show loops<small>A behaviour followed by itself</small></span></label>
+              <label class="check"><input type="checkbox" id="s-merge"><span>Merge back-to-back repeats<small>Collapse consecutive rows of the same behaviour into one episode</small></span></label>
+              <label class="check"><input type="checkbox" id="s-stab"><span>Check stability<small>Resample learners 200 times; links that do not hold up are drawn dashed with a hollow arrowhead</small></span></label>
+            </div>
+          </details>
+          <details class="grp" data-keys="sessionLen slice frame norm">
             <summary>Time</summary>
             <div>
               <label class="check"><input type="checkbox" id="s-align"><span>Start each learner at 0′<small>Use each learner's first event as their time zero</small></span></label>
+              <label class="check"><input type="checkbox" id="s-norm"><span>Time as % of each session<small>Stretch each learner's session to 0–100%, so phases line up when sessions differ in length</small></span></label>
               <label class="f"><span>Session length<small>Minutes, blank for automatic</small></span><input type="number" id="s-len" min="1" step="1" placeholder="Auto"></label>
               <label class="f"><span>Clock-ring slice<small>Also the bin size of timeline arrows. Auto aims for about 12 bars.</small></span>
                 <select id="s-slice"><option value="0">Auto</option><option value="1">1 min</option><option value="2">2 min</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option></select></label>
@@ -486,7 +607,7 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
                 <select id="s-frame"><option value="0">Auto</option><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="20">20 min</option><option value="30">30 min</option></select></label>
             </div>
           </details>
-          <details class="grp" open>
+          <details class="grp" data-keys="theme">
             <summary>Display</summary>
             <div>
               <label class="f"><span>Theme</span>
@@ -498,7 +619,8 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
         <div class="tabpanel det" role="tabpanel" id="pane-det" aria-labelledby="tab-det" hidden><div id="det" aria-live="polite"></div></div>
 
         <div class="tabpanel ai" role="tabpanel" id="pane-ai" aria-labelledby="tab-ai" hidden>
-          <p class="hint" style="margin:0 0 6px">Ask a language model for a first reading of the figure you are looking at. It gets the numbers behind this figure and its settings, never your rows or learner IDs. Treat the answer as a draft to check against the figure.</p>
+          <p class="hint" style="margin:0 0 6px"><b>Beta.</b> Ask a language model for a first reading of the figure you are looking at. It gets the numbers behind this figure and its settings, never your rows or learner IDs. Treat the answer as a draft to check against the figure.</p>
+          <details class="grp" id="ai-cfg" open><summary id="ai-cfg-sum">Model</summary><div>
           <label class="f"><span>Model provider</span>
             <select id="ai-prov"><option value="anthropic">Claude (Anthropic API)</option><option value="openai">OpenAI-compatible API (OpenAI, OpenRouter, Groq…)</option><option value="local">Local model on this computer (Ollama, LM Studio)</option></select></label>
           <label class="f" id="ai-url-row"><span>Endpoint<small>Base URL ending in /v1</small></span><input type="url" id="ai-url" spellcheck="false" autocomplete="off"></label>
@@ -506,6 +628,7 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
           <datalist id="ai-models"></datalist>
           <label class="f" id="ai-key-row"><span>API key<small id="ai-key-hint">Your own key; sent only to the provider</small></span><input type="password" id="ai-key" spellcheck="false" autocomplete="off" placeholder="Paste key"></label>
           <label class="check" id="ai-remember-row"><input type="checkbox" id="ai-remember"><span>Remember the key on this device<small>Stored in this browser only. Leave off on shared computers.</small></span></label>
+          </div></details>
           <label class="f"><span>About this data <small>Optional. What was logged and coded, e.g. “60-minute programming lab, SRL codes from screen recordings” or “2-week MOOC, clickstream events”</small></span><input type="text" id="ai-ctx" spellcheck="true" autocomplete="off"></label>
           <label class="hint" for="ai-q" style="display:block;margin-top:10px">What are you looking for? <span class="m">(optional, but it keeps the reading focused)</span></label>
           <textarea id="ai-q" spellcheck="true" placeholder="e.g. Do learners monitor before or after debugging, and does that change late in the session?"></textarea>
@@ -564,21 +687,21 @@ var LADDER=[0.25,0.5,1,2,5,10,15,20,30,60,120,180,240,360,720,1440,2880,4320,100
 function nice(x){for(var i=0;i<LADDER.length;i++)if(LADDER[i]>=x-1e-9)return LADDER[i];return LADDER[LADDER.length-1];}
 function timeUnit(L){return L<=3?{k:'s',f:1/60}:L<=240?{k:'min',f:1}:L<=4320?{k:'h',f:60}:{k:'d',f:1440};}
 var TU={k:'min',f:1};
-function tnum(m,u){u=u||TU;var v=m/u.f;return u.k==='s'?String(Math.round(v)):fmtMin(v);}
-function tsuf(u){u=u||TU;return u.k==='min'?'′':u.k;}
+function tnum(m,u){u=u||TU;var v=m/u.f;return u.k==='s'?String(Math.round(v)):fmtMin(v);}  // pct: % of each learner's session
+function tsuf(u){u=u||TU;return u.k==='min'?'′':u.k==='pct'?'%':u.k;}
 function tp(m,u){return tnum(m,u)+tsuf(u);}                     // a point in the session: 15′, 90s, 1.5h, 3d
 function tr(a,b,u){return tnum(a,u)+'–'+tnum(b,u)+tsuf(u);}  // a span of the session: 10–20′
-function af(){return TU.k==='s'?1/60:TU.k==='min'?1:60;}         // amounts of time: seconds, minutes, or hours for long sessions
-function au(){return TU.k==='s'?'s':TU.k==='min'?'min':'h';}
-function ta(m){return fmt(m/af())+' '+au();}
-function fw(w){return S.thick==='count'?fmt(w):fmt(w/af());}   // a link weight in the unit the legend states
-function td(m){return m<1?Math.round(m*60)+'-s':m<60?fmtMin(m)+'-min':m<1440?fmtMin(m/60)+'-h':fmtMin(m/1440)+'-day';}
-function lenLbl(m){return m<1?Math.round(m*60)+' s':m<60?fmtMin(m)+' min':m<1440?fmtMin(m/60)+' h':fmtMin(m/1440)+(m===1440?' day':' days');}
-function tword(){return {s:'second',min:'minute',h:'hour',d:'day'}[TU.k];}
-function when(m){return 'around '+tword()+' '+(TU.k==='s'?Math.round(m*60):TU.k==='min'?Math.round(m):fmtMin(m/TU.f));}
+function af(){return TU.k==='s'?1/60:TU.k==='min'||TU.k==='pct'?1:60;}         // amounts of time: seconds, minutes, or hours for long sessions
+function au(){return TU.k==='s'?'s':TU.k==='min'?'min':TU.k==='pct'?'% of session':'h';}
+function ta(m){return TU.k==='pct'?fmt(m)+'% of session':fmt(m/af())+' '+au();}
+function fw(w){return S.thick==='min'?fmt(w/af()):fmt(w);}   // a link weight in the unit the legend states
+function td(m){return TU.k==='pct'?fmtMin(m)+'%':m<1?Math.round(m*60)+'-s':m<60?fmtMin(m)+'-min':m<1440?fmtMin(m/60)+'-h':fmtMin(m/1440)+'-day';}
+function lenLbl(m){return TU.k==='pct'?fmtMin(m)+'%':m<1?Math.round(m*60)+' s':m<60?fmtMin(m)+' min':m<1440?fmtMin(m/60)+' h':fmtMin(m/1440)+(m===1440?' day':' days');}
+function tword(){return {s:'second',min:'minute',h:'hour',d:'day',pct:'percent'}[TU.k];}
+function when(m){if(TU.k==='pct')return 'around '+Math.round(m)+'% of the session';return 'around '+tword()+' '+(TU.k==='s'?Math.round(m*60):TU.k==='min'?Math.round(m):fmtMin(m/TU.f));}
 
-var ALIASES={learner:['learner','student','student_id','studentid','learner_id','learnerid','user','user_id','userid','participant','participant_id','id'],behaviour:['behaviour','behavior','activity','action','code','state','event','event_type','behaviour_code','behavior_code'],start:['start','start_time','starttime','begin','begin_time','timestamp','time','start_min','onset','start_s','start_sec','start_secs','start_seconds','start_ms','start_h','time_s','time_sec','time_ms','timestamp_s','timestamp_ms','onset_s','onset_ms'],end:['end','end_time','endtime','stop','stop_time','finish','end_min','offset','end_s','end_sec','end_secs','end_seconds','end_ms','end_h','offset_s','offset_ms']};
-var DEF={sessionLen:0,slice:0,frame:0,window:2,thick:'count',scope:'avg',edgeStyle:'swell',minShare:0,loops:true,merge:false,align:true,theme:'auto'};
+var ALIASES={learner:['learner','student','student_id','studentid','learner_id','learnerid','user','user_id','userid','participant','participant_id','id'],behaviour:['behaviour','behavior','activity','action','code','state','event','event_type','behaviour_code','behavior_code'],start:['start','start_time','starttime','begin','begin_time','timestamp','time','start_min','onset','start_s','start_sec','start_secs','start_seconds','start_ms','start_h','time_s','time_sec','time_ms','timestamp_s','timestamp_ms','onset_s','onset_ms'],end:['end','end_time','endtime','stop','stop_time','finish','end_min','offset','end_s','end_sec','end_secs','end_seconds','end_ms','end_h','offset_s','offset_ms'],group:['group','group_id','groupid','condition','cohort','class','class_id','section','team','team_id','cluster','arm','treatment']};
+var DEF={sessionLen:0,slice:0,frame:0,window:2,thick:'count',scope:'avg',edgeStyle:'swell',notes:false,minShare:-1,minLearners:0,stab:false,loops:true,merge:false,align:true,norm:false,theme:'auto'};
 // Node colours avoid the violet-magenta-amber hues reserved for time. The first five pass the colour-vision
 // checks for every pair in both themes; slots 6-10 lean on the always-visible labels.
 var NODE_LIGHT=['#438CEB','#9A8F14','#32670C','#225B8D','#17C8B7','#61B1E6','#009AB0','#7F6B00','#2E9052','#92B824'];
@@ -588,7 +711,7 @@ var RAMP_DARK=['#9A86FF','#E36CC0','#FFB24D'];
 var BAR=16; // longest clock-ring bar (px)
 
 var S=Object.assign({},DEF);
-var P=null,D=null,view={t0:0,t1:60,frame:-1},selected=null,downloads=null,playTimer=null,lastC=null;
+var P=null,D=null,view={t0:0,t1:60,frame:-1},selected=null,downloads=null,playTimer=null,lastC=null,EDGE={},ACT=null,hoverKey=null,dsName='';
 
 function load(k){try{var v=localStorage.getItem(k);return v==null?null:JSON.parse(v);}catch(e){return null;}}
 function store(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
@@ -607,7 +730,7 @@ function parseTime(v){v=(v||'').trim();if(v==='')return null;
   var m=v.match(/^(\d{1,2}):(\d{1,2})(?::(\d{1,2}(?:\.\d+)?))?$/);
   if(m){if(m[3]!==undefined)return {min:(+m[1])*60+(+m[2])+(+m[3])/60,clock:true};return {min:(+m[1])+(+m[2])/60,clock:false};}
   var d=Date.parse(v);if(!isNaN(d))return {min:d/60000,clock:true};return null;}
-var ROLES=['learner','behaviour','start','end'],TWO_PART=/^\d{1,2}:\d{1,2}$/;
+var ROLES=['learner','behaviour','start','end','group'],TWO_PART=/^\d{1,2}:\d{1,2}$/;
 // readTable splits the text into a header and rows; autoMap guesses which column plays which role;
 // parseRows reads episodes with a given column map (from autoMap or from the Check step).
 function readTable(text){
@@ -617,7 +740,14 @@ function readTable(text){
   var head=lines[0],delim=[',','\t',';'].reduce(function(a,b){return head.split(b).length>head.split(a).length?b:a;},',');
   var names=splitRow(head,delim);
   return {delim:delim,names:names,hdr:names.map(normH),rows:lines.slice(1).map(function(l){return splitRow(l,delim);}),nums:nums.slice(1)};}
-function autoMap(hdr){var idx={};ROLES.forEach(function(k){idx[k]=hdr.findIndex(function(h){return ALIASES[k].indexOf(h)>=0;});});return idx;}
+// Exact names first, then likely names (e.g. discourse_code, event_type, start_sec), never reusing a column.
+var FUZZY={learner:/(^|_)(learner|student|pupil|user|participant|person|subject|actor|pid|uid)(_|$)/,behaviour:/(behav|activit|action|code|state|event|categor|label|move|kind|type)/,
+  end:/(^|_)(end|stop|finish|offset|until)(_|$)/,start:/(start|begin|onset|timestamp|time|date)/,group:/(^|_)(group|condition|cohort|class|section|team|cluster|arm|treatment)(_|$)/};
+function autoMap(hdr){var idx={},used={};
+  ROLES.forEach(function(k){var i=hdr.findIndex(function(h){return ALIASES[k].indexOf(h)>=0;});idx[k]=i;if(i>=0)used[i]=1;});
+  ['learner','behaviour','end','start','group'].forEach(function(k){if(idx[k]>=0)return;
+    var i=hdr.findIndex(function(h,j){return !used[j]&&FUZZY[k].test(h)&&!(k==='start'&&FUZZY.end.test(h))&&!(k==='behaviour'&&/(time|date|_id$)/.test(h));});idx[k]=i;if(i>=0)used[i]=1;});
+  return idx;}
 function rowOk(r,idx){return !!(r[idx.learner]&&r[idx.behaviour]&&parseTime(r[idx.start]));}
 // Plain numbers in the time columns can be minutes, seconds, milliseconds or hours. guessUnit reads very large
 // values as Unix timestamps (seconds or milliseconds); the Check step lets the user change it.
@@ -630,7 +760,7 @@ function parseRows(tb,idx,unit){var uf=NUM_UNITS[unit]||1,nums=0;
   var miss=['learner','behaviour','start'].filter(function(k){return !(idx[k]>=0);});
   if(miss.length)return {error:'Missing column'+(miss.length>1?'s':'')+': '+miss.join(', ')+'. Choose which column holds '+(miss.length>1?'each':'it')+' below (end is optional).'};
   var used={};for(var q=0;q<ROLES.length;q++){var k=ROLES[q],c=idx[k];if(!(c>=0))continue;if(used[c])return {error:'The same column is chosen for '+used[c]+' and '+k+'. Each needs its own column.'};used[c]=k;}
-  var hasEnd=idx.end>=0,ev=[],skipped=0,clock=false,bMap=Object.create(null),bNames=[],counts=[],lMap=Object.create(null),lNames=[],bad=[],two=0,neg=0;
+  var hasEnd=idx.end>=0,hasGroup=idx.group>=0,gMap=Object.create(null),gNames=[],lg=[],gConf=0,ev=[],skipped=0,clock=false,bMap=Object.create(null),bNames=[],counts=[],lMap=Object.create(null),lNames=[],bad=[],two=0,neg=0;
   tb.rows.forEach(function(r,i){var l=r[idx.learner],b=r[idx.behaviour],sv=r[idx.start]||'',evv=hasEnd?(r[idx.end]||''):'',s=scale(parseTime(sv)),e=hasEnd?scale(parseTime(evv)):null;
     if(!l||!b||!s){skipped++;if(bad.length<3)bad.push(tb.nums[i]);return;}
     if(TWO_PART.test(sv.trim())||TWO_PART.test(evv.trim()))two++;
@@ -638,53 +768,92 @@ function parseRows(tb,idx,unit){var uf=NUM_UNITS[unit]||1,nums=0;
     if(!(key in bMap)){bMap[key]=bNames.length;bNames.push(b);counts.push(0);}
     counts[bMap[key]]++;
     if(!(l in lMap)){lMap[l]=lNames.length;lNames.push(l);}
+    if(hasGroup){var gv=(r[idx.group]||'').trim()||'(no group)';if(!(gv in gMap)){gMap[gv]=gNames.length;gNames.push(gv);}if(lg[lMap[l]]==null)lg[lMap[l]]=gMap[gv];else if(lg[lMap[l]]!==gMap[gv])gConf++;}
     if(e&&e.min<s.min)neg++;
     ev.push({l:lMap[l],b:bMap[key],s:s.min,e:e?e.min:null});});
   if(!ev.length)return {error:'None of the rows could be read. Check that start times are minutes, mm:ss or hh:mm:ss.'};
-  return {ev:ev,behaviours:bNames,counts:counts,learners:lNames,clock:clock,skipped:skipped,bad:bad,hasEnd:hasEnd,rows:tb.rows.length,two:two,neg:neg,nums:nums,unit:unit||'min'};}
+  return {ev:ev,behaviours:bNames,counts:counts,learners:lNames,clock:clock,skipped:skipped,bad:bad,hasEnd:hasEnd,rows:tb.rows.length,two:two,neg:neg,nums:nums,unit:unit||'min',groups:hasGroup?gNames:null,lgroup:hasGroup?lg:null,gConf:gConf};}
 function parseLog(text,idx,unit){var tb=readTable(text);if(tb.error)return tb;idx=idx||autoMap(tb.hdr);return parseRows(tb,idx,unit||guessUnit(tb,idx));}
 
 /* ---------- derive ---------- */
 function derive(){
   var seqs=P.learners.map(function(){return [];});
   P.ev.forEach(function(e){seqs[e.l].push({b:e.b,s:e.s,e:e.e});});
-  var filled=0;
+  var filled=P.prefilled||0;
   seqs.forEach(function(q){q.sort(function(a,b){return a.s-b.s;});for(var i=0;i<q.length;i++){var x=q[i];if(x.e==null||x.e<x.s){x.e=i+1<q.length?Math.max(x.s,q[i+1].s):x.s;filled++;}}});
   if(S.align){seqs.forEach(function(q){if(!q.length)return;var o=q[0].s;q.forEach(function(x){x.s-=o;x.e-=o;});});}
   else{var mn=Infinity;seqs.forEach(function(q){if(q.length)mn=Math.min(mn,q[0].s);});if(P.clock||mn<0){seqs.forEach(function(q){q.forEach(function(x){x.s-=mn;x.e-=mn;});});}}
   if(S.merge){seqs=seqs.map(function(q){var out=[];q.forEach(function(x){var last=out[out.length-1];if(last&&last.b===x.b){last.e=Math.max(last.e,x.e);}else out.push({b:x.b,s:x.s,e:x.e});});return out;});}
+  // Normalised time: each learner's session runs from their first start to their last end, stretched to 0–100 (%).
+  if(S.norm){seqs.forEach(function(q){if(!q.length)return;var st=q[0].s,en=st;q.forEach(function(x){en=Math.max(en,x.e,x.s);});var k=en>st?100/(en-st):0;q.forEach(function(x){x.s=(x.s-st)*k;x.e=(x.e-st)*k;});});}
   var maxEnd=0;seqs.forEach(function(q){q.forEach(function(x){maxEnd=Math.max(maxEnd,x.e,x.s);});});
   // Slice and frame lengths follow the session: about 12 clock-ring bars and 6 frames unless the user picks sizes that still fit.
-  var raw=S.sessionLen>0?S.sessionLen:Math.max(maxEnd,1e-6),okS=S.slice>0&&raw/S.slice>=1&&raw/S.slice<=144,sl=okS?S.slice:nice(raw/12);
+  var sLen=S.norm?100:S.sessionLen,raw=sLen>0?sLen:Math.max(maxEnd,1e-6),okS=S.slice>0&&raw/S.slice>=1&&raw/S.slice<=144,sl=okS?S.slice:nice(raw/12);
   // The session ends at the last episode, rounded up to a fine step (about 1/60 of it), so no invented uncoded time; the last slice may be partial.
-  var g=Math.min(sl,nice(raw/60)),L=S.sessionLen>0?S.sessionLen:Math.max(sl,Math.ceil((maxEnd-1e-9)/g)*g),okF=S.frame>0&&L/S.frame>=1&&L/S.frame<=24,fr=okF?S.frame:nice(L/6);
+  var g=Math.min(sl,nice(raw/60)),L=sLen>0?sLen:Math.max(sl,Math.ceil((maxEnd-1e-9)/g)*g),okF=S.frame>0&&L/S.frame>=1&&L/S.frame<=24,fr=okF?S.frame:nice(L/6);
   var links=[],W=Math.max(2,S.window|0);
-  seqs.forEach(function(q){for(var i=1;i<q.length;i++){for(var j=i-1;j>=Math.max(0,i-(W-1));j--){links.push({f:q[j].b,t:q[i].b,time:q[i].s,dur:Math.max(0,q[i].e-q[i].s)});}}});
-  D={seqs:seqs,links:links,L:L,sl:sl,fr:fr,filled:filled};TU=timeUnit(L);}
+  seqs.forEach(function(q,li){for(var i=1;i<q.length;i++){for(var j=i-1;j>=Math.max(0,i-(W-1));j--){links.push({f:q[j].b,t:q[i].b,time:q[i].s,dur:Math.max(0,q[i].e-q[i].s),l:li});}}});
+  D={seqs:seqs,links:links,L:L,sl:sl,fr:fr,filled:filled};TU=S.norm?{k:'pct',f:1}:timeUnit(L);}
 
 function ov(a,b,c,d){return Math.max(0,Math.min(b,d)-Math.max(a,c));}
-function compute(t0,t1){
-  var n=P.learners.length,div=S.scope==='avg'?n:1,B=P.behaviours.length,L=D.L,sl=D.sl,NS=Math.ceil(L/sl-1e-9);
-  var mins=new Array(B).fill(0),slc=[],shr=[];
-  for(var b=0;b<B;b++){slc.push(new Array(NS).fill(0));shr.push(new Array(NS).fill(0));}
-  D.seqs.forEach(function(q){q.forEach(function(x){mins[x.b]+=ov(x.s,x.e,t0,t1);
+// compute(t0, t1, wts, o): the numbers behind one figure. wts weights each learner (null = everyone once; 0/1 picks a
+// group; counts above 1 come from bootstrap resamples). o.thr fixes the link threshold (used for group comparison).
+function compute(t0,t1,wts,o){o=o||{};
+  var nAll=P.learners.length,n=0,li;for(li=0;li<nAll;li++)n+=wts?wts[li]:1;
+  var div=S.scope==='avg'?(n||1):1,B=P.behaviours.length,L=D.L,sl=D.sl,NS=Math.ceil(L/sl-1e-9);
+  var mins=new Array(B).fill(0),slc=[],shr=[],lb=[];
+  for(var b=0;b<B;b++){slc.push(new Array(NS).fill(0));shr.push(new Array(NS).fill(0));lb.push({});}
+  D.seqs.forEach(function(q,li){var m=wts?wts[li]:1;if(!m)return;q.forEach(function(x){var ox=ov(x.s,x.e,t0,t1);mins[x.b]+=ox*m;if(ox>0)lb[x.b][li]=1;
     var k0=Math.max(0,Math.floor(x.s/sl)),k1=Math.min(NS-1,Math.floor((x.e-1e-9)/sl));
-    for(var k=k0;k<=k1;k++){slc[x.b][k]+=ov(x.s,x.e,k*sl,Math.min((k+1)*sl,L));}});});
-  for(b=0;b<B;b++){for(var k=0;k<NS;k++){var len=Math.min((k+1)*sl,L)-k*sl;shr[b][k]=len>0?slc[b][k]/(len*n):0;slc[b][k]/=div;}mins[b]/=div;}
-  var nb=Math.max(1,Math.ceil((t1-t0)/sl-1e-9)),agg={},keys=[];
-  D.links.forEach(function(k){var inWin=k.time>=t0&&(k.time<t1||(t1>=L&&k.time<=t1));if(!inWin)return;if(!S.loops&&k.f===k.t)return;
-    var w=S.thick==='count'?1:k.dur,key=k.f+'>'+k.t,a=agg[key];
-    if(!a){a=agg[key]={f:k.f,t:k.t,w:0,tw:0,bins:new Array(nb).fill(0)};keys.push(key);}
-    a.w+=w;a.tw+=w*k.time;a.bins[Math.min(nb-1,Math.max(0,Math.floor((k.time-t0)/sl)))]+=w;});
-  var edges=keys.map(function(key){var a=agg[key];return {f:a.f,t:a.t,w:a.w/div,mean:a.w>0?a.tw/a.w:(t0+t1)/2,bins:a.bins.map(function(v){return v/div;})};}).filter(function(e){return e.w>0;});
+    for(var k=k0;k<=k1;k++){slc[x.b][k]+=m*ov(x.s,x.e,k*sl,Math.min((k+1)*sl,L));}});});
+  for(b=0;b<B;b++){for(var k=0;k<NS;k++){var len=Math.min((k+1)*sl,L)-k*sl;shr[b][k]=len>0&&n>0?slc[b][k]/(len*n):0;slc[b][k]/=div;}mins[b]/=div;}
+  var lift=S.thick==='lift',nb=Math.max(1,Math.ceil((t1-t0)/sl-1e-9)),agg={},keys=[];
+  D.links.forEach(function(k){var m=wts?wts[k.l]:1;if(!m)return;var inWin=k.time>=t0&&(k.time<t1||(t1>=L&&k.time<=t1));if(!inWin)return;if(!S.loops&&k.f===k.t)return;
+    var w=(S.thick==='min'?k.dur:1)*m,key=k.f+'>'+k.t,a=agg[key];
+    if(!a){a=agg[key]={f:k.f,t:k.t,w:0,tw:0,ls:{},bins:new Array(nb).fill(0)};keys.push(key);}
+    a.w+=w;a.tw+=w*k.time;a.ls[k.l]=1;a.bins[Math.min(nb-1,Math.max(0,Math.floor((k.time-t0)/sl)))]+=w;});
+  var edges=keys.map(function(key){var a=agg[key];return {f:a.f,t:a.t,w:a.w/div,cnt:a.w,nl:Object.keys(a.ls).length,mean:a.w>0?a.tw/a.w:(t0+t1)/2,bins:a.bins.map(function(v){return v/div;})};}).filter(function(e){return e.w>0;});
+  // Times more than chance (observed ÷ expected): how much more often B followed A than if order did not matter, given how
+  // often each code appears as a ground and as a response. Pairs seen fewer than LIFT_MIN times, or not above chance, are left out.
+  var cand=edges.length;
+  if(lift){var tot=0,out={},inn={};edges.forEach(function(e){tot+=e.cnt;out[e.f]=(out[e.f]||0)+e.cnt;inn[e.t]=(inn[e.t]||0)+e.cnt;});
+    edges.forEach(function(e){e.exp=tot>0?out[e.f]*inn[e.t]/tot:0;e.w=e.exp>0?e.cnt/e.exp:0;});
+    edges=edges.filter(function(e){return e.cnt>=LIFT_MIN&&e.w>1;});}
   var maxW=edges.reduce(function(m,e){return Math.max(m,e.w);},0);
-  var shown=edges.filter(function(e){return e.w>=S.minShare*maxW;});
-  return {t0:t0,t1:t1,n:n,div:div,B:B,L:L,sl:sl,NS:NS,nb:nb,mins:mins,slc:slc,shr:shr,edges:edges,shown:shown,maxW:maxW};}
+  // Hide weak links: Auto keeps the 2×B strongest (at least 6, ties kept) so dense logs stay readable, and links made by too
+  // few learners can be hidden. The figure footer always says how many links are hidden and why.
+  var minL=S.minLearners>0?S.minLearners:S.minLearners<0?Math.ceil(-S.minLearners/100*n):0,elig=minL>1?edges.filter(function(e){return e.nl>=minL;}):edges;
+  var thr=o.thr!=null?o.thr:S.minShare>0?S.minShare*maxW:0,K=Math.max(6,2*B);
+  if(o.thr==null&&S.minShare<0&&elig.length>K){var ws=elig.map(function(e){return e.w;}).sort(function(a,b){return b-a;});thr=ws[K-1];}
+  var shown=elig.filter(function(e){return e.w>=thr;});
+  return {t0:t0,t1:t1,n:n,div:div,B:B,L:L,sl:sl,NS:NS,nb:nb,mins:mins,slc:slc,shr:shr,edges:edges,shown:shown,maxW:maxW,thr:thr,minL:minL,cand:cand,lift:lift,
+    nlb:lb.map(function(x){return Object.keys(x).length;})};}
+var LIFT_MIN=5,STAB_HOLD=0.8;
+
+// Stability: resample the learners with replacement, rebuild the numbers, and count how often each shown link is shown
+// again under the same rules. Seeded, so the same data and settings always give the same answer.
+function stability(c,base){var n=P.learners.length,mem=[],i;for(i=0;i<n;i++)if(!base||base[i])mem.push(i);c.stab=null;if(mem.length<3||!c.shown.length)return;
+  var Bn=D.links.length>60000?50:D.links.length>15000?100:200,rnd=mulberry32(20261007),keys=c.shown.map(function(e){return e.f+'>'+e.t;}),hit={},vals={};
+  keys.forEach(function(k){hit[k]=0;vals[k]=[];});
+  for(var r=0;r<Bn;r++){var w=new Array(n).fill(0);for(var j=0;j<mem.length;j++)w[mem[Math.floor(rnd()*mem.length)]]++;
+    var cb=compute(c.t0,c.t1,w),sw={},ew={};cb.shown.forEach(function(e){sw[e.f+'>'+e.t]=1;});cb.edges.forEach(function(e){ew[e.f+'>'+e.t]=e.w;});
+    keys.forEach(function(k){if(sw[k])hit[k]++;vals[k].push(ew[k]||0);});}
+  var map={},held=0;keys.forEach(function(k){var v=vals[k].sort(function(a,b){return a-b;}),pr=hit[k]/Bn;map[k]={p:pr,lo:v[Math.floor(0.05*(Bn-1))],hi:v[Math.ceil(0.95*(Bn-1))]};if(pr>=STAB_HOLD)held++;});
+  c.stab={B:Bn,map:map,held:held,total:keys.length};}
+function unstable(c,k){return !!(c.stab&&c.stab.map[k]&&c.stab.map[k].p<STAB_HOLD);}
+function stabNote(c){var s=c.stab;return 'Stability: '+s.held+' of '+plural(s.total,'shown link')+' hold up in at least '+Math.round(STAB_HOLD*100)+'% of '+s.B+' resamples of learners'+(s.total>s.held?'; dashed links with hollow arrowheads do not':'')+'.';}
+function arrowHead(pts,col,op,un,T){return un?'<polygon points="'+pts+'" fill="'+T.bg+'" stroke="'+col+'" stroke-width="1.4" stroke-opacity="'+Math.max(0.6,op).toFixed(2)+'"/>':'<polygon points="'+pts+'" fill="'+col+'" fill-opacity="'+op.toFixed(2)+'"/>';}
+// One sentence on hidden links, for the figure footer, the caption and the AI summary.
+function linkNote(c){var hid=c.edges.length-c.shown.length,why=[],pre=c.lift?'Links count only when seen at least '+LIFT_MIN+' times and more often than chance ('+c.edges.length+' of '+c.cand+' pairs). ':'';
+  if(!hid)return pre+'All '+plural(c.edges.length,'link')+' are shown.';
+  if(c.thr>0)why.push('below '+fw(c.thr)+' '+unitLabel());if(c.minL>1)why.push('made by fewer than '+c.minL+' learners');
+  if(c.thr>0&&S.minShare<0&&c.minL<=1)return pre+'Showing the '+c.shown.length+' strongest of '+c.edges.length+' links; '+hid+' weaker '+(hid===1?'link is':'links are')+' hidden (below '+fw(c.thr)+' '+unitLabel()+').';
+  return pre+'Showing '+c.shown.length+' of '+c.edges.length+' links; '+hid+' hidden ('+why.join(', or ')+').';}
 
 /* ---------- figure ---------- */
 function qpt(a,q,b,t){var u=1-t;return {x:u*u*a.x+2*u*t*q.x+t*t*b.x,y:u*u*a.y+2*u*t*q.y+t*t*b.y};}
 function cpt(a,c1,c2,b,t){var u=1-t;return {x:u*u*u*a.x+3*u*u*t*c1.x+3*u*t*t*c2.x+t*t*t*b.x,y:u*u*u*a.y+3*u*u*t*c1.y+3*u*t*t*c2.y+t*t*t*b.y};}
-function swellSegs(bins,c,maxBin,T,at,op){var out='',so=op==null?'':' stroke-opacity="'+op.toFixed(2)+'"';bins.forEach(function(v,i){if(v<=0)return;var ta=(i+0.1)/c.nb,tb=(i+0.9)/c.nb,pts=[];for(var k=0;k<=6;k++)pts.push(at(ta+(tb-ta)*k/6));
+function swellSegs(bins,c,maxBin,T,at,op){var out='',so=op==null?'':' stroke-opacity="'+op.toFixed(2)+'"';bins.forEach(function(v,i){if(v<=0||v<0.12*(maxBin||1))return;var ta=(i+0.1)/c.nb,tb=(i+0.9)/c.nb,pts=[];for(var k=0;k<=6;k++)pts.push(at(ta+(tb-ta)*k/6));
   var mid=Math.min(c.t1,c.t0+(i+0.5)*c.sl);out+='<polyline points="'+ptsStr(pts)+'" fill="none" stroke="'+ramp(mid/c.L,T.ramp)+'" stroke-width="'+f1(2+10*v/(maxBin||1))+'"'+so+' stroke-linecap="butt"><title>'+tr(c.t0+i*c.sl,Math.min(c.t1,c.t0+(i+1)*c.sl))+': '+fw(v)+'</title></polyline>';});return out;}
 function polar(cx,cy,r,deg){var a=deg*Math.PI/180;return {x:cx+r*Math.sin(a),y:cy-r*Math.cos(a)};}
 function arcPath(cx,cy,r,a0,a1){var p0=polar(cx,cy,r,a0),p1=polar(cx,cy,r,a1);return 'M'+f1(p0.x)+' '+f1(p0.y)+' A'+f1(r)+' '+f1(r)+' 0 '+((a1-a0)>180?1:0)+' 1 '+f1(p1.x)+' '+f1(p1.y);}
@@ -696,7 +865,7 @@ function layoutNodes(c,T){
   return P.behaviours.map(function(name,i){var a=B===1?-Math.PI/2:-Math.PI/2+2*Math.PI*i/B,x=B===1?cx:cx+R*Math.cos(a),y=B===1?cy:cy+R*Math.sin(a);
     var share=cap>0?c.mins[i]/cap:0,r=Math.max(3,rMax*Math.sqrt(clamp(share,0,1))),r0=r+5;
     // r0 = baseline of the clock bars, ro = outer edge of the longest possible bar
-    return {i:i,name:name,a:a,x:x,y:y,r:r,r0:r0,ro:r0+BAR+1,share:share,color:T.pal[i%T.pal.length],above:Math.sin(a)<0.25,side:B>2&&Math.abs(Math.cos(a))>0.6};});}
+    return {i:i,name:name,a:a,x:x,y:y,r:r,r0:r0,ro:r0+BAR+1,share:share,color:T.pal[i%T.pal.length],above:Math.sin(a)<0.25,side:B>2&&Math.abs(Math.cos(a))>0.55};});}
 
 function edgeGeom(A,C,al){var dx=C.x-A.x,dy=C.y-A.y,len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len,off=Math.min(58,0.16*len);
   var Q={x:(A.x+C.x)/2+nx*off,y:(A.y+C.y)/2+ny*off},u=unit(Q.x-A.x,Q.y-A.y),v=unit(Q.x-C.x,Q.y-C.y);
@@ -709,42 +878,45 @@ function loopGeom(nd,B,al){var a=nd.a,ca=Math.cos(a),la;
   var s=at(nd.ro+1,la-d1),c1=at(rc,la-d2),c2=at(rc,la+d2),tip=at(nd.ro+2,la+d1),v=unit(c2.x-tip.x,c2.y-tip.y);
   return {s:s,c1:c1,c2:c2,tip:tip,e:{x:tip.x+v.x*al*0.85,y:tip.y+v.y*al*0.85},bb:{x:tip.x+v.x*al,y:tip.y+v.y*al},p:{x:-v.y,y:v.x}};}
 
-function unitLabel(){return (S.thick==='count'?'transitions':au()+' in B')+(S.scope==='avg'?' per learner':'');}
+function unitLabel(){return S.thick==='lift'?'times chance':(S.thick==='count'?'transitions':au()+' in B')+(S.scope==='avg'?' per learner':'');}
 
 function sectorPath(cx,cy,r1,r2,a0,a1){var p1=polar(cx,cy,r2,a0),p2=polar(cx,cy,r2,a1),p3=polar(cx,cy,r1,a1),p4=polar(cx,cy,r1,a0),lg=(a1-a0)>180?1:0;
   return 'M'+f1(p1.x)+' '+f1(p1.y)+' A'+f1(r2)+' '+f1(r2)+' 0 '+lg+' 1 '+f1(p2.x)+' '+f1(p2.y)+' L'+f1(p3.x)+' '+f1(p3.y)+' A'+f1(r1)+' '+f1(r1)+' 0 '+lg+' 0 '+f1(p4.x)+' '+f1(p4.y)+'Z';}
 function wrapText(s,max){var out=[],cur='';String(s).split(' ').forEach(function(w){if(cur&&(cur+' '+w).length>max){out.push(cur);cur=w;}else cur=cur?cur+' '+w:w;});if(cur)out.push(cur);return out;}
+// Splits a name into two lines at the space nearest its middle.
+function splitName(s){var best=-1,mid=s.length/2;for(var i=0;i<s.length;i++)if(s.charAt(i)===' '&&(best<0||Math.abs(i-mid)<Math.abs(best-mid)))best=i;return best<0?[s]:[s.slice(0,best),s.slice(best+1)];}
 function haloText(T,x,y,size,weight,fill,anchor,str){var a='<text x="'+f1(x)+'" y="'+f1(y)+'" text-anchor="'+anchor+'" font-size="'+size+'"'+(weight?' font-weight="'+weight+'"':'');
   return '<g fill="'+T.bg+'" stroke="'+T.bg+'" stroke-width="4" stroke-linejoin="round">'+a+'>'+esc(str)+'</text></g>'+a+' fill="'+fill+'">'+esc(str)+'</text>';}
 function peakSlice(c,b){var pk=-1,pv=0;for(var k=0;k<c.NS;k++){var s0=k*c.sl,s1=Math.min((k+1)*c.sl,c.L);if(s1<=c.t0||s0>=c.t1)continue;if(c.shr[b][k]>pv){pv=c.shr[b][k];pk=k;}}
   return pk<0?null:tr(pk*c.sl,Math.min((pk+1)*c.sl,c.L));}
 
-function drawFigure(c){
+function figureMarkup(c,opt){opt=opt||{};
   var T=tokens(),nodes=layoutNodes(c,T),B=c.B,L=c.L,t0=c.t0,t1=c.t1,win=t1-t0,avg=S.scope==='avg',W=800;
   var FONT='Source Sans 3, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif';
-  var shown=c.shown,maxW=shown.reduce(function(m,e){return Math.max(m,e.w);},0)||1;
-  var maxBin=shown.reduce(function(m,e){return Math.max(m,Math.max.apply(null,e.bins));},0);
-  var foc=selected!=null&&selected<B?selected:null;
+  var shown=c.shown,maxW=opt.maxW||shown.reduce(function(m,e){return Math.max(m,e.w);},0)||1;
+  var maxBin=opt.maxBin!=null?opt.maxBin:shown.reduce(function(m,e){return Math.max(m,Math.max.apply(null,e.bins));},0);
+  var foc=!opt.static&&selected!=null&&selected<B?selected:null;
   function dimmed(e){return foc!=null&&e.f!==foc&&e.t!==foc;}
-  var o=[];
+  var o=[];if(!opt.static)EDGE={};
   o.push('<defs><linearGradient id="tg" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="'+T.ramp[0]+'"/><stop offset="0.5" stop-color="'+T.ramp[1]+'"/><stop offset="1" stop-color="'+T.ramp[2]+'"/></linearGradient></defs>');
-  o.push('<text x="24" y="46" font-size="28" font-weight="600" fill="'+T.ink+'">'+tp(t0)+' – '+tp(t1)+'</text>');
+  o.push('<text x="24" y="46" font-size="28" font-weight="600" fill="'+T.ink+'">'+esc(opt.static&&c.groupName?c.groupName:tp(t0)+' – '+tp(t1))+'</text>');
   var sub=view.frame===-1?'Whole session':(view.frame>=0?'Frame '+(view.frame+1)+' of '+Math.ceil(L/D.fr-1e-9):'Custom window');
-  o.push('<text x="24" y="68" font-size="13" fill="'+T.muted+'">'+esc(sub)+', '+c.n+' learner'+(c.n===1?'':'s')+'</text>');
+  var dn=opt.static?'':dsLabel(),gp=opt.static?tp(t0)+' – '+tp(t1)+' \u00b7 ':c.groupName?'Group: '+c.groupName+' \u00b7 ':'';o.push('<text x="24" y="68" font-size="13" fill="'+T.muted+'">'+esc((dn?dn+' \u00b7 ':'')+gp+sub)+', '+c.n+' learner'+(c.n===1?'':'s')+'</text>');
   if(foc!=null)o.push('<text x="24" y="88" font-size="13" font-weight="600" fill="'+T.ink+'">Highlighted: links of '+esc(P.behaviours[foc])+'</text>');
 
   // Edges: weakest first so strong links sit on top. In timeline mode the thin base line fades with link weight.
   var loops=[],others=[];shown.forEach(function(e){(e.f===e.t?loops:others).push(e);});
   others.sort(function(a,b){return a.w-b.w;});
   others.forEach(function(e){var A=nodes[e.f],C=nodes[e.t],rel=e.w/maxW,tip=esc(A.name+' → '+C.name+': '+fw(e.w)+' '+unitLabel()+', '+when(e.mean)),gop=dimmed(e)?' opacity="0.08"':'';
-    if(S.edgeStyle==='swell'){var g=edgeGeom(A,C,10),parts=['<g'+gop+'><title>'+tip+'</title><path d="M'+f1(g.s.x)+' '+f1(g.s.y)+' Q'+f1(g.q.x)+' '+f1(g.q.y)+' '+f1(g.e.x)+' '+f1(g.e.y)+'" fill="none" stroke="'+T.muted+'" stroke-opacity="'+(0.18+0.62*rel).toFixed(2)+'" stroke-width="1.2"/>'];
+    var ek=e.f+'>'+e.t,un=unstable(c,ek);if(!opt.static)EDGE[ek]=e;
+    if(S.edgeStyle==='swell'){var g=edgeGeom(A,C,10),parts=['<g class="edge" data-k="'+ek+'"'+gop+'><title>'+tip+'</title>'+hitPath(g)+'<path d="M'+f1(g.s.x)+' '+f1(g.s.y)+' Q'+f1(g.q.x)+' '+f1(g.q.y)+' '+f1(g.e.x)+' '+f1(g.e.y)+'" fill="none" stroke="'+T.muted+'" stroke-opacity="'+(un?0.75:0.18+0.62*rel).toFixed(2)+'" stroke-width="'+(un?1.4:1.2)+'"'+(un?' stroke-dasharray="4 3"':'')+'/>'];
       parts.push(swellSegs(e.bins,c,maxBin,T,function(t){return qpt(g.s,g.q,g.e,t);},0.35+0.65*rel));
-      parts.push('<polygon points="'+arrowPts(g,4.8)+'" fill="'+ramp(e.mean/L,T.ramp)+'" fill-opacity="'+(0.4+0.6*rel).toFixed(2)+'"/></g>');o.push(parts.join(''));}
+      parts.push(arrowHead(arrowPts(g,4.8),ramp(e.mean/L,T.ramp),0.4+0.6*rel,un,T)+'</g>');o.push(parts.join(''));}
     else{var wpx=1.2+8.8*rel,al=7+wpx*0.9,g2=edgeGeom(A,C,al),col=ramp(e.mean/L,T.ramp);
-      o.push('<g opacity="'+(dimmed(e)?0.08:0.9)+'"><title>'+tip+'</title><path d="M'+f1(g2.s.x)+' '+f1(g2.s.y)+' Q'+f1(g2.q.x)+' '+f1(g2.q.y)+' '+f1(g2.e.x)+' '+f1(g2.e.y)+'" fill="none" stroke="'+col+'" stroke-width="'+f1(wpx)+'"/><polygon points="'+arrowPts(g2,3.2+wpx*0.55)+'" fill="'+col+'"/></g>');}});
+      o.push('<g class="edge" data-k="'+ek+'" opacity="'+(dimmed(e)?0.08:0.9)+'"><title>'+tip+'</title>'+hitPath(g2)+'<path d="M'+f1(g2.s.x)+' '+f1(g2.s.y)+' Q'+f1(g2.q.x)+' '+f1(g2.q.y)+' '+f1(g2.e.x)+' '+f1(g2.e.y)+'" fill="none" stroke="'+col+'" stroke-width="'+f1(wpx)+'"'+(un?' stroke-dasharray="6 4"':'')+'/>'+arrowHead(arrowPts(g2,3.2+wpx*0.55),col,1,un,T)+'</g>');}});
 
   // Nodes: disc (area = time share), then the clock ring: one bar per slice, length = share of that slice.
-  var maxShr=0;c.shr.forEach(function(r){r.forEach(function(v){maxShr=Math.max(maxShr,v);});});maxShr=maxShr||1;
+  var maxShr=0;c.shr.forEach(function(r){r.forEach(function(v){maxShr=Math.max(maxShr,v);});});maxShr=opt.maxShr||maxShr||1;
   nodes.forEach(function(nd){var g=['<g data-b="'+nd.i+'" tabindex="0" role="button" aria-pressed="'+(foc===nd.i)+'" aria-label="'+esc(nd.name+', '+ta(c.mins[nd.i])+(avg?' per learner':'')+'. Highlight its links')+'">'];
     g.push('<circle cx="'+f1(nd.x)+'" cy="'+f1(nd.y)+'" r="'+f1(nd.ro+10)+'" fill="'+T.bg+'" fill-opacity="0"/>');
     g.push('<circle cx="'+f1(nd.x)+'" cy="'+f1(nd.y)+'" r="'+f1(nd.r0)+'" fill="none" stroke="'+T.line+'" stroke-width="1"/>');
@@ -758,27 +930,40 @@ function drawFigure(c){
 
   loops.forEach(function(e){var nd=nodes[e.f],sw=S.edgeStyle==='swell',rel=e.w/maxW,wpx=sw?1.2:1.2+4.8*rel,al=sw?8:6+wpx*0.8,g=loopGeom(nd,B,al),col=ramp(e.mean/L,T.ramp);
     var d='M'+f1(g.s.x)+' '+f1(g.s.y)+' C'+f1(g.c1.x)+' '+f1(g.c1.y)+' '+f1(g.c2.x)+' '+f1(g.c2.y)+' '+f1(g.e.x)+' '+f1(g.e.y);
-    o.push('<g opacity="'+(dimmed(e)?0.08:0.92)+'"><title>'+esc(nd.name+' repeated: '+fw(e.w)+' '+unitLabel()+', '+when(e.mean))+'</title><path d="'+d+'" fill="none" stroke="'+(sw?T.muted:col)+'" stroke-opacity="'+(sw?(0.18+0.62*rel).toFixed(2):1)+'" stroke-width="'+f1(wpx)+'"/>'+
-      (sw?swellSegs(e.bins,c,maxBin,T,function(t){return cpt(g.s,g.c1,g.c2,g.e,t);},0.35+0.65*rel):'')+'<polygon points="'+arrowPts(g,sw?4:3+wpx*0.5)+'" fill="'+col+'"'+(sw?' fill-opacity="'+(0.4+0.6*rel).toFixed(2)+'"':'')+'/></g>');});
+    var lk=e.f+'>'+e.t,lun=unstable(c,lk);if(!opt.static)EDGE[lk]=e;
+    o.push('<g class="edge" data-k="'+e.f+'>'+e.t+'" opacity="'+(dimmed(e)?0.08:0.92)+'"><title>'+esc(nd.name+' repeated: '+fw(e.w)+' '+unitLabel()+', '+when(e.mean))+'</title><path d="'+d+'" fill="none" stroke="#000" stroke-opacity="0" stroke-width="12"/><path d="'+d+'" fill="none" stroke="'+(sw?T.muted:col)+'" stroke-opacity="'+(sw?(lun?0.75:0.18+0.62*rel).toFixed(2):1)+'" stroke-width="'+f1(wpx)+'"'+(lun?' stroke-dasharray="4 3"':'')+'/>'+
+      (sw?swellSegs(e.bins,c,maxBin,T,function(t){return cpt(g.s,g.c1,g.c2,g.e,t);},0.35+0.65*rel):'')+arrowHead(arrowPts(g,sw?4:3+wpx*0.5),col,sw?0.4+0.6*rel:1,lun,T)+'</g>');});
 
-  // Labels: minute numbers at the quarter points of each clock ring, then name / minutes (share) / peak slice,
+  // Labels: minute numbers at the quarter points of the selected disc's clock ring, then name / minutes (share) / peak slice,
   // placed beside side nodes and above or below the others, so they stay clear of the arrows between nodes.
   var bottom=0;
   nodes.forEach(function(nd){var t=['<g pointer-events="none">'];
-    [0,0.25,0.5,0.75].forEach(function(q){var d=nd.ro+4,p=polar(nd.x,nd.y,d,360*q),an=q===0.25?'start':q===0.75?'end':'middle',dy=q===0?-1:q===0.5?9:3.5;
+    if(foc===nd.i||B===1)[0,0.25,0.5,0.75].forEach(function(q){var d=nd.ro+4,p=polar(nd.x,nd.y,d,360*q),an=q===0.25?'start':q===0.75?'end':'middle',dy=q===0?-1:q===0.5?9:3.5;
       t.push(haloText(T,p.x,p.y+dy,9.5,0,T.muted,an,tp(L*q)));});
     var val=ta(c.mins[nd.i])+(avg?'':' total')+' ('+Math.round(nd.share*100)+'%)',pk=peakSlice(c,nd.i),l3=pk?'peak '+pk:'none in this window';
-    var wEst=Math.max(nd.name.length*8.8,val.length*6.8,l3.length*6.4),dir=Math.cos(nd.a)>0?1:-1,sx=nd.x+dir*(nd.ro+28);
-    var side=nd.side&&(dir>0?sx+wEst<W-8:sx-wEst>8),xs,an,ys;
-    if(side){xs=sx;an=dir>0?'start':'end';ys=[nd.y-6,nd.y+11,nd.y+26];}
+    var dir=Math.cos(nd.a)>0?1:-1,sx=nd.x+dir*(nd.ro+28),nm=[nd.name];
+    function fits(lines){var w=Math.max(val.length*6.8,l3.length*6.4);lines.forEach(function(s){w=Math.max(w,s.length*8.8);});return dir>0?sx+w<W-8:sx-w>8;}
+    // A long name beside a side disc wraps onto two lines rather than dropping below the disc, where it could sit nearer a neighbour.
+    var side=nd.side&&fits(nm);
+    if(nd.side&&!side){var two=splitName(nd.name);if(two.length>1&&fits(two)){nm=two;side=true;}}
+    var xs,an,ys;
+    if(side){xs=sx;an=dir>0?'start':'end';ys=nm.length>1?[nd.y-14,nd.y+3,nd.y+20,nd.y+35]:[nd.y-6,nd.y+11,nd.y+26];}
     else if(nd.above){xs=nd.x;an='middle';var yb=nd.y-nd.ro-18;ys=[yb-32,yb-15,yb];}
     else{xs=nd.x;an='middle';var yt=nd.y+nd.ro+32;ys=[yt,yt+17,yt+32];}
-    t.push(haloText(T,xs,ys[0],16,600,T.ink,an,nd.name),haloText(T,xs,ys[1],13,0,T.muted,an,val),haloText(T,xs,ys[2],12,0,T.muted,an,l3));
-    t.push('</g>');o.push(t.join(''));bottom=Math.max(bottom,ys[2]+6,nd.y+nd.ro+22);});
+    var k=nm.length;
+    nm.forEach(function(s,j){t.push(haloText(T,xs,ys[j],16,600,T.ink,an,s));});
+    t.push(haloText(T,xs,ys[k],13,0,T.muted,an,val),haloText(T,xs,ys[k+1],12,0,T.muted,an,l3));
+    t.push('</g>');o.push(t.join(''));bottom=Math.max(bottom,ys[k+1]+6,nd.y+nd.ro+22);});
+
+  // Key points (optional): numbered badges on the most-time disc, the strongest link and the busiest slice,
+  // matching numbered lines in the footer. Drawn into the SVG so exports keep them.
+  var kp=S.notes?keyPoints(c,nodes):null;
+  if(kp)kp.marks.forEach(function(m){o.push(badge(T,m.x,m.y,m.n));});
 
   // Footer: insights on the left (wrapped), size key and clock key on the right.
-  var footY=Math.round(Math.max(660,bottom+18)),ins=insights(c),iy=footY+14;
-  ins.forEach(function(line,i){wrapText(line,i===0?70:78).forEach(function(part){o.push('<text x="24" y="'+iy+'" font-size="'+(i===0?14:13)+'" fill="'+(i===0?T.ink:T.muted)+'">'+esc(part)+'</text>');iy+=18;});});
+  var footY=Math.round(Math.max(660,bottom+18)),ins=insights(c),iy=footY+14,lines=ins.slice(0,2).concat(kp&&kp.busy?[kp.busy]:[],ins.slice(2),[linkNote(c)],c.stab?[stabNote(c)]:[]),fx=kp?46:24;
+  lines.forEach(function(line,i){if(kp&&i<kp.marks.length)o.push(badge(T,30,iy-4.5,i+1));
+    wrapText(line,(i===0?70:78)-(kp?4:0)).forEach(function(part){o.push('<text x="'+fx+'" y="'+iy+'" font-size="'+(i===0?14:13)+'" fill="'+(i===0?T.ink:T.muted)+'">'+esc(part)+'</text>');iy+=18;});});
   var rM=rMaxOf(B),kx=630,kb=footY+112,r25=rM*0.5,r10=rM*Math.sqrt(0.1);
   o.push('<text x="'+kx+'" y="'+f1(kb-2*r25-8)+'" text-anchor="middle" font-size="11" fill="'+T.muted+'">Disc area = % of window</text>');
   [[r25,'25%'],[r10,'10%']].forEach(function(s){o.push('<circle cx="'+kx+'" cy="'+f1(kb-s[0])+'" r="'+f1(s[0])+'" fill="none" stroke="'+T.muted+'" stroke-opacity="0.7"/><text x="'+kx+'" y="'+f1(kb-2*s[0]+11)+'" text-anchor="middle" font-size="10" fill="'+T.muted+'">'+s[1]+'</text>');});
@@ -796,8 +981,24 @@ function drawFigure(c){
   o.push('<rect x="'+f1(bx+bw*t0/L)+'" y="'+(by-3)+'" width="'+f1(Math.max(2,bw*win/L))+'" height="14" rx="3" fill="none" stroke="'+T.ink+'" stroke-width="1"/>');
   o.push('<text x="'+bx+'" y="'+(by+26)+'" font-size="12" fill="'+T.muted+'">'+tp(0)+'</text><text x="'+(bx+bw/2)+'" y="'+(by+26)+'" font-size="12" text-anchor="middle" fill="'+T.muted+'">'+tp(L/2)+'</text><text x="'+(bx+bw)+'" y="'+(by+26)+'" font-size="12" text-anchor="end" fill="'+T.muted+'">'+tp(L)+'</text>');
 
-  var svg=$('#net');svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.setAttribute('font-family',FONT);
-  svg.innerHTML='<title id="net-t">Temporal ordered network, '+tp(t0)+' to '+tp(t1)+'</title><desc id="net-d">'+esc(ins.join(' '))+'</desc>'+o.join('');}
+  return {inner:o.join(''),W:W,H:H,font:FONT,title:'Temporal ordered network, '+(c.groupName?c.groupName+', ':'')+tp(t0)+' to '+tp(t1),desc:ins.join(' ')};}
+function drawFigure(c){var m=figureMarkup(c,{}),svg=$('#net');svg.setAttribute('viewBox','0 0 '+m.W+' '+m.H);svg.setAttribute('font-family',m.font);
+  svg.innerHTML='<title id="net-t">'+esc(m.title)+'</title><desc id="net-d">'+esc(m.desc)+'</desc>'+m.inner;
+  Array.prototype.forEach.call(svg.querySelectorAll('title'),function(t){if(t.id==='net-t')return;t.parentNode.setAttribute('data-tip',t.textContent);t.parentNode.removeChild(t);});
+  hoverKey=null;svg.classList.remove('hov');hideTip();}
+
+// Helpers for the figure: an invisible wide stroke so thin arrows are easy to point at, a numbered badge,
+// and the three key points (most time, strongest link, busiest slice inside the window).
+function hitPath(g){return '<path d="M'+f1(g.s.x)+' '+f1(g.s.y)+' Q'+f1(g.q.x)+' '+f1(g.q.y)+' '+f1(g.e.x)+' '+f1(g.e.y)+'" fill="none" stroke="#000" stroke-opacity="0" stroke-width="12"/>';}
+function badge(T,x,y,n){return '<g class="kp" pointer-events="none"><circle cx="'+f1(x)+'" cy="'+f1(y)+'" r="10" fill="'+T.ink+'" stroke="'+T.bg+'" stroke-width="2"/><text x="'+f1(x)+'" y="'+f1(y+4.2)+'" text-anchor="middle" font-size="12" font-weight="600" fill="'+T.bg+'">'+n+'</text></g>';}
+function keyPoints(c,nodes){var marks=[],top=0,b,k;for(b=1;b<c.B;b++)if(c.mins[b]>c.mins[top])top=b;
+  if(c.mins[top]>0){var nd=nodes[top];marks.push({n:1,x:nd.x+nd.r*0.71,y:nd.y-nd.r*0.71});}else return null;
+  var best=null;c.shown.forEach(function(e){if(e.f!==e.t&&(!best||e.w>best.w))best=e;});
+  if(best){var g=edgeGeom(nodes[best.f],nodes[best.t],10),m=qpt(g.s,g.q,g.e,0.5);marks.push({n:2,x:m.x,y:m.y});}
+  var pb=-1,pk=-1,pv=0;for(b=0;b<c.B;b++)for(k=0;k<c.NS;k++){var s0=k*c.sl,s1=Math.min((k+1)*c.sl,c.L);if(s1<=c.t0||s0>=c.t1)continue;if(c.shr[b][k]>pv){pv=c.shr[b][k];pb=b;pk=k;}}
+  var busy=null;if(pb>=0&&best){var n2=nodes[pb],s0b=pk*c.sl,s1b=Math.min((pk+1)*c.sl,c.L),q=polar(n2.x,n2.y,n2.ro+11,180*(s0b+s1b)/c.L);
+    marks.push({n:3,x:q.x,y:q.y});busy='Busiest moment: '+P.behaviours[pb]+' fills '+Math.round(pv*100)+'% of '+tr(s0b,s1b)+(S.scope==='avg'?' (averaged over learners).':'.');}
+  return {marks:marks,busy:busy};}
 
 function insights(c){var avg=S.scope==='avg',win=c.t1-c.t0,cap=win*(avg?1:c.n),top=0;
   for(var b=1;b<c.B;b++)if(c.mins[b]>c.mins[top])top=b;
@@ -830,14 +1031,15 @@ function drawDetail(c){var T=tokens(),B=c.B,b=selected;
 
 function drawLegend(){var T=tokens(),w=Math.max(2,S.window|0);
   var q=[0.25,0.5,0.75].map(function(x){return tp(D?D.L*x:0);}).join(', '),sl=D?D.sl:5;
-  $('#lg-ring').textContent='one bar per '+td(sl)+' slice, read like a clock: '+tp(0)+' at the top (the dark tick), then '+q+' clockwise. A longer bar means more of that slice was spent in the behaviour. Faded bars fall outside the window. The label under each disc names its peak slice.';
+  $('#lg-ring').textContent='one bar per '+td(sl)+' slice, read like a clock: '+tp(0)+' at the top (the dark tick), then '+q+' clockwise (select a disc to see these times on its ring). A longer bar means more of that slice was spent in the behaviour. Faded bars fall outside the window. The label under each disc names its peak slice.';
   $('#lg-arrow').textContent=w===2?'B came right after A':'B came within '+(w-1)+' actions after A';
-  $('#lg-thick').textContent='Thickness = '+(S.thick==='count'?'transitions':'time spent in B')+(S.scope==='avg'?' per learner.':' across the class.');
+  $('#lg-thick').textContent=S.thick==='lift'?'Thickness = how many times more often B followed A than chance (observed \u00f7 expected, given how often each code occurs). Only links seen at least '+LIFT_MIN+' times and above chance are drawn.':'Thickness = '+(S.thick==='count'?'transitions':'time spent in B')+(S.scope==='avg'?' per learner.':' across the class.');
   var ico=$('#lg-edge-ico');
   if(S.edgeStyle==='swell'){ico.innerHTML='<line x1="2" y1="15" x2="34" y2="15" stroke="currentColor" stroke-opacity=".4"/><line x1="8" y1="15" x2="14" y2="15" stroke="'+T.ramp[0]+'" stroke-width="3"/><line x1="17" y1="15" x2="24" y2="15" stroke="'+T.ramp[1]+'" stroke-width="8"/><polygon points="38,15 32,11 32,19" fill="currentColor" fill-opacity=".6"/>';
-    $('#lg-edge').innerHTML='<b>Timeline arrow</b>: every arrow is also a time axis for the window, running from '+tp(view.t0)+' at A to '+tp(view.t1)+' at B. It swells in the '+td(sl)+' slices where the link happened, coloured early to late. Fainter arrows are weaker links.';}
+    $('#lg-edge').innerHTML='<b>Timeline arrow</b>: swells where the link happened, coloured early to late.<span class="long"> Every arrow is also a time axis for the window, running from '+tp(view.t0)+' at A to '+tp(view.t1)+' at B, in '+td(sl)+' slices; slices with very few links are left out. Fainter arrows are weaker links.</span>';}
   else{ico.innerHTML='<line x1="2" y1="9" x2="36" y2="9" stroke="'+T.ramp[0]+'" stroke-width="3"/><line x1="2" y1="21" x2="36" y2="21" stroke="'+T.ramp[2]+'" stroke-width="3"/>';
     $('#lg-edge').innerHTML='<b>Arrow colour</b> is the average '+tword()+' the link happened, from early to late.';}
+  if(S.stab)$('#lg-edge').innerHTML+=' <b>Dashed, hollow head</b>: an unstable link.<span class="long"> It is shown in fewer than '+Math.round(STAB_HOLD*100)+'% of resamples of learners.</span>';
   $('#lg-barmid').textContent='Arrow colour = '+tword()+' of session';
   $('#lg-bar').style.background='linear-gradient(90deg,'+T.ramp.join(',')+')';}
 
@@ -848,6 +1050,9 @@ function buildFrames(){var L=D.L,F=D.fr,n=Math.ceil(L/F-1e-9),cnt=new Array(n).f
   for(var i=0;i<n;i++)h.push('<button data-f="'+i+'" title="'+plural(cnt[i],'episode')+' start in this frame" aria-label="'+tr(i*F,Math.min((i+1)*F,L))+', '+plural(cnt[i],'episode')+'">'+tr(i*F,Math.min((i+1)*F,L))+'<small>'+cnt[i]+'</small></button>');
   h.push('<button id="play" aria-label="Play through frames">Play</button>');
   $('#frames').innerHTML=h.join('');timeSelects();
+  // Activity strip above the window slider: episodes starting in each slice, so dense and thin stretches are visible.
+  var sl=D.sl,ns=Math.ceil(L/sl-1e-9);ACT=new Array(ns).fill(0);
+  D.seqs.forEach(function(q){q.forEach(function(x){var k=Math.min(ns-1,Math.max(0,Math.floor(x.s/sl)));ACT[k]++;});});
   [$('#r0'),$('#r1')].forEach(function(r){r.max=String(L);r.step=String(nice(L/60));});}
 // Slice and frame menus offer Auto (with the size it picked) and only the sizes that make sense for this session.
 function timeSelects(){var L=D.L;
@@ -856,6 +1061,12 @@ function timeSelects(){var L=D.L;
 function syncWindowUI(){var L=D.L;$('#r0').value=String(view.t0);$('#r1').value=String(view.t1);
   var rf=$('#rfill');rf.style.left=(100*view.t0/L)+'%';rf.style.width=(100*(view.t1-view.t0)/L)+'%';
   $('#winlbl').textContent=tp(view.t0)+' – '+tp(view.t1);
+  if(ACT){var mx=Math.max.apply(null,ACT)||1,n=ACT.length,bars='';ACT.forEach(function(v,k){var s0=k*D.sl,s1=Math.min((k+1)*D.sl,L),inW=s1>view.t0&&s0<view.t1,h=v?Math.max(1.5,16*v/mx):0;
+      bars+='<rect x="'+f1(100*s0/L+0.3)+'" y="'+f1(18-h)+'" width="'+f1(Math.max(0.4,100*(s1-s0)/L-0.6))+'" height="'+f1(h)+'" rx="0.6" class="'+(inW?'in':'out')+'"/>';});
+    $('#act').innerHTML='<svg viewBox="0 0 100 18" preserveAspectRatio="none">'+bars+'</svg>';}
+  var kb=$('#kp');if(kb)kb.setAttribute('aria-pressed',String(!!S.notes));
+  // The window slider and activity strip appear only for a custom window.
+  var wr=$('#win');wr.hidden=!(winOpen||view.frame===-2);$('#win-toggle').setAttribute('aria-pressed',String(!wr.hidden));
   Array.prototype.forEach.call(document.querySelectorAll('#frames [data-f]'),function(b){b.setAttribute('aria-pressed',String(+b.dataset.f===view.frame));});
   Array.prototype.forEach.call(document.querySelectorAll('.arrows [data-e]'),function(b){b.setAttribute('aria-pressed',String(b.dataset.e===S.edgeStyle));});
   var pl=$('#play');if(pl){pl.textContent=playTimer?'Pause':'Play';pl.setAttribute('aria-pressed',String(!!playTimer));}}
@@ -865,7 +1076,40 @@ function togglePlay(){if(playTimer){stopPlay();syncWindowUI();return;}var n=Math
   playTimer=setInterval(function(){var nx=view.frame+1;if(nx>=n){stopPlay();setFrame(-1);return;}setFrame(nx);},1600);syncWindowUI();}
 
 var raf=0;
-function render(){if(!P||!D)return;cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var c=compute(view.t0,view.t1);lastC=c;drawFigure(c);drawDetail(c);drawLegend();syncWindowUI();aiAfterRender(c);});}
+var grp=-1,CMP=null,cmpA=0,cmpB=1,winOpen=false,codesOpen=false;
+function groupWts(g){return P.learners.map(function(_,li){return P.lgroup&&P.lgroup[li]===g?1:0;});}
+function hasGroups(){return !!(P&&P.groups&&P.groups.length>1);}
+function setupGroups(){var gw=$('#grp-wrap');if(!hasGroups()){gw.hidden=true;return;}var cnt=P.groups.map(function(){return 0;});P.lgroup.forEach(function(g){if(g!=null)cnt[g]++;});
+  $('#grp').innerHTML='<option value="-1">All ('+P.learners.length+')</option>'+P.groups.map(function(g,i){return '<option value="'+i+'">'+esc(g)+' ('+cnt[i]+')</option>';}).join('')+'<option value="cmp">Groups side by side</option>';
+  $('#grp').value='-1';gw.hidden=false;}
+function render(){if(!P||!D)return;cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){
+  var cmp=grp==='cmp'&&hasGroups();$('#figbox').hidden=cmp;$('#compare').hidden=!cmp;
+  if(cmp){drawCompare();lastC=compute(view.t0,view.t1);}
+  else{CMP=null;var gi=typeof grp==='number'&&grp>=0&&hasGroups()&&grp<P.groups.length?grp:-1,wt=gi>=0?groupWts(gi):null,c=compute(view.t0,view.t1,wt);
+    if(gi>=0)c.groupName=P.groups[gi];if(S.stab)stability(c,wt);lastC=c;drawFigure(c);}
+  drawDetail(lastC);drawLegend();syncWindowUI();aiAfterRender(lastC);});}
+// Groups side by side: per-learner values, the link threshold of all learners together, and shared disc, ring and arrow scales.
+function drawCompare(){var sc=S.scope;S.scope='avg';try{
+  var all=compute(view.t0,view.t1),gs=P.groups.slice(0,6);
+  var cs=gs.map(function(name,g){var c=compute(view.t0,view.t1,groupWts(g),{thr:all.thr});c.groupName=name;return c;});
+  var maxW=0,maxBin=0,maxShr=0;cs.forEach(function(c){c.shown.forEach(function(e){maxW=Math.max(maxW,e.w);maxBin=Math.max(maxBin,Math.max.apply(null,e.bins));});c.shr.forEach(function(r){r.forEach(function(v){maxShr=Math.max(maxShr,v);});});});
+  CMP=cs.map(function(c){return {c:c,m:figureMarkup(c,{static:true,maxW:maxW||1,maxBin:maxBin,maxShr:maxShr||1})};});
+  $('#cmp-grid').innerHTML=CMP.map(function(x){return '<figure><svg viewBox="0 0 '+x.m.W+' '+x.m.H+'" role="img" font-family="'+x.m.font+'" aria-label="'+esc(x.m.title+'. '+x.m.desc)+'">'+x.m.inner+'</svg></figure>';}).join('');
+  $('#cmp-note').textContent='Shared scales: per-learner values, the same link threshold ('+(all.thr>0?fw(all.thr)+' '+unitLabel():'all links')+'), and the same disc, ring and arrow sizes.'+(P.groups.length>6?' Showing the first 6 of '+P.groups.length+' groups.':'')+(sc==='sum'?' Class totals are shown per learner here so groups of different sizes compare fairly.':'');
+  drawDiff(cs);}finally{S.scope=sc;}}
+function drawDiff(cs){var el=$('#cmp-diff');if(cs.length<2){el.innerHTML='';return;}
+  if(cmpA>=cs.length)cmpA=0;if(cmpB>=cs.length||cmpB===cmpA)cmpB=cmpA===0?1:0;
+  var A=cs[cmpA],B=cs[cmpB],opts=function(sel){return cs.map(function(c,i){return '<option value="'+i+'"'+(i===sel?' selected':'')+'>'+esc(c.groupName)+'</option>';}).join('');};
+  var beh=P.behaviours.map(function(n,b){return {n:n,a:A.mins[b],b:B.mins[b],d:A.mins[b]-B.mins[b]};}).sort(function(x,y){return Math.abs(y.d)-Math.abs(x.d);}).slice(0,5);
+  var ka={},kb={};A.edges.forEach(function(e){ka[e.f+'>'+e.t]=e;});B.edges.forEach(function(e){kb[e.f+'>'+e.t]=e;});
+  var lk=Object.keys(ka).concat(Object.keys(kb).filter(function(k){return !ka[k];})).map(function(k){var a=ka[k],b=kb[k],pr=k.split('>');
+    return {n:P.behaviours[+pr[0]]+' \u2192 '+(pr[0]===pr[1]?'itself':P.behaviours[+pr[1]]),a:a?a.w:0,b:b?b.w:0,la:a?a.nl:0,lb:b?b.nl:0,d:(a?a.w:0)-(b?b.w:0)};}).sort(function(x,y){return Math.abs(y.d)-Math.abs(x.d);}).slice(0,8);
+  function row(r,time){var v=function(x){return time?ta(x):fw(x);};
+    return '<tr><td>'+esc(r.n)+'</td><td>'+esc(v(r.a))+(time?'':' <span class="m">('+r.la+')</span>')+'</td><td>'+esc(v(r.b))+(time?'':' <span class="m">('+r.lb+')</span>')+'</td><td class="d">'+(r.d>0?'+':r.d<0?'\u2212':'')+esc(v(Math.abs(r.d)))+'</td></tr>';}
+  el.innerHTML='<div class="cmp-head"><h3>Largest differences <span class="tag">exploratory</span></h3><label>Compare <select id="cmp-a">'+opts(cmpA)+'</select></label><label>with <select id="cmp-b">'+opts(cmpB)+'</select></label></div>'+
+    '<table><thead><tr><th>Time in behaviour (per learner)</th><th>'+esc(A.groupName)+'</th><th>'+esc(B.groupName)+'</th><th>Difference</th></tr></thead><tbody>'+beh.map(function(r){return row(r,true);}).join('')+'</tbody>'+
+    '<thead><tr><th>Link ('+esc(unitLabel())+'; learners who made it)</th><th>'+esc(A.groupName)+'</th><th>'+esc(B.groupName)+'</th><th>Difference</th></tr></thead><tbody>'+lk.map(function(r){return row(r,false);}).join('')+'</tbody></table>'+
+    '<p class="hint">Averages per learner, with no statistical test. A difference here is a lead to check, for example with ONA or with more learners, not a finding.</p>';}
 
 /* ---------- data flow ---------- */
 function setStatus(msg,err){var s=$('#status');s.textContent=msg;s.className='status'+(err?' err':'');}
@@ -884,23 +1128,63 @@ function showStage(s,focus){stage=s;
   if(focus){try{window.scrollTo(0,0);}catch(e){}var h=$('#stage-'+s+' h1');if(h)try{h.focus({preventScroll:true});}catch(e){}}}
 
 // Check step: read the text with a column map and describe what was found.
-function analyse(text,name,idx,unit){var tb=readTable(text);
+function analyse(text,name,idx,unit){var tb=readTable(text),prev=pending;
   if(tb.error)pending={text:text,name:name,tb:null,idx:{},unit:'min',res:tb};
   else{idx=idx||autoMap(tb.hdr);unit=NUM_UNITS[unit]?unit:guessUnit(tb,idx);pending={text:text,name:name,tb:tb,idx:idx,unit:unit,res:parseRows(tb,idx,unit)};}
+  pending.codes=pending.res.error?null:initCodes(pending.res,prev);
   drawCheck();return pending.res;}
+
+/* ---------- code manager ---------- */
+// Each original code keeps a label, an include flag and a position. Codes with the same label (any case) are merged;
+// left-out codes are removed, so their time counts as uncoded. The order sets the places around the circle.
+var UP='<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5 6 4l3.5 3.5"/></svg>',DOWN='<svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>';
+function sameNames(a,b){return !!(a&&b&&a.length===b.length&&a.every(function(x,i){return x===b[i];}));}
+function initCodes(res,prev){var names=res.behaviours;
+  if(prev&&prev.codes&&prev.res&&!prev.res.error&&sameNames(prev.res.behaviours,names))return prev.codes;
+  var sv=load('tona-codes');
+  if(sv&&sameNames(sv.names,names)&&Array.isArray(sv.cfg)&&sv.cfg.length===names.length){var seen={},okc=sv.cfg.every(function(c){var o=+c.o;if(!(o>=0&&o<names.length)||seen[o])return false;seen[o]=1;return true;});
+    if(okc)return sv.cfg.map(function(c){return {o:+c.o,label:typeof c.label==='string'&&c.label.trim()?c.label:names[+c.o],keep:c.keep!==false};});}
+  return names.map(function(n,i){return {o:i,label:n,keep:true};});}
+function codeLabel(res,c){return String(c.label||'').replace(/\s+/g,' ').trim()||res.behaviours[c.o];}
+function codeGroups(res,cs){var names=[],key=Object.create(null),map={},first={};
+  cs.forEach(function(c){if(!c.keep){map[c.o]=-1;return;}var lab=codeLabel(res,c),k=lab.toLowerCase();if(!(k in key)){key[k]=names.length;names.push(lab);first[k]=c.o;}map[c.o]=key[k];});
+  return {names:names,map:map,first:first};}
+function codesChanged(res,cs){return !!cs&&cs.some(function(c,i){return c.o!==i||!c.keep||codeLabel(res,c)!==res.behaviours[c.o];});}
+function applyCodes(res,cs){if(!codesChanged(res,cs))return res;var g=codeGroups(res,cs),ev=[],counts=g.names.map(function(){return 0;}),pre=0,by={};
+  // Without an end column an episode runs to the learner's next one in the full log, so leaving a code out never stretches its neighbours.
+  if(!res.hasEnd){res.ev.forEach(function(e){(by[e.l]=by[e.l]||[]).push(e);});
+    Object.keys(by).forEach(function(l){var q=by[l].slice().sort(function(a,b){return a.s-b.s;});q.forEach(function(e,i){e._e=e.e!=null&&e.e>=e.s?e.e:(i+1<q.length?Math.max(e.s,q[i+1].s):e.s);});});}
+  res.ev.forEach(function(e){var nb=g.map[e.b];if(nb==null||nb<0)return;if(!res.hasEnd)pre++;ev.push({l:e.l,b:nb,s:e.s,e:res.hasEnd?e.e:e._e});counts[nb]++;});
+  return Object.assign({},res,{ev:ev,behaviours:g.names,counts:counts,prefilled:pre});}
+function saveCodes(){if(pending&&pending.codes&&pending.res&&!pending.res.error)store('tona-codes',{names:pending.res.behaviours,cfg:pending.codes});}
+function renderCodes(){var pd=pending,res=pd.res,cs=pd.codes,T=tokens(),g=codeGroups(res,cs),gc=g.names.map(function(){return 0;});
+  cs.forEach(function(c){var nb=g.map[c.o];if(nb>=0)gc[nb]+=res.counts[c.o];});
+  $('#chips').innerHTML=g.names.map(function(n,i){return '<span class="chip"><i style="background:'+T.pal[i%T.pal.length]+'"></i>'+esc(n)+' <span>'+gc[i]+'</span></span>';}).join('');
+  var open=codesOpen||codesChanged(res,cs);$('#codes-box').hidden=!open;$('#codes-edit').setAttribute('aria-expanded',String(open));$('#codes-edit').textContent=open?'Hide':'Rename, merge or reorder';
+  $('#codes').innerHTML=cs.map(function(c,i){var nb=g.map[c.o],lab=codeLabel(res,c),orig=res.behaviours[c.o],merged=c.keep&&g.first[lab.toLowerCase()]!==c.o;
+    return '<li data-i="'+i+'"'+(c.keep?'':' class="off"')+'><i style="background:'+(c.keep?T.pal[nb%T.pal.length]:'transparent')+';border:1.5px solid '+(c.keep?'transparent':T.muted)+'"></i>'+
+      '<input type="text" value="'+esc(lab)+'" aria-label="Name for '+esc(orig)+'"'+(c.keep?'':' disabled')+'>'+
+      '<span class="n" title="'+plural(res.counts[c.o],'episode')+'">'+res.counts[c.o]+'</span>'+
+      '<button type="button" class="icon-btn" data-mv="-1" aria-label="Move '+esc(lab)+' up"'+(i===0?' disabled':'')+'>'+UP+'</button>'+
+      '<button type="button" class="icon-btn" data-mv="1" aria-label="Move '+esc(lab)+' down"'+(i===cs.length-1?' disabled':'')+'>'+DOWN+'</button>'+
+      '<input type="checkbox" aria-label="Include '+esc(orig)+'" title="Include in the network"'+(c.keep?' checked':'')+'>'+
+      (merged?'<span class="mg">merged with '+esc(g.names[nb])+'</span>':lab!==orig&&c.keep?'<span class="mg">renamed from '+esc(orig)+'</span>':'')+'</li>';}).join('');
+  var kept=cs.filter(function(c){return c.keep;}).length,out=cs.length-kept,mg=kept-g.names.length,ch=codesChanged(res,cs);
+  $('#codes-note').textContent=ch?plural(cs.length,'code')+' \u2192 '+plural(g.names.length,'behaviour')+(mg?' \u00b7 '+mg+' merged':'')+(out?' \u00b7 '+out+' left out':'')+(kept?'':' \u00b7 include at least one code to build the network')+'.':'';
+  $('#codes-reset').hidden=!ch;}
 function spanOf(res){var per=[],mx=0;
   res.ev.forEach(function(e){var end=e.e!=null&&e.e>e.s?e.e:e.s;if(res.clock){var p=per[e.l]||(per[e.l]={a:Infinity,b:-Infinity});p.a=Math.min(p.a,e.s);p.b=Math.max(p.b,end);}else mx=Math.max(mx,end);});
   if(res.clock)per.forEach(function(p){if(p)mx=Math.max(mx,p.b-p.a);});return mx;}
 var ICON={warn:'<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1.8 15 14H1z" stroke-linejoin="round"/><path d="M8 6v3.6M8 11.4v.4" stroke-linecap="round"/></svg>',
   info:'<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.4"/><path d="M8 7.2v4M8 4.6v.4" stroke-linecap="round"/></svg>',
   ok:'<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6.4"/><path d="m5.2 8.2 2 2 3.8-4" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
-var ROLE_LBL={learner:'Learner',behaviour:'Behaviour',start:'Start',end:'End'};
+var ROLE_LBL={learner:'Learner',behaviour:'Behaviour',start:'Start',end:'End',group:'Group'};
 function drawCheck(){var pd=pending,res=pd.res,tb=pd.tb,T=tokens(),ok=!res.error;
   $('#src-name').textContent=pd.name;
-  ROLES.forEach(function(k){var sel=$('#map-'+k),h='<option value="-1">'+(k==='end'?'None':'Choose a column')+'</option>';
+  ROLES.forEach(function(k){var sel=$('#map-'+k),h='<option value="-1">'+(k==='end'||k==='group'?'None':'Choose a column')+'</option>';
     if(tb)tb.names.forEach(function(n,i){h+='<option value="'+i+'">'+esc(n||'Column '+(i+1))+'</option>';});
     sel.innerHTML=h;sel.value=String(pd.idx[k]>=0?pd.idx[k]:-1);sel.disabled=!tb;
-    sel.parentNode.classList.toggle('miss',!!tb&&k!=='end'&&!(pd.idx[k]>=0));});
+    sel.parentNode.classList.toggle('miss',!!tb&&k!=='end'&&k!=='group'&&!(pd.idx[k]>=0));});
   $('#map-unit').value=pd.unit||'min';$('#unit-row').hidden=!(ok&&res.nums>0);
   setStatus(ok?'Read '+plural(res.ev.length,'episode')+' from '+plural(res.learners.length,'learner')+', '+plural(res.behaviours.length,'behaviour')+'.':res.error,!ok);
   var roleOf={};ROLES.forEach(function(k){if(pd.idx[k]>=0)roleOf[pd.idx[k]]=k;});
@@ -913,14 +1197,18 @@ function drawCheck(){var pd=pending,res=pd.res,tb=pd.tb,T=tokens(),ok=!res.error
   $('#pv-note').textContent=tb?'Showing '+Math.min(8,tb.rows.length)+' of '+plural(tb.rows.length,'row')+'.'+(badShown?' Rows in red can’t be read.':''):'';
   var tiles=ok?[[res.ev.length,'episodes read'+(res.skipped?' of '+res.rows:'')],[res.learners.length,'learners'],[res.behaviours.length,'behaviours'],[tp(spanOf(res),timeUnit(spanOf(res))),res.clock?'longest session':'last time in the log']]:[];
   $('#tiles').innerHTML=tiles.map(function(t){return '<div class="tile"><b>'+esc(t[0])+'</b><span>'+esc(t[1])+'</span></div>';}).join('')||'<p class="hint" style="margin:0">Choose the columns to see a summary.</p>';
-  $('#chips').innerHTML=ok?res.behaviours.map(function(b,i){return '<span class="chip"><i style="background:'+T.pal[i%T.pal.length]+'"></i>'+esc(b)+' <span>'+res.counts[i]+'</span></span>';}).join(''):'';
+  if(ok&&pd.codes)renderCodes();else{$('#codes').innerHTML='';$('#chips').innerHTML='';$('#codes-note').textContent='';$('#codes-reset').hidden=true;}
   var W=[];
   if(!ok)W.push(['warn',tb?'Pick the learner, behaviour and start columns above to continue.':'Go back and load a file with a header row and at least one data row.']);
   else{
     if(res.skipped)W.push(['warn',plural(res.skipped,'row')+' can’t be read and will be skipped (line'+(res.bad.length>1?'s ':' ')+res.bad.join(', ')+(res.skipped>res.bad.length?', …':'')+'). Each row needs a learner, a behaviour and a start time.']);
     if(res.two)W.push(['warn','Times such as 09:12 are read as minutes:seconds. If yours mean hours:minutes, add seconds (09:12:00).']);
     if(res.neg)W.push(['warn',plural(res.neg,'episode')+' end'+(res.neg===1?'s':'')+' before '+(res.neg===1?'it starts':'they start')+'. '+(res.neg===1?'It':'They')+' will run until the learner’s next episode instead.']);
-    if(res.behaviours.length>10)W.push(['warn',res.behaviours.length+' behaviours. Above 10 the circle gets crowded and colours repeat; consider grouping codes.']);
+    var nb=pd.codes?codeGroups(res,pd.codes).names.length:res.behaviours.length;
+    if(nb>10)W.push(['warn',nb+' behaviours. Above 10 the circle gets crowded and colours repeat; merge or leave out codes under Behaviours.']);
+    if(res.groups){var gc=res.groups.map(function(){return 0;});res.lgroup.forEach(function(g){if(g!=null)gc[g]++;});
+      W.push(['info',res.groups.length<2?'The group column has only one value, so there is nothing to compare.':'Groups: '+res.groups.slice(0,6).map(function(g,i){return g+' ('+plural(gc[i],'learner')+')';}).join(', ')+(res.groups.length>6?', …':'')+'. Compare them with Learners → Groups side by side.']);
+      if(res.gConf)W.push(['warn',plural(res.gConf,'row')+' put a learner in a different group from their first row; each learner keeps their first group.']);}
     if(!res.hasEnd)W.push(['info','No end column: each episode lasts until the learner’s next one starts, so each learner’s last episode counts as 0 minutes.']);
     if(res.nums)W.push(['info','Plain numbers in the time columns are read as '+UNIT_NAME[res.unit]+(res.unit==='s'||res.unit==='ms'?(res.clock?' (they look like Unix timestamps)':''):'')+'. Change this under Columns if that is wrong.']);
     W.push(['info',res.clock?'Clock times or timestamps found, so each learner will start at zero. You can change this under Settings → Time.':'Times are read from the start of the session.']);
@@ -940,9 +1228,12 @@ function build(fromUser){var text=$('#data').value;
   if(!pending||pending.text!==text)analyse(text,'Pasted data',null);
   var res=pending.res;
   if(res.error){setStatus(res.error,true);showStage('check',fromUser);return false;}
-  P=res;if(fromUser){S.align=P.clock;$('#s-align').checked=S.align;}
+  P=applyCodes(res,pending.codes);
+  if(!P.ev.length){P=null;setStatus('Include at least one behaviour (under Behaviours) to build the network.',true);showStage('check',fromUser);return false;}
+  saveCodes();if(fromUser){S.align=P.clock;$('#s-align').checked=S.align;}
+  grp=-1;setupGroups();
   selected=null;stopPlay();derive();view={t0:0,t1:D.L,frame:-1};buildFrames();
-  $('#ds-name').textContent=pending.name;
+  dsName=pending.name;$('#ds-name').textContent=dsName;
   $('#summary').textContent=P.ev.length+' episodes from '+plural(P.learners.length,'learner')+', '+plural(P.behaviours.length,'behaviour')+' · session '+tr(0,D.L)+(P.skipped?' · '+plural(P.skipped,'row')+' skipped':'');
   if(text.length<1500000){store('tona-data',text);store('tona-name',pending.name);store('tona-map',mapNames());}
   showStage('explore',fromUser);return true;}
@@ -951,10 +1242,13 @@ function rederive(){if(!P)return;stopPlay();derive();var L=D.L;buildFrames();
   else{view.t1=Math.min(view.t1,L);view.t0=Math.min(view.t0,view.t1-1);if(view.t0<0)view.t0=0;}
   render();}
 
-function readSettingsUI(){S.window=+$('#s-window').value;S.thick=$('#s-thick').value;S.scope=$('#s-scope').value;S.minShare=+$('#s-min').value;S.loops=$('#s-loops').checked;S.merge=$('#s-merge').checked;S.align=$('#s-align').checked;
+function readSettingsUI(){S.window=+$('#s-window').value;S.thick=$('#s-thick').value;S.scope=$('#s-scope').value;S.minShare=+$('#s-min').value;S.minLearners=+$('#s-minl').value;S.stab=$('#s-stab').checked;S.loops=$('#s-loops').checked;S.merge=$('#s-merge').checked;S.align=$('#s-align').checked;S.norm=$('#s-norm').checked;
   var len=parseFloat($('#s-len').value);S.sessionLen=isFinite(len)&&len>0?len:0;S.slice=+$('#s-slice').value;S.frame=+$('#s-frame').value;S.theme=$('#s-theme').value;}
-function writeSettingsUI(){$('#s-window').value=String(S.window);$('#s-thick').value=S.thick;$('#s-scope').value=S.scope;$('#s-min').value=String(S.minShare);$('#s-loops').checked=S.loops;$('#s-merge').checked=S.merge;$('#s-align').checked=S.align;
-  $('#s-len').value=S.sessionLen>0?String(S.sessionLen):'';if(D)timeSelects();else{$('#s-slice').value=String(S.slice);$('#s-frame').value=String(S.frame);}$('#s-theme').value=S.theme;}
+function writeSettingsUI(){$('#s-window').value=String(S.window);$('#s-thick').value=S.thick;$('#s-scope').value=S.scope;$('#s-min').value=String(S.minShare);$('#s-minl').value=String(S.minLearners);$('#s-stab').checked=S.stab;$('#s-loops').checked=S.loops;$('#s-merge').checked=S.merge;$('#s-align').checked=S.align;$('#s-norm').checked=!!S.norm;$('#s-len').disabled=!!S.norm;
+  $('#s-len').value=S.sessionLen>0?String(S.sessionLen):'';if(D)timeSelects();else{$('#s-slice').value=String(S.slice);$('#s-frame').value=String(S.frame);}$('#s-theme').value=S.theme;settingBadges();}
+function settingBadges(){Array.prototype.forEach.call(document.querySelectorAll('details.grp[data-keys]'),function(d){
+    var n=d.getAttribute('data-keys').split(' ').filter(function(k){return S[k]!==DEF[k];}).length,sm=d.querySelector('summary'),b=sm.querySelector('.chg');
+    if(!b){b=document.createElement('span');b.className='chg';sm.appendChild(b);}b.textContent=n?n+' changed':'';});}
 function applyTheme(){var r=document.documentElement;if(S.theme==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',S.theme);}
 
 /* ---------- sample ---------- */
@@ -972,22 +1266,80 @@ var TEMPLATE=['learner,behaviour,start,end','S01,Planning,09:00:00,09:02:40','S0
 function svgString(withFont){var svg=$('#net').cloneNode(true);svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
   var vb=svg.getAttribute('viewBox').split(' ');svg.setAttribute('width',vb[2]);svg.setAttribute('height',vb[3]);svg.removeAttribute('style');
   Array.prototype.forEach.call(svg.querySelectorAll('[tabindex]'),function(n){n.removeAttribute('tabindex');n.removeAttribute('role');});
+  svg.classList.remove('hov');Array.prototype.forEach.call(svg.querySelectorAll('.on'),function(n){n.classList.remove('on');});
+  Array.prototype.forEach.call(svg.querySelectorAll('[data-tip]'),function(n){var t=document.createElementNS('http://www.w3.org/2000/svg','title');t.textContent=n.getAttribute('data-tip');n.insertBefore(t,n.firstChild);n.removeAttribute('data-tip');});
   var s=new XMLSerializer().serializeToString(svg);
   if(withFont)s=s.replace(/(<svg[^>]*>)/,'$1<style>@import url(\'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&amp;display=swap\');</style>');
   return '<?xml version="1.0" encoding="UTF-8"?>\n'+s;}
-function fname(ext){return 'temporal-ona-'+tnum(view.t0)+'-'+tnum(view.t1)+TU.k+'.'+ext;}
+function fname(ext){var gs=grp==='cmp'?'groups ':typeof grp==='number'&&grp>=0&&P&&P.groups?P.groups[grp]+' ':'',sl=(dsLabel()+' '+gs).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);return 'temporal-ona-'+(sl?sl+'-':'')+tnum(view.t0)+'-'+tnum(view.t1)+TU.k+'.'+ext;}
 var standalone=!(window.claude&&typeof window.claude.use==='function');
 function browserSave(filename,data){return new Promise(function(res,rej){try{var mime=/\.png$/.test(filename)?'image/png':/\.svg$/.test(filename)?'image/svg+xml;charset=utf-8':/\.html$/.test(filename)?'text/html;charset=utf-8':'text/csv;charset=utf-8';
   var blob=data instanceof Blob?data:new Blob([data],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.rel='noopener';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},4000);res();}catch(e){rej({code:'browser_error'});}});}
-function saveFile(filename,data,btn){var saver=downloads?function(){return downloads.save({filename:filename,data:data});}:(standalone?function(){return browserSave(filename,data);}:null);if(!saver)return;var old=btn.textContent;btn.textContent='Saving…';
-  saver().then(function(){btn.textContent='Saved';setTimeout(function(){btn.textContent=old;},1400);},function(err){btn.textContent=old;var code=err&&err.code;
+function saveFile(filename,data,btn){var saver=downloads?function(){return downloads.save({filename:filename,data:data});}:(standalone?function(){return browserSave(filename,data);}:null);if(!saver)return;var old=btn.innerHTML;btn.textContent='Saving…';
+  saver().then(function(){btn.textContent='Saved';setTimeout(function(){btn.innerHTML=old;},1400);},function(err){btn.innerHTML=old;var code=err&&err.code;
     if(code==='declined')return;$('#exp-note').hidden=false;$('#exp-note').textContent=code==='rate_limited'?'A save prompt is already open. Finish that one first.':'That file couldn\'t be saved here ('+(code||'unknown error')+').';});}
-function savePNG(btn){var str=svgString(false),vb=$('#net').getAttribute('viewBox').split(' '),w=+vb[2],h=+vb[3],sc=2;
+// In "groups side by side" the export is one SVG with every group panel; otherwise it is the main figure.
+function exportSVG(withFont){if(grp==='cmp'&&CMP&&CMP.length){var cols=CMP.length<=2?CMP.length:CMP.length<=4?2:3,rows=Math.ceil(CMP.length/cols),y=0,parts=[],TW=800*cols,T=tokens();
+    for(var r=0;r<rows;r++){var rw=CMP.slice(r*cols,r*cols+cols),rh=Math.max.apply(null,rw.map(function(x){return x.m.H;}));rw.forEach(function(x,i){parts.push('<svg x="'+(i*800)+'" y="'+y+'" width="800" height="'+x.m.H+'" viewBox="0 0 800 '+x.m.H+'">'+x.m.inner+'</svg>');});y+=rh;}
+    var str='<svg xmlns="http://www.w3.org/2000/svg" width="'+TW+'" height="'+y+'" viewBox="0 0 '+TW+' '+y+'" font-family="'+CMP[0].m.font+'"><title>Temporal ordered networks by group</title><rect width="'+TW+'" height="'+y+'" fill="'+T.bg+'"/>'+parts.join('')+'</svg>';
+    if(withFont)str=str.replace(/(<svg[^>]*>)/,'$1<style>@import url(\'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&amp;display=swap\');</style>');
+    return {str:'<?xml version="1.0" encoding="UTF-8"?>\n'+str,w:TW,h:y};}
+  var vb=$('#net').getAttribute('viewBox').split(' ');return {str:svgString(withFont),w:+vb[2],h:+vb[3]};}
+function savePNG(btn){var ex=exportSVG(false),str=ex.str,w=ex.w,h=ex.h,sc=2;
   var img=new Image(),url=URL.createObjectURL(new Blob([str],{type:'image/svg+xml;charset=utf-8'}));
   img.onload=function(){var cv=document.createElement('canvas');cv.width=w*sc;cv.height=h*sc;var ctx=cv.getContext('2d');ctx.drawImage(img,0,0,w*sc,h*sc);URL.revokeObjectURL(url);
     cv.toBlob(function(b){if(b)saveFile(fname('png'),b,btn);},'image/png');};
   img.onerror=function(){URL.revokeObjectURL(url);$('#exp-note').hidden=false;$('#exp-note').textContent='The PNG couldn\'t be drawn here. Save the SVG instead.';};
   img.src=url;}
+
+/* ---------- dataset name ---------- */
+// The name shown on the figure: generic names ("Pasted data") and file extensions are left out.
+function dsLabel(){var n=String(dsName||'').trim().replace(/\.(csv|tsv|txt)$/i,'');if(/^(pasted data|dropped text|saved log)$/i.test(n))return '';return n.length>42?n.slice(0,41)+'\u2026':n;}
+function startRename(){var h=$('#ds-name'),before=dsName;h.setAttribute('contenteditable','true');h.focus();
+  try{var r=document.createRange();r.selectNodeContents(h);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);}catch(e){}
+  function done(keep){h.removeEventListener('keydown',onKey);h.removeEventListener('blur',onBlur);h.setAttribute('contenteditable','false');
+    var v=keep?h.textContent.replace(/\s+/g,' ').trim():'';dsName=v||before;h.textContent=dsName;if(pending)pending.name=dsName;store('tona-name',dsName);render();}
+  function onKey(e){if(e.key==='Enter'){e.preventDefault();done(true);}else if(e.key==='Escape'){e.preventDefault();done(false);}}
+  function onBlur(){done(true);}
+  h.addEventListener('keydown',onKey);h.addEventListener('blur',onBlur);}
+
+/* ---------- numbers export ---------- */
+// One row per behaviour and per link in the current window, in plain minutes, for R, Python or a spreadsheet.
+function csvCell(v){v=v==null?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function numbersCSV(list){var avg=S.scope==='avg',tu=S.norm?'_pct':'_min',rows=[['group','kind','from','to','value','unit','percent_of_window','learners','learners_total','mean_time'+tu,'peak_slice','shown_in_figure','stability','window_start'+tu,'window_end'+tu]];
+  list.forEach(function(c){var g=c.groupName||'all',cap=(c.t1-c.t0)*(avg?1:c.n),shown={};c.shown.forEach(function(e){shown[e.f+'>'+e.t]=1;});
+    P.behaviours.forEach(function(name,b){rows.push([g,'behaviour',name,'',Math.round(c.mins[b]*100)/100,(S.norm?'% of session':'min')+(avg?' per learner':' total'),cap>0?Math.round(1000*c.mins[b]/cap)/10:0,c.nlb[b],c.n,'',peakSlice(c,b)||'','yes','',fmtMin(c.t0),fmtMin(c.t1)]);});
+    c.edges.slice().sort(function(a,b){return b.w-a.w;}).forEach(function(e){var k=e.f+'>'+e.t,st=c.stab&&c.stab.map[k];rows.push([g,'link',P.behaviours[e.f],P.behaviours[e.t],Math.round(e.w*1000)/1000,unitLabel().replace(/^min /,'minutes '),'',e.nl,c.n,r1(e.mean),'',shown[k]?'yes':'no',st?Math.round(st.p*100)/100:'',fmtMin(c.t0),fmtMin(c.t1)]);});});
+  return rows.map(function(r){return r.map(csvCell).join(',');}).join('\n')+'\n';}
+function numbersNow(){if(grp==='cmp'&&CMP){var sc=S.scope;S.scope='avg';try{return numbersCSV(CMP.map(function(x){return x.c;}));}finally{S.scope=sc;}}return numbersCSV([lastC]);}
+
+/* ---------- hover card ---------- */
+function hideTip(){var t=$('#tip');if(t)t.hidden=true;}
+function miniBars(vals,cols,mark){var mx=Math.max.apply(null,vals.concat([0]))||1,n=vals.length,w=100/n,out='';
+  vals.forEach(function(v,i){var h=v>0?Math.max(1,26*v/mx):0;out+='<rect x="'+f1(i*w+w*0.12)+'" y="'+f1(28-h)+'" width="'+f1(w*0.76)+'" height="'+f1(h)+'" fill="'+cols[i]+'"'+(mark&&!mark[i]?' fill-opacity="0.3"':'')+'/>';});
+  return '<svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">'+out+'</svg>';}
+function edgeCard(e,sub){var c=lastC,T=tokens(),A=P.behaviours[e.f],B=P.behaviours[e.t],cols=e.bins.map(function(v,i){return ramp(Math.min(c.t1,c.t0+(i+0.5)*c.sl)/c.L,T.ramp);});
+  return '<b>'+esc(A)+' \u2192 '+esc(e.f===e.t?A+' (repeat)':B)+'</b><div>'+esc(fw(e.w)+' '+unitLabel())+' \u00b7 '+esc(when(e.mean))+'</div>'+(c.lift?'<div class="m">Seen '+Math.round(e.cnt)+' times; '+fmt(e.exp)+' expected by chance</div>':'')+
+    (c.stab&&c.stab.map[e.f+'>'+e.t]?(function(st){return '<div class="m">Holds up in '+Math.round(st.p*100)+'% of '+c.stab.B+' resamples'+(st.p<STAB_HOLD?' \u2014 unstable':'')+' \u00b7 90% range '+esc(fw(st.lo))+'\u2013'+esc(fw(st.hi))+'</div>';})(c.stab.map[e.f+'>'+e.t]):'')+
+    '<div class="m">Made by '+e.nl+' of '+plural(c.n,'learner')+(e.nl<=Math.max(2,c.n*0.15)?' \u2014 only a few, read with care':'')+'</div>'+
+    miniBars(e.bins,cols)+'<div class="ax"><span>'+esc(tp(c.t0))+'</span><span>when it happened</span><span>'+esc(tp(c.t1))+'</span></div>'+(sub?'<div class="m" style="margin-top:4px">'+esc(sub)+'</div>':'');}
+function nodeCard(b,sub){var c=lastC,T=tokens(),avg=S.scope==='avg',cap=(c.t1-c.t0)*(avg?1:c.n),col=T.pal[b%T.pal.length],inW=[];
+  for(var k=0;k<c.NS;k++){var s0=k*c.sl,s1=Math.min((k+1)*c.sl,c.L);inW.push(s1>c.t0&&s0<c.t1);}
+  var pk=peakSlice(c,b);
+  return '<b>'+esc(P.behaviours[b])+'</b><div>'+esc(ta(c.mins[b])+(avg?' per learner':' in total'))+' \u00b7 '+(cap>0?Math.round(100*c.mins[b]/cap):0)+'% of the window</div>'+
+    '<div class="m">'+(pk?'Peak '+esc(pk)+' \u00b7 ':'')+c.nlb[b]+' of '+plural(c.n,'learner')+' spent time in it</div>'+
+    miniBars(c.shr[b],c.shr[b].map(function(){return col;}),inW)+'<div class="ax"><span>'+esc(tp(0))+'</span><span>share of each '+esc(td(c.sl))+' slice</span><span>'+esc(tp(c.L))+'</span></div>'+(sub?'<div class="m" style="margin-top:4px">'+esc(sub)+'</div>':'');}
+function placeTip(ev){var t=$('#tip'),box=$('#figbox');if(!t||t.hidden||!ev||ev.clientX==null)return;var r=box.getBoundingClientRect(),x=ev.clientX-r.left+box.scrollLeft+16,y=ev.clientY-r.top+16,w=t.offsetWidth||250,h=t.offsetHeight||120;
+  if(x+w>box.scrollLeft+r.width-4)x=ev.clientX-r.left+box.scrollLeft-w-16;if(y+h>r.height-4)y=Math.max(4,ev.clientY-r.top-h-16);t.style.left=Math.max(4,x)+'px';t.style.top=y+'px';}
+// Pointing at an arrow lights it and its two discs; pointing at a disc lights its links and neighbours.
+function onHover(ev){var svg=$('#net'),el=ev.target&&ev.target.closest?ev.target.closest('.edge,[data-b]'):null;
+  if(!el||!lastC||!P){if(hoverKey!=null){hoverKey=null;svg.classList.remove('hov');Array.prototype.forEach.call(svg.querySelectorAll('.on'),function(n){n.classList.remove('on');});hideTip();}return;}
+  var part=ev.target.closest('[data-tip]'),sub=part&&part!==el?part.getAttribute('data-tip'):'',key=(el.classList.contains('edge')?'e':'n')+(el.getAttribute('data-k')||el.getAttribute('data-b'))+'|'+sub;
+  if(key!==hoverKey){hoverKey=key;Array.prototype.forEach.call(svg.querySelectorAll('.on'),function(n){n.classList.remove('on');});svg.classList.add('hov');el.classList.add('on');var html='';
+    if(el.classList.contains('edge')){var e=EDGE[el.getAttribute('data-k')];if(!e)return;[e.f,e.t].forEach(function(b){var n=svg.querySelector('[data-b="'+b+'"]');if(n)n.classList.add('on');});html=edgeCard(e,sub);}
+    else{var b=+el.getAttribute('data-b');Object.keys(EDGE).forEach(function(k){var e2=EDGE[k];if(e2.f!==b&&e2.t!==b)return;var g=svg.querySelector('.edge[data-k="'+k+'"]');if(g)g.classList.add('on');[e2.f,e2.t].forEach(function(x){var n=svg.querySelector('[data-b="'+x+'"]');if(n)n.classList.add('on');});});html=nodeCard(b,sub);}
+    var t=$('#tip');t.innerHTML=html;t.hidden=false;}
+  placeTip(ev);}
 
 /* ---------- caption and copying ---------- */
 function copyText(t,okMsg){var fail='Copying isn’t allowed here. Select the text and copy it yourself.';
@@ -996,13 +1348,15 @@ function copyText(t,okMsg){var fail='Copying isn’t allowed here. Select the te
   if(navigator.clipboard&&typeof navigator.clipboard.writeText==='function')navigator.clipboard.writeText(t).then(function(){toast(okMsg);},fallback);else fallback();}
 // The reporting details a reader needs to interpret the figure (sample, window, link window, weights, alignment, merging, coverage).
 function caption(c){var avg=S.scope==='avg',w=Math.max(2,S.window|0),cap=(c.t1-c.t0)*(avg?1:c.n),coded=c.mins.reduce(function(a,b){return a+b;},0),
-  wt=(S.thick==='count'?'transitions':'time spent in B')+(avg?' per learner':' across the class');
-  return 'Temporal ordered network (ONA-inspired, descriptive) of coded episodes from '+plural(c.n,'learner')+', '+tr(c.t0,c.t1)+' of a session lasting '+tp(c.L)+(view.frame>=0?' (frame '+(view.frame+1)+' of '+Math.ceil(c.L/D.fr-1e-9)+')':'')+'. '+
+  wt=S.thick==='lift'?'times more often than chance (observed \u00f7 expected transitions, given how often each code occurs; pairs seen fewer than '+LIFT_MIN+' times are left out)':(S.thick==='count'?'transitions':'time spent in B')+(avg?' per learner':' across the class');
+  return 'Temporal ordered network (ONA-inspired, descriptive) of coded episodes from '+plural(c.n,'learner')+(c.groupName?' in group '+c.groupName:'')+', '+tr(c.t0,c.t1)+' of a session lasting '+tp(c.L)+(view.frame>=0?' (frame '+(view.frame+1)+' of '+Math.ceil(c.L/D.fr-1e-9)+')':'')+'. '+
     'Disc area is proportional to the share of the window spent in each behaviour ('+(avg?'mean per learner':'class total')+'); the ring of bars around each disc shows the share of each '+td(c.sl)+' slice of the session spent in that behaviour, read clockwise from '+tp(0)+' at the top. '+
     'An arrow A \u2192 B means B began within '+(w-1)+' action'+(w>2?'s':'')+' after A (moving window, w = '+w+'). '+
-    (S.edgeStyle==='swell'?'Each arrow doubles as a timeline of the window: it swells in proportion to the '+wt+' in each '+td(c.sl)+' slice, coloured from early (violet) to late (amber), and fainter arrows are weaker links. ':'Arrow width shows '+wt+' and colour shows the mean '+tword()+' of the link, from early (violet) to late (amber). ')+
-    'Learners '+(S.align?'are aligned to their own first event':'share one clock')+'; back-to-back repeats are '+(S.merge?'merged':'not merged')+'; '+(S.minShare>0?'links below '+Math.round(S.minShare*100)+'% of the strongest are hidden':'all links are shown')+'; self-loops are '+(S.loops?'shown':'hidden')+'. '+
-    'Coded behaviours cover '+fmt(coded/af())+' of '+ta(cap)+(avg?' per learner':'')+' in the window. No statistical tests are involved.';}
+    (S.edgeStyle==='swell'?(S.thick==='lift'?'Line strength shows '+wt+'. ':'')+'Each arrow doubles as a timeline of the window: it swells in proportion to the '+(S.thick==='lift'?'transitions per learner':wt)+' in each '+td(c.sl)+' slice, coloured from early (violet) to late (amber), and fainter arrows are weaker links. ':'Arrow width shows '+wt+' and colour shows the mean '+tword()+' of the link, from early (violet) to late (amber). ')+
+    (S.norm?'Each learner’s session is stretched to 0–100% (normalised time)':'Learners '+(S.align?'are aligned to their own first event':'share one clock'))+'; back-to-back repeats are '+(S.merge?'merged':'not merged')+'; '+linkNote(c).replace(/\.$/,'').replace(/^./,function(m){return m.toLowerCase();})+'; self-loops are '+(S.loops?'shown':'hidden')+'. '+
+    'Coded behaviours cover '+fmt(coded/af())+' of '+ta(cap)+(avg?' per learner':'')+' in the window.'+(c.stab?' A stability check resampled learners '+c.stab.B+' times; dashed links with hollow arrowheads are shown in fewer than '+Math.round(STAB_HOLD*100)+'% of resamples.':'')+' No statistical tests are involved.';}
+function captionCompare(){var sc=S.scope;S.scope='avg';try{var first=CMP[0].c,rest=caption(first),i=rest.indexOf('. ');rest=i>=0?rest.slice(i+2):rest;
+  return 'Temporal ordered networks (ONA-inspired, descriptive) for '+CMP.length+' groups side by side ('+CMP.map(function(x){return x.c.groupName+': '+plural(x.c.n,'learner');}).join('; ')+'), '+tr(first.t0,first.t1)+'. All panels share their scales: per-learner values, the same link threshold, and the same disc, ring and arrow sizes. '+rest.replace(' No statistical tests are involved.',' Differences between groups are exploratory; no statistical tests are involved.');}finally{S.scope=sc;}}
 
 /* ---------- AI reading ---------- */
 // Optional and off until the user asks. Only figureBrief() leaves the page: aggregated numbers behind the current
@@ -1043,7 +1397,10 @@ function aiWriteUI(){var p=AI.prov,d=AI_PROV[p];$('#ai-prov').value=p;$('#ai-url
   $('#ai-model').value=AI[p].model||'';$('#ai-model').placeholder=p==='anthropic'?d.model:p==='local'?'e.g. llama3.1 (see: ollama list)':'Model name from your provider';
   $('#ai-models').innerHTML=d.models.map(function(m){return '<option value="'+esc(m)+'">';}).join('');
   $('#ai-key-row').hidden=!d.key;$('#ai-remember-row').hidden=!d.key;$('#ai-key').value=aiKeys[p]||'';$('#ai-remember').checked=AI.remember;$('#ai-ctx').value=AI.ctx||'';
+  aiCfgSum();if(!(p==='anthropic'?aiKeys[p]:AI[p].model))$('#ai-cfg').open=true;
   $('#ai-key-hint').textContent=p==='anthropic'?'From console.anthropic.com; sent only to Anthropic':'Leave blank if your endpoint needs none';aiSendTo();}
+function aiCfgSum(){var p=$('#ai-prov').value,m=$('#ai-model').value.trim()||(p==='anthropic'?AI_PROV.anthropic.model:'no model yet'),nm={anthropic:'Claude',openai:'OpenAI-compatible',local:'Local model'}[p];
+  $('#ai-cfg-sum').textContent='Model: '+nm+' \u00b7 '+m+(p==='anthropic'&&!$('#ai-key').value.trim()?' \u00b7 key needed':'');}
 function aiReadUI(){var p=AI.prov;AI[p].model=$('#ai-model').value.trim();if(p!=='anthropic')AI[p].url=$('#ai-url').value.trim();if(AI_PROV[p].key)aiKeys[p]=$('#ai-key').value.trim();AI.remember=$('#ai-remember').checked;AI.ctx=$('#ai-ctx').value.trim();}
 
 function viewName(c){return view.frame===-1?'whole session':(view.frame>=0?'frame '+(view.frame+1)+' of '+Math.ceil(c.L/D.fr-1e-9):'custom window');}
@@ -1055,17 +1412,22 @@ function figureBrief(c){var avg=S.scope==='avg',u=avg?' per learner':' (class to
   o.push('Time units: '+unitName+'.');
   o.push('Data: '+plural(c.n,'learner')+', '+plural(eps,'episode')+', '+plural(c.B,'behaviour')+'; session length '+tp(c.L)+'.'+(D.filled?' '+plural(D.filled,'episode')+' had no usable end time and run until the learner\u2019s next episode.':''));
   o.push('Window shown: '+tr(c.t0,c.t1)+' ('+viewName(c)+'); '+plural(inWin,'episode')+' start in it.');
-  o.push('Settings: link window w = '+w+' (B counts as following A when it starts within '+(w-1)+' action'+(w>2?'s':'')+' after A); arrow weight = '+(S.thick==='count'?'transitions':'time spent in B ('+au()+')')+u+'; '+(S.minShare>0?'links below '+Math.round(S.minShare*100)+'% of the strongest are hidden':'all links shown')+'; self-loops '+(S.loops?'shown':'hidden')+'; back-to-back repeats '+(S.merge?'merged':'not merged')+'; learners '+(S.align?'aligned to their own first event':'on one shared clock')+'; clock-ring slice '+lenLbl(c.sl)+'.');
+  o.push('Settings: link window w = '+w+' (B counts as following A when it starts within '+(w-1)+' action'+(w>2?'s':'')+' after A); arrow weight = '+(S.thick==='lift'?'observed \u00f7 expected transitions (times more often than chance; pairs seen fewer than '+LIFT_MIN+' times left out)':(S.thick==='count'?'transitions':'time spent in B ('+au()+')')+u)+'; '+linkNote(c).replace(/\.$/,'').replace(/^./,function(m){return m.toLowerCase();})+'; self-loops '+(S.loops?'shown':'hidden')+'; back-to-back repeats '+(S.merge?'merged':'not merged')+'; learners '+(S.norm?'each stretched to 0–100% of their own session (normalised time)':S.align?'aligned to their own first event':'on one shared clock')+'; clock-ring slice '+lenLbl(c.sl)+'.');
   o.push('Coverage: coded behaviours fill '+fmt(coded/af())+' of '+ta(cap)+u+' in the window ('+(coded>cap*1.001?'episodes overlap':ta(cap-coded)+' uncoded')+').');
   o.push('','BEHAVIOURS: time in the window'+u+', % of the window, busiest slice in the window, then the time profile over the whole session (% of each '+td(c.sl)+' slice spent in the behaviour, mean per learner'+(c.NS>24?'; empty slices left out':'')+').');
   P.behaviours.forEach(function(name,b){var prof=[];for(var k=0;k<c.NS;k++){var pc=Math.round(c.shr[b][k]*100);if(pc>0||c.NS<=24)prof.push(sl(k)+' '+pc+'%');}
-    o.push('- '+name+': '+ta(c.mins[b])+', '+(cap>0?Math.round(100*c.mins[b]/cap):0)+'% of the window, peak '+(peakSlice(c,b)||'none in this window')+'. Profile: '+(prof.join(', ')||'none')+'.');});
+    o.push('- '+name+': '+ta(c.mins[b])+', '+(cap>0?Math.round(100*c.mins[b]/cap):0)+'% of the window, '+c.nlb[b]+' of '+c.n+' learners, peak '+(peakSlice(c,b)||'none in this window')+'. Profile: '+(prof.join(', ')||'none')+'.');});
   var es=c.shown.slice().sort(function(a,b){return b.w-a.w;}),MAX=30;
   o.push('','LINKS drawn in the figure, strongest first ('+es.length+(c.edges.length>es.length?'; '+(c.edges.length-es.length)+' weaker links hidden':'')+'). Weight'+u+', average time when B started, then weight by '+td(c.sl)+' slice of the window (empty slices left out).');
   es.slice(0,MAX).forEach(function(e){var bins=[];e.bins.forEach(function(v,i){if(v>0)bins.push(tr(c.t0+i*c.sl,Math.min(c.t1,c.t0+(i+1)*c.sl))+' '+fw(v));});
-    o.push('- '+P.behaviours[e.f]+' \u2192 '+(e.f===e.t?'itself':P.behaviours[e.t])+': '+fw(e.w)+', '+when(e.mean)+'. By slice: '+(bins.join(', ')||'none')+'.');});
+    o.push('- '+P.behaviours[e.f]+' \u2192 '+(e.f===e.t?'itself':P.behaviours[e.t])+': '+fw(e.w)+', '+when(e.mean)+', made by '+e.nl+' of '+c.n+' learners'+(c.lift?'; seen '+Math.round(e.cnt)+' times vs '+fmt(e.exp)+' expected':'')+(c.stab&&c.stab.map[e.f+'>'+e.t]?'; holds up in '+Math.round(c.stab.map[e.f+'>'+e.t].p*100)+'% of resamples':'')+'. By slice: '+(bins.join(', ')||'none')+'.');});
   if(es.length>MAX)o.push('- '+(es.length-MAX)+' weaker links not listed.');
   if(!es.length)o.push('- None in this window.');
+  if(c.groupName)o.splice(3,0,'Learners: group "'+c.groupName+'" only ('+c.n+' of '+P.learners.length+' learners).');
+  if(c.stab)o.push('',stabNote(c));
+  if(grp==='cmp'&&CMP){o.push('','GROUPS side by side (per-learner values, shared scales; differences are exploratory):');
+    CMP.forEach(function(x){var g=x.c,tb=P.behaviours.map(function(n,b){return [n,g.mins[b]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,3),tl=g.shown.slice().sort(function(a,b){return b.w-a.w;}).slice(0,3);
+      o.push('- '+g.groupName+' ('+plural(g.n,'learner')+'): most time '+tb.map(function(t){return t[0]+' '+ta(t[1]);}).join(', ')+'; strongest links '+(tl.map(function(e){return P.behaviours[e.f]+' \u2192 '+P.behaviours[e.t]+' '+fw(e.w)+' (made by '+e.nl+')';}).join(', ')||'none')+'.');});}
   o.push('','Figure footer: '+insights(c).join(' '));
   return o.join('\n');}
 function aiPayload(c,q){var ctx=$('#ai-ctx').value.trim();return figureBrief(c)+(ctx?'\n\nABOUT THE DATA (from the researcher): '+ctx:'')+(q?'\n\nQUESTION FROM THE RESEARCHER: '+q:'');}
@@ -1117,7 +1479,7 @@ function aiFail(msg){var e=$('#ai-err');e.textContent=msg;e.hidden=!msg;}
 function aiPeek(){if(lastC&&$('#ai-peek').open)$('#ai-preview').textContent='INSTRUCTIONS (sent as the system prompt):\n'+AI_SYS+'\n\nDATA (sent as the message):\n'+aiPayload(lastC,$('#ai-q').value.trim());}
 function aiAfterRender(c){aiPeek();if(aiFor!=null&&!$('#ai-out').hidden)$('#ai-stale').hidden=figureBrief(c)===aiFor;}
 function aiRun(){if(!lastC||!P)return;aiReadUI();aiSave();aiFail('');var p=AI.prov;
-  if(p==='anthropic'&&!aiKeys[p]){aiFail('Paste your Anthropic API key first. You can create one at console.anthropic.com.');return;}
+  if(p==='anthropic'&&!aiKeys[p]){$('#ai-cfg').open=true;aiFail('Paste your Anthropic API key first. You can create one at console.anthropic.com.');return;}
   if(p!=='anthropic'&&!/^https?:\/\/\S+$/.test(AI[p].url)){aiFail('Enter an endpoint that starts with http:// or https://.');return;}
   if(p!=='anthropic'&&!AI[p].model){aiFail(p==='local'?'Enter the name of a model you have installed (run “ollama list” to see them).':'Enter the model name your provider uses.');return;}
   if(typeof window.fetch!=='function'){aiFail('This browser can’t send requests from the page. Try a current version of Chrome, Edge, Firefox or Safari.');return;}
@@ -1145,7 +1507,8 @@ function closeAbout(){var d=$('#about');if(typeof d.close==='function'&&d.open)d
 
 /* ---------- wiring ---------- */
 function init(){
-  var saved=load('tona-settings-v3');if(!saved){saved=load('tona-settings-v2');if(saved&&typeof saved==='object'){delete saved.slice;delete saved.frame;}}if(saved&&typeof saved==='object')Object.keys(DEF).forEach(function(k){if(k in saved&&typeof saved[k]===typeof DEF[k])S[k]=saved[k];});
+  // v4 made weak-link hiding automatic; older saves are read once without their old defaults.
+  var saved=load('tona-settings-v4');if(!saved){saved=load('tona-settings-v3')||load('tona-settings-v2');if(saved&&typeof saved==='object'){delete saved.minShare;if(!load('tona-settings-v3')){delete saved.slice;delete saved.frame;}}}if(saved&&typeof saved==='object')Object.keys(DEF).forEach(function(k){if(k in saved&&typeof saved[k]===typeof DEF[k])S[k]=saved[k];});
   applyTheme();writeSettingsUI();
   // Returning visitors land on their last figure; first-time visitors see the upload step.
   var text=load('tona-data');
@@ -1170,7 +1533,7 @@ function init(){
   $('#sample').addEventListener('click',function(){var t=sampleCSV();startMsg('');$('#data').value=t;analyse(t,SAMPLE_NAME,null);build(true);});
 
   // Step 2: column map and build
-  ROLES.forEach(function(k){$('#map-'+k).addEventListener('change',function(){if(pending&&pending.tb)analyse(pending.text,pending.name,mapFromUI(),pending.unit);});});
+  ROLES.forEach(function(k){$('#map-'+k).addEventListener('change',function(){if(pending&&pending.tb)analyse(pending.text,pending.name,mapFromUI(),k==='start'?null:pending.unit);});});
   $('#map-unit').addEventListener('change',function(){if(pending&&pending.tb)analyse(pending.text,pending.name,pending.idx,this.value);});
   $('#build').addEventListener('click',function(){build(true);});
   $('#build-2').addEventListener('click',function(){build(true);});
@@ -1183,10 +1546,10 @@ function init(){
   $('#to-start').addEventListener('click',function(){showStage('start',true);});
 
   // Step 3: settings and figure
-  var derivers={'s-window':1,'s-merge':1,'s-align':1,'s-len':1,'s-slice':1,'s-frame':1};
-  Array.prototype.forEach.call(document.querySelectorAll('[id^="s-"]'),function(el){el.addEventListener('change',function(){readSettingsUI();store('tona-settings-v3',S);
+  var derivers={'s-window':1,'s-merge':1,'s-align':1,'s-norm':1,'s-len':1,'s-slice':1,'s-frame':1};
+  Array.prototype.forEach.call(document.querySelectorAll('[id^="s-"]'),function(el){el.addEventListener('change',function(){readSettingsUI();store('tona-settings-v4',S);settingBadges();
     if(el.id==='s-theme'){applyTheme();render();if(pending)drawCheck();return;}if(derivers[el.id])rederive();else render();});});
-  document.querySelector('.arrows').addEventListener('click',function(e){var b=e.target.closest('[data-e]');if(!b)return;S.edgeStyle=b.dataset.e;store('tona-settings-v3',S);render();});
+  document.querySelector('.arrows').addEventListener('click',function(e){var b=e.target.closest('[data-e]');if(!b)return;S.edgeStyle=b.dataset.e;store('tona-settings-v4',S);render();});
   $('#frames').addEventListener('click',function(e){var b=e.target.closest('button');if(!b||!D)return;if(b.id==='play'){togglePlay();return;}stopPlay();setFrame(+b.dataset.f);});
   function onRange(which){if(!D)return;stopPlay();var a=+$('#r0').value,b=+$('#r1').value,step=+$('#r0').step||1;
     if(which===0&&a>b-step){a=b-step;$('#r0').value=String(a);}if(which===1&&b<a+step){b=a+step;$('#r1').value=String(b);}
@@ -1201,16 +1564,57 @@ function init(){
   try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){if(S.theme==='auto'){render();if(pending)drawCheck();}});}catch(e){}
 
   // Export and privacy
-  $('#dl-svg').addEventListener('click',function(){saveFile(fname('svg'),svgString(true),this);});
+  $('#dl-svg').addEventListener('click',function(){saveFile(fname('svg'),exportSVG(true).str,this);});
   $('#dl-png').addEventListener('click',function(){savePNG(this);});
   $('#dl-csv').addEventListener('click',function(){saveFile('sample-srl-log.csv',sampleCSV(),this);});
   $('#dl-template').addEventListener('click',function(){saveFile('temporal-ona-template.csv',TEMPLATE,this);});
-  $('#clear').addEventListener('click',function(){try{['tona-data','tona-name','tona-map','tona-settings-v2','tona-settings-v3','tona-ai','tona-ai-key','tona-tab'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
-    stopPlay();if(aiCtl)aiCtl.abort();S=Object.assign({},DEF);applyTheme();writeSettingsUI();P=null;D=null;pending=null;selected=null;lastC=null;$('#data').value='';
+  $('#clear').addEventListener('click',function(){try{['tona-data','tona-name','tona-map','tona-settings-v2','tona-settings-v3','tona-settings-v4','tona-codes','tona-ai','tona-ai-key','tona-tab'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
+    stopPlay();if(aiCtl)aiCtl.abort();grp=-1;CMP=null;S=Object.assign({},DEF);applyTheme();writeSettingsUI();P=null;D=null;pending=null;selected=null;lastC=null;$('#data').value='';
     aiLoad();aiWriteUI();aiFor=null;$('#ai-out').hidden=true;$('#ai-q').value='';aiFail('');closeAbout();
     showStage('start',true);toast('Saved data cleared from this browser.');});
+  // Export menu: closes after a choice, on Escape, or on a click elsewhere.
+  var menu=$('#export-menu');function closeMenu(){if(menu.open)menu.open=false;}
+  menu.addEventListener('click',function(e){if(e.target.closest('.menu-pop button'))setTimeout(closeMenu,0);});
+  document.addEventListener('click',function(e){if(menu.open&&!menu.contains(e.target))closeMenu();});
+  $('#dl-num').addEventListener('click',function(){if(lastC)saveFile(fname('csv').replace(/\.csv$/,'-numbers.csv'),numbersNow(),this);});
+  $('#rename').addEventListener('click',startRename);
+  // View menu (arrow style, key points, custom window) stays open while toggling; closes on a click elsewhere or Escape.
+  var vmenu=$('#view-menu');document.addEventListener('click',function(e){if(vmenu.open&&!vmenu.contains(e.target))vmenu.open=false;});
+  function toggleWin(){winOpen=!$('#win').hidden?false:true;if(!winOpen&&view.frame===-2){setFrame(-1);return;}syncWindowUI();}
+  $('#win-toggle').addEventListener('click',toggleWin);
+  $('#lg-more').addEventListener('click',function(){var on=$('#lg').classList.toggle('full');this.setAttribute('aria-expanded',String(on));this.textContent=on?'Show short version':'Show full explanations';});
+  $('#codes-edit').addEventListener('click',function(){codesOpen=$('#codes-box').hidden;if(pending&&pending.codes)renderCodes();});
+  ['#ai-prov','#ai-model','#ai-key'].forEach(function(sel){$(sel).addEventListener('input',aiCfgSum);});
+  // Learners: all, one group, or groups side by side
+  $('#grp').addEventListener('change',function(){grp=this.value==='cmp'?'cmp':+this.value;selected=null;render();});
+  $('#cmp-diff').addEventListener('change',function(e){if(e.target.id==='cmp-a')cmpA=+e.target.value;else if(e.target.id==='cmp-b')cmpB=+e.target.value;else return;render();});
+  // Code manager on the Check step
+  var codesEl=$('#codes');
+  codesEl.addEventListener('change',function(e){var li=e.target.closest('li');if(!li||!pending||!pending.codes)return;var c=pending.codes[+li.dataset.i];if(!c)return;
+    if(e.target.type==='checkbox')c.keep=e.target.checked;else if(e.target.type==='text')c.label=codeLabel(pending.res,{o:c.o,label:e.target.value});else return;
+    saveCodes();drawCheck();});
+  codesEl.addEventListener('click',function(e){var b=e.target.closest('[data-mv]');if(!b||!pending||!pending.codes)return;var i=+b.closest('li').dataset.i,j=i+(+b.dataset.mv),cs=pending.codes;if(j<0||j>=cs.length)return;
+    var t=cs[i];cs[i]=cs[j];cs[j]=t;saveCodes();drawCheck();var nb=$('#codes li[data-i="'+j+'"] [data-mv="'+b.dataset.mv+'"]');if(nb&&!nb.disabled)nb.focus();});
+  codesEl.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.type==='text'){e.preventDefault();e.target.blur();}});
+  $('#codes-reset').addEventListener('click',function(){if(!pending||!pending.res||pending.res.error)return;pending.codes=pending.res.behaviours.map(function(n,i){return {o:i,label:n,keep:true};});saveCodes();drawCheck();});
+  $('#kp').addEventListener('click',function(){S.notes=!S.notes;store('tona-settings-v4',S);render();});
+  // Hover card on the figure
+  net.addEventListener('pointermove',onHover);net.addEventListener('pointerdown',onHover);
+  net.addEventListener('pointerleave',function(){onHover({target:null});});
+  // Keyboard: arrows step through frames, Space plays, K toggles key points, Esc clears the highlight or closes the menu.
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&(menu.open||vmenu.open)){closeMenu();vmenu.open=false;return;}
+    if(stage!=='explore'||!D||e.altKey||e.ctrlKey||e.metaKey||e.defaultPrevented)return;var tg=e.target;
+    if(tg&&(/^(INPUT|TEXTAREA|SELECT|BUTTON|SUMMARY)$/.test(tg.tagName)&&e.key===' '||/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)||tg.isContentEditable||tg.closest&&tg.closest('.tabs,.menu-pop,dialog')))return;
+    var n=Math.ceil(D.L/D.fr-1e-9);
+    if(e.key==='ArrowRight'){e.preventDefault();stopPlay();setFrame(view.frame>=0?Math.min(n-1,view.frame+1):0);}
+    else if(e.key==='ArrowLeft'){e.preventDefault();stopPlay();setFrame(view.frame>0?view.frame-1:-1);}
+    else if(e.key==='Home'){e.preventDefault();stopPlay();setFrame(-1);}
+    else if(e.key===' '){e.preventDefault();togglePlay();}
+    else if(e.key==='k'||e.key==='K'){S.notes=!S.notes;store('tona-settings-v4',S);render();}
+    else if(e.key==='w'||e.key==='W'){toggleWin();}
+    else if(e.key==='Escape'&&selected!=null){selected=null;render();}});
   ['#dl-tool','#dl-tool-2','#dl-tool-3'].forEach(function(s){$(s).addEventListener('click',function(){if(SELF)saveFile('temporal-ona-builder.html',SELF,this);});});
-  $('#copy-cap').addEventListener('click',function(){if(lastC)copyText(caption(lastC),'Caption copied. Paste it under the figure.');});
+  $('#copy-cap').addEventListener('click',function(){if(lastC)copyText(grp==='cmp'&&CMP?captionCompare():caption(lastC),'Caption copied. Paste it under the figure.');});
 
   // Side panel tabs (arrow keys move between them) and the About dialog
   var tabs=document.querySelector('.tabs');

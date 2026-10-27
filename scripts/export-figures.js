@@ -33,8 +33,18 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const out = path.join(root, 'figures');
   fs.mkdirSync(out, { recursive: true });
   const svg = d.querySelector('#net');
-  const save = (name) => fs.writeFileSync(path.join(out, name + '.svg'),
-    svg.outerHTML.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg" width="800"'));
+  // On screen, tooltips live in data-tip attributes (the page shows its own hover card); put them back as <title>.
+  const save = (name) => {
+    const copy = svg.cloneNode(true);
+    copy.classList.remove('hov');
+    copy.querySelectorAll('[data-tip]').forEach((n) => {
+      const t = d.createElementNS('http://www.w3.org/2000/svg', 'title');
+      t.textContent = n.getAttribute('data-tip');
+      n.insertBefore(t, n.firstChild);
+      n.removeAttribute('data-tip');
+    });
+    fs.writeFileSync(path.join(out, name + '.svg'), copy.outerHTML.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg" width="800"'));
+  };
   const mode = async (m) => { d.querySelector(`.arrows [data-e="${m}"]`).click(); await wait(100); };
 
   await mode('swell'); save('whole-timeline');

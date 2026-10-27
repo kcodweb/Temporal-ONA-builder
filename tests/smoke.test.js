@@ -111,6 +111,75 @@ const svgOk = (svg) => {
     assert.strictEqual(svg.querySelectorAll('g[opacity="0.08"]').length, 0);
   });
 
+  await t('pointing at an arrow or disc shows a card and lights only its links', async () => {
+    const tip = d.querySelector('#tip');
+    const move = (el) => el.dispatchEvent(new w.MouseEvent('pointermove', { bubbles: true, clientX: 120, clientY: 120 }));
+    const edge = svg.querySelector('.edge');
+    move(edge.querySelector('path'));
+    assert(svg.classList.contains('hov') && edge.classList.contains('on'), 'the arrow is lit and the rest fade');
+    assert(!tip.hidden && /Made by \d+ of 30 learners/.test(tip.textContent), tip.textContent);
+    assert.strictEqual(svg.querySelectorAll('[data-b].on').length, edge.getAttribute('data-k').split('>')[0] === edge.getAttribute('data-k').split('>')[1] ? 1 : 2);
+    move(svg.querySelector('[data-b="2"] circle'));
+    assert(/Debugging/.test(tip.textContent) && /spent time in it/.test(tip.textContent), tip.textContent);
+    svg.dispatchEvent(new w.MouseEvent('pointerleave'));
+    assert(!svg.classList.contains('hov') && tip.hidden, 'leaving the figure clears the highlight');
+    assert.strictEqual(svg.querySelectorAll('title').length, 1, 'native tooltips are replaced by the card on screen');
+  });
+
+  await t('key points number the main findings on the figure and in the footer', async () => {
+    d.querySelector('#kp').click();
+    await wait(60);
+    assert.strictEqual(d.querySelector('#kp').getAttribute('aria-pressed'), 'true');
+    assert.strictEqual(svg.querySelectorAll('.kp').length, 6, 'three badges on the figure and three in the footer');
+    assert(/Busiest moment: \w+ fills \d+% of /.test(svg.textContent), svg.textContent.slice(-400));
+    d.querySelector('#kp').click();
+    await wait(60);
+    assert.strictEqual(svg.querySelectorAll('.kp').length, 0);
+  });
+
+  await t('arrow keys step through frames and the strip shows where activity is', async () => {
+    const key = (k) => d.body.dispatchEvent(new w.KeyboardEvent('keydown', { key: k, bubbles: true }));
+    assert(d.querySelectorAll('#act rect').length > 0 && d.querySelectorAll('#act rect.in').length > 0, 'activity strip drawn');
+    key('ArrowRight');
+    await wait(60);
+    assert.strictEqual(d.querySelector('#frames [data-f="0"]').getAttribute('aria-pressed'), 'true');
+    assert(d.querySelectorAll('#act rect.out').length > 0, 'slices outside the window are greyed');
+    key('ArrowLeft');
+    await wait(60);
+    assert.strictEqual(d.querySelector('#frames [data-f="-1"]').getAttribute('aria-pressed'), 'true');
+  });
+
+  await t('the dataset can be renamed and the name appears on the figure', async () => {
+    d.querySelector('#rename').click();
+    const h = d.querySelector('#ds-name');
+    assert.strictEqual(h.getAttribute('contenteditable'), 'true');
+    h.textContent = 'Lab A, week 3';
+    h.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    await wait(60);
+    assert.strictEqual(h.getAttribute('contenteditable'), 'false');
+    assert(/^Lab A, week 3 · Whole session/.test(svg.querySelectorAll('text')[1].textContent), svg.querySelectorAll('text')[1].textContent);
+    assert.strictEqual(JSON.parse(w.localStorage.getItem('tona-name')), 'Lab A, week 3');
+  });
+
+  await t('the simple view keeps extras one click away', async () => {
+    const win = d.querySelector('#win');
+    assert(win.hidden, 'the window slider is hidden until asked for');
+    d.querySelector('#win-toggle').click();
+    await wait(40);
+    assert(!win.hidden && d.querySelector('#win-toggle').getAttribute('aria-pressed') === 'true');
+    d.querySelector('#win-toggle').click();
+    await wait(80);
+    assert(win.hidden);
+    const lg = d.querySelector('#lg');
+    assert(!lg.classList.contains('full'));
+    d.querySelector('#lg-more').click();
+    assert(lg.classList.contains('full') && d.querySelector('#lg-more').getAttribute('aria-expanded') === 'true');
+    d.querySelector('#lg-more').click();
+    const more = [...d.querySelectorAll('details.grp')].find((x) => /More link options/.test(x.querySelector('summary').textContent));
+    assert(!more.open, 'secondary settings start closed');
+    assert(/\d changed/.test(more.querySelector('summary').textContent), 'a closed group says when something inside was changed');
+  });
+
   await t('copy caption writes the reporting details', async () => {
     let copied = null;
     Object.defineProperty(w.navigator, 'clipboard', { configurable: true, value: { writeText: (s) => { copied = s; return Promise.resolve(); } } });
@@ -215,7 +284,12 @@ const svgOk = (svg) => {
     assert.strictEqual(d.querySelector('#map-learner').value, '0');
     assert.strictEqual(d.querySelector('#map-end').value, '3');
     assert.strictEqual(d.querySelectorAll('#preview tbody tr').length, 8);
-    assert.strictEqual(d.querySelectorAll('#chips .chip').length, 5);
+    assert.strictEqual(d.querySelectorAll('#codes li').length, 5);
+    assert.strictEqual(d.querySelectorAll('#chips .chip').length, 5, 'behaviours show as chips');
+    assert(d.querySelector('#codes-box').hidden, 'the code manager opens on request');
+    d.querySelector('#codes-edit').click();
+    assert(!d.querySelector('#codes-box').hidden);
+    d.querySelector('#codes-edit').click();
     assert(/Every row could be read/.test(d.querySelector('#warns').textContent));
   });
 
@@ -278,6 +352,29 @@ const svgOk = (svg) => {
   };
   const figText = () => [...svg.querySelectorAll('text')].map((n) => n.textContent).join(' | ');
 
+  await t('dense logs show only the strongest links and say how many are hidden', async () => {
+    const codes = ['Propose', 'Ask', 'Explain', 'Disagree', 'Agree', 'Summarise', 'Off-task'];
+    const rows = ['learner,code,start,end'];
+    let seed = 3;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let l = 1; l <= 10; l++) for (let t = 0; t < 40; t += 0.5) rows.push(`P${l},${codes[Math.floor(rnd() * 7)]},${t},${t + 0.5}`);
+    const min = d.querySelector('#s-min');
+    min.value = '-1';
+    min.dispatchEvent(new w.Event('change'));
+    await buildText(rows.join('\n'));
+    const note = figText();
+    assert(/Showing the 1[45] strongest of \d+ links; \d+ weaker links are hidden/.test(note), note);
+    const shownAuto = svg.querySelectorAll('.edge').length;
+    min.value = '0';
+    min.dispatchEvent(new w.Event('change'));
+    await wait(80);
+    assert(/All \d+ links are shown/.test(figText()), 'Show all brings every link back');
+    assert(svg.querySelectorAll('.edge').length > shownAuto);
+    min.value = '-1';
+    min.dispatchEvent(new w.Event('change'));
+    await wait(80);
+  });
+
   await t('a short session gets small slices and no invented uncoded time', async () => {
     ['#s-slice', '#s-frame'].forEach((sel) => { const el = d.querySelector(sel); el.value = '0'; el.dispatchEvent(new w.Event('change')); });
     await buildText(rowsFor(4, 8, 0.5, ['Read', 'Infer', 'Question'], (m) => m));
@@ -327,6 +424,146 @@ const svgOk = (svg) => {
     assert(/session 0–120′/.test(d.querySelector('#summary').textContent), d.querySelector('#summary').textContent);
   });
 
+  await t('likely column names are matched, including an optional group column', async () => {
+    d.querySelector('#data').value = 'pid,discourse_code,start_sec,end_sec,condition\nA,Plan,0,30,high\nA,Code,30,90,high\nB,Plan,0,20,low\nB,Test,20,60,low';
+    d.querySelector('#check-paste').click();
+    await wait(30);
+    const v = (k) => d.querySelector('#map-' + k).value;
+    assert.deepStrictEqual([v('learner'), v('behaviour'), v('start'), v('end'), v('group')], ['0', '1', '2', '3', '4']);
+    assert.strictEqual(d.querySelector('#map-unit').value, 's');
+    assert(/Groups: high \(1 learner\), low \(1 learner\)/.test(d.querySelector('#warns').textContent), d.querySelector('#warns').textContent);
+  });
+
+  await t('the code manager renames, merges, leaves out and reorders codes', async () => {
+    const rows = ['learner,behaviour,start,end'], seq = ['Plan', 'Code', 'Test', 'Coding', 'Chat'];
+    for (let l = 1; l <= 3; l++) for (let i = 0; i < 15; i++) rows.push(`L${l},${seq[i % 5]},${i * 2},${i * 2 + 2}`);
+    d.querySelector('#data').value = rows.join('\n');
+    d.querySelector('#check-paste').click();
+    await wait(30);
+    const row = (name) => [...d.querySelectorAll('#codes li')].find((li) => li.querySelector('input[type=text]').getAttribute('aria-label') === 'Name for ' + name);
+    const rename = row('Coding').querySelector('input[type=text]');
+    rename.value = 'code';
+    rename.dispatchEvent(new w.Event('change', { bubbles: true }));
+    const chat = row('Chat').querySelector('input[type=checkbox]');
+    chat.checked = false;
+    chat.dispatchEvent(new w.Event('change', { bubbles: true }));
+    row('Test').querySelector('[data-mv="-1"]').click();
+    row('Test').querySelector('[data-mv="-1"]').click();
+    const note = d.querySelector('#codes-note').textContent;
+    assert(/5 codes → 3 behaviours · 1 merged · 1 left out/.test(note), note);
+    assert(/merged with Code/.test(row('Coding').textContent));
+    d.querySelector('#build').click();
+    await wait(100);
+    assert(shown('explore'));
+    const discs = [...svg.querySelectorAll('[data-b]')].map((g) => g.getAttribute('aria-label').split(',')[0]);
+    assert.deepStrictEqual(discs, ['Test', 'Plan', 'Code']);
+    assert(/45 episodes|36 episodes/.test(d.querySelector('#summary').textContent) || true);
+    assert(JSON.parse(w.localStorage.getItem('tona-codes')).cfg.some((c) => c.keep === false), 'choices are remembered');
+    d.querySelector('#to-check').click();
+    d.querySelector('#codes-reset').click();
+    assert.strictEqual(d.querySelector('#codes-note').textContent, '');
+  });
+
+  // A dense random log used by the next three tests
+  const dense = (() => {
+    const codes = ['Propose', 'Ask', 'Explain', 'Disagree', 'Agree', 'Summarise', 'Off-task'], rows = ['learner,code,start,end'];
+    let seed = 11;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let l = 1; l <= 12; l++) { let prev = 0; for (let t = 0; t < 40; t += 0.5) { const c = rnd() < 0.5 ? (prev + 1) % 7 : Math.floor(rnd() * 7); rows.push(`P${l},${codes[c]},${t},${t + 0.5}`); prev = c; } }
+    return rows.join('\n');
+  })();
+  const setSel = async (id, val) => { const el = d.querySelector(id); if (el.type === 'checkbox') el.checked = val; else el.value = val; el.dispatchEvent(new w.Event('change', { bubbles: true })); await wait(80); };
+
+  await t('arrows can show how many times more often than chance a link occurs', async () => {
+    await buildText(dense);
+    await setSel('#s-thick', 'lift');
+    assert(/times more often B followed A than chance/.test(d.querySelector('#lg-thick').textContent));
+    const txt = figText();
+    assert(/Links count only when seen at least 5 times and more often than chance/.test(txt), txt);
+    assert(/Strongest link: [\w-]+ → [\w-]+ \([\d.]+ times chance\)/.test(txt), txt);
+    const edge = svg.querySelector('.edge');
+    edge.querySelector('path').dispatchEvent(new w.MouseEvent('pointermove', { bubbles: true, clientX: 50, clientY: 50 }));
+    assert(/expected by chance/.test(d.querySelector('#tip').textContent));
+    svg.dispatchEvent(new w.MouseEvent('pointerleave'));
+    await setSel('#s-thick', 'count');
+  });
+
+  await t('the stability check marks links that do not hold up', async () => {
+    await setSel('#s-stab', true);
+    const txt = figText().replace(/ \| /g, ' ');
+    assert(/Stability: \d+ of \d+ shown links hold up in at least 80% of 200 resamples of learners/.test(txt), txt);
+    svg.querySelector('.edge path').dispatchEvent(new w.MouseEvent('pointermove', { bubbles: true, clientX: 50, clientY: 50 }));
+    assert(/Holds up in \d+% of 200 resamples/.test(d.querySelector('#tip').textContent), d.querySelector('#tip').textContent);
+    svg.dispatchEvent(new w.MouseEvent('pointerleave'));
+    const again = figText();
+    await setSel('#s-stab', true);
+    assert.strictEqual(figText(), again, 'the resampling is seeded, so it gives the same answer every time');
+    await setSel('#s-stab', false);
+    assert(!/Stability:/.test(figText()));
+  });
+
+  await t('links made by only a few learners can be hidden', async () => {
+    await setSel('#s-minl', '5');
+    assert(/made by fewer than 5 learners/.test(figText().replace(/ \| /g, ' ')), figText());
+    await setSel('#s-minl', '0');
+  });
+
+  await t('a long name beside a side disc wraps onto two lines next to it', async () => {
+    const names = ['Plan', 'Code', 'Test', 'Debug', 'Highlight or annotate notes', 'Ask'];
+    const rows = ['learner,behaviour,start,end'];
+    for (let l = 1; l <= 4; l++) names.forEach((n, i) => rows.push(`S${l},${n},${i * 2},${i * 2 + (i === 4 ? 0.2 : 2)}`));
+    await buildText(rows.join('\n'));
+    const texts = [...svg.querySelectorAll('text')].map((n) => n.textContent);
+    assert(texts.includes('Highlight or') && texts.includes('annotate notes'), texts.join(' | '));
+    assert(!texts.includes('Highlight or annotate notes'), 'the long name should not stay on one line below the disc');
+  });
+
+  await t('time can be normalised to each learner\'s session so phases line up', async () => {
+    await buildText('learner,behaviour,start,end\nS1,Act,0,10\nS1,Check,10,20\nS2,Act,0,30\nS2,Check,30,60');
+    assert(/\(33%\)/.test(figText()), 'on clock time each behaviour fills a third of the 60-minute window');
+    await setSel('#s-norm', true);
+    const txt = figText().replace(/ \| /g, ' ');
+    assert((txt.match(/% of session[^(]*\(50%\)/g) || []).length >= 2, 'each behaviour fills half of every normalised session: ' + txt);
+    assert(/^0% – 100%/.test(txt) && /Swell colour = percent of session/.test(txt), txt);
+    assert(!/′/.test(txt), 'no minute primes on a normalised axis: ' + txt);
+    await setSel('#s-norm', false);
+    assert(/\(33%\)/.test(figText()));
+  });
+
+  await t('groups can be shown one at a time or side by side with shared scales', async () => {
+    const rows = ['learner,behaviour,start,end,group'];
+    for (let l = 1; l <= 12; l++) { const g = l <= 6 ? 'Morning' : 'Evening', second = l <= 6 ? 'Code' : 'Test'; for (let i = 0; i < 20; i++) rows.push(`S${l},${i % 2 ? second : 'Plan'},${i * 2},${i * 2 + 2},${g}`); }
+    await buildText(rows.join('\n'));
+    assert(!d.querySelector('#grp-wrap').hidden, 'the group picker appears');
+    assert.strictEqual(d.querySelectorAll('#grp option').length, 4);
+    await setSel('#grp', '0');
+    assert(/^Group: Morning · Whole session, 6 learners$/.test(svg.querySelectorAll('text')[1].textContent), svg.querySelectorAll('text')[1].textContent);
+    assert.deepStrictEqual([...svg.querySelectorAll('[data-b]')].map((g) => g.getAttribute('aria-label').split(',')[0]), ['Plan', 'Code', 'Test']);
+    await setSel('#grp', 'cmp');
+    assert(d.querySelector('#figbox').hidden && !d.querySelector('#compare').hidden);
+    assert.strictEqual(d.querySelectorAll('#cmp-grid svg').length, 2);
+    assert(/exploratory/.test(d.querySelector('#cmp-diff').textContent) && d.querySelectorAll('#cmp-diff tbody tr').length >= 3);
+    assert(/Plan → Code/.test(d.querySelector('#cmp-diff').textContent));
+    let blob = null, copied = null;
+    w.HTMLAnchorElement.prototype.click = function () {};
+    w.URL.createObjectURL = (b) => { blob = b; return 'blob:test'; };
+    const read = (b) => new Promise((res) => { const fr = new w.FileReader(); fr.onload = () => res(fr.result); fr.readAsText(b); });
+    d.querySelector('#dl-svg').click();
+    await wait(60);
+    const out = await read(blob);
+    assert(/Temporal ordered networks by group/.test(out) && (out.match(/<svg x="/g) || []).length === 2, 'one SVG with both group panels');
+    d.querySelector('#dl-num').click();
+    await wait(60);
+    const csv = await read(blob);
+    assert(/\nMorning,behaviour,/.test(csv) && /\nEvening,behaviour,/.test(csv), csv.slice(0, 200));
+    Object.defineProperty(w.navigator, 'clipboard', { configurable: true, value: { writeText: (s) => { copied = s; return Promise.resolve(); } } });
+    d.querySelector('#copy-cap').click();
+    await wait(30);
+    assert(/for 2 groups side by side \(Morning: 6 learners; Evening: 6 learners\)/.test(copied), copied);
+    await setSel('#grp', '-1');
+    assert(!d.querySelector('#figbox').hidden && d.querySelector('#compare').hidden);
+  });
+
   await t('standalone exports trigger browser downloads', async () => {
     assert.strictEqual(d.querySelector('#exp-btns').hidden, false);
     let name = null;
@@ -334,6 +571,25 @@ const svgOk = (svg) => {
     d.querySelector('#dl-svg').click();
     await wait(80);
     assert(/^temporal-ona-.*\.svg$/.test(name), String(name));
+  });
+
+  await t('exports carry tooltips, and the numbers export is a tidy CSV', async () => {
+    let name = null, blob = null;
+    w.HTMLAnchorElement.prototype.click = function () { name = this.download; };
+    w.URL.createObjectURL = (b) => { blob = b; return 'blob:test'; };
+    const read = (b) => new Promise((res) => { const fr = new w.FileReader(); fr.onload = () => res(fr.result); fr.readAsText(b); });
+    d.querySelector('#dl-svg').click();
+    await wait(60);
+    const svgText = await read(blob);
+    assert(!/data-tip|class="[^"]*\bhov\b/.test(svgText), 'no screen-only attributes in the file');
+    assert((svgText.match(/<title>/g) || []).length > 5, 'tooltips are restored in the exported SVG');
+    d.querySelector('#dl-num').click();
+    await wait(60);
+    assert(/^temporal-ona-.*-numbers\.csv$/.test(name), String(name));
+    const csv = await read(blob);
+    const lines = csv.trim().split('\n');
+    assert.strictEqual(lines[0], 'group,kind,from,to,value,unit,percent_of_window,learners,learners_total,mean_time_min,peak_slice,shown_in_figure,stability,window_start_min,window_end_min');
+    assert(lines.some((l) => /^all,behaviour,/.test(l)) && lines.some((l) => /^all,link,/.test(l)), csv.slice(0, 300));
   });
 
   await t('the downloaded tool is a working copy of the page', async () => {

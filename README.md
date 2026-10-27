@@ -18,8 +18,10 @@ Everything runs in the browser. No data is uploaded. You can also download the t
 Open the site: **https://kcodweb.github.io/Temporal-ONA-builder/**
 
 1. **Upload.** Drop a CSV, TSV or semicolon-separated file onto the page, choose it with **Choose file**, or paste rows. No data yet? Try the built-in sample of 30 synthetic learners, or download the template.
-2. **Check.** See how each column was read, change the column choices if needed, and look over the first rows, the behaviours found and any warnings (unreadable rows, `09:12`-style times, a missing end column).
+2. **Check.** See how each column was read, change the column choices if needed, and look over the first rows and any warnings (unreadable rows, `09:12`-style times, a missing end column). Under **Behaviours** you can rename codes, merge two codes by giving them the same name, leave codes out, and set their order around the circle.
 3. **Explore.** Build the network, step through time frames (each frame button shows how many episodes start in it) or drag the window, click a disc to highlight only its links and see its details, save the figure as PNG or SVG, and **Copy caption** for a figure caption that states the sample, window and settings.
+   - **Compare groups:** add an optional `group` column (for example condition or cohort). **Learners** then shows one group at a time, or **Groups side by side** with shared scales and a table of the largest differences (exploratory, no statistical test).
+   - **Check what you see:** under **Settings → Links**, weight arrows by **times more than chance** (observed ÷ expected transitions), hide links that only a few learners made, and **check stability** (learners are resampled 200 times; links that do not hold up are drawn dashed). Point at any arrow or disc for its details, including how many learners made it.
 4. **AI reading (optional, beta).** Ask a language model for a first reading of the figure. See [AI reading](#ai-reading) below.
 
 The page remembers your last log on this device, so next time it opens straight on your figure. **Clear saved data** removes it.
