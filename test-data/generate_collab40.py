@@ -1,5 +1,5 @@
 # Synthetic 40-minute collaborative problem-solving log (not SRL) with mixed learner sequences
-# and planted, known patterns for testing the Temporal ONA builder.
+# and planted, known patterns for testing the Integrated Temporal Network builder.
 import random, csv, sys
 
 random.seed(2027)  # run: python generate_collab40.py collab-problem-solving-40min.csv [--groups]

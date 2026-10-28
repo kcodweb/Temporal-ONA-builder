@@ -51,6 +51,7 @@ DATASETS = {
 }
 
 PROMPT_VERSION = 'v2'  # v1 asked for pattern, meaning and action as separate fields and got descriptions, not inferences
+# The prompt exactly as run; the tool was then called the Temporal ONA builder.
 SYSTEM = '\n'.join([
     'You help teachers draw inferences about learning from a learning-analytics figure. You see one image: a temporal '
     'ordered network made with the Temporal ONA builder from a coded log of what learners did during a session, with a '

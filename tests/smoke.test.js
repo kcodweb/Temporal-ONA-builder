@@ -551,7 +551,7 @@ const svgOk = (svg) => {
     d.querySelector('#dl-svg').click();
     await wait(60);
     const out = await read(blob);
-    assert(/Temporal ordered networks by group/.test(out) && (out.match(/<svg x="/g) || []).length === 2, 'one SVG with both group panels');
+    assert(/Integrated temporal networks by group/.test(out) && (out.match(/<svg x="/g) || []).length === 2, 'one SVG with both group panels');
     d.querySelector('#dl-num').click();
     await wait(60);
     const csv = await read(blob);
@@ -598,11 +598,11 @@ const svgOk = (svg) => {
     w.URL.createObjectURL = (b) => { blob = b; return 'blob:test'; };
     d.querySelector('#dl-tool').click();
     await wait(80);
-    assert.strictEqual(name, 'temporal-ona-builder.html');
+    assert.strictEqual(name, 'integrated-temporal-network-builder.html');
     const text = await new Promise((res) => { const fr = new w.FileReader(); fr.onload = () => res(fr.result); fr.readAsText(blob); });
-    assert(/^<!doctype html>/.test(text) && text.includes('Temporal ONA builder') && text.includes('function figureBrief'), 'full page expected');
+    assert(/^<!doctype html>/.test(text) && text.includes('Integrated Temporal Network builder') && text.includes('function figureBrief'), 'full page expected');
     assert(text.includes('Build a network to see it here.'), 'the copy is the page as served, before any figure is drawn');
-    const copy = new JSDOM(text, { runScripts: 'dangerously', pretendToBeVisual: true, url: 'file:///C:/Users/me/temporal-ona-builder.html', beforeParse: (cw) => { cw.scrollTo = () => {}; } });
+    const copy = new JSDOM(text, { runScripts: 'dangerously', pretendToBeVisual: true, url: 'file:///C:/Users/me/integrated-temporal-network-builder.html', beforeParse: (cw) => { cw.scrollTo = () => {}; } });
     const errs = [];
     copy.window.addEventListener('error', (e) => errs.push(e.message));
     await wait(200);
