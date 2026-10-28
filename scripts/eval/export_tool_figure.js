@@ -1,5 +1,5 @@
 // Draw an episode log with the real page (jsdom) and save the figure as SVG: the whole session, or groups side by side.
-//   node scripts/eval/export_tool_figure.js <log.csv> <out.svg> --label "Name" [--order "A|B|C"] [--norm] [--groups] [--slice 10] [--brief brief.txt]
+//   node scripts/eval/export_tool_figure.js <log.csv> <out.svg> --label "Name" [--order "A|B|C"] [--norm] [--groups] [--len 15] [--slice 10] [--brief brief.txt]
 // --brief also saves the data part of the AI reading request (figureBrief), exactly as the page would send it.
 const fs = require('fs');
 const path = require('path');
@@ -37,6 +37,7 @@ if (opt('--order')) {
   d.querySelector('#build').click(); await wait(800);
   await set('#s-theme', 'light');
   if (args.includes('--norm')) await set('#s-norm', true);
+  if (opt('--len')) await set('#s-len', opt('--len'));  // before --slice: the slice menu only lists sizes that fit
   if (opt('--slice')) await set('#s-slice', opt('--slice'));
   if (opt('--label')) {
     d.querySelector('[aria-label="Rename this dataset"]').click();

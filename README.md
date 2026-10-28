@@ -15,7 +15,7 @@ Everything runs in the browser. No data is uploaded. You can also download the t
 
 ## Use it
 
-Open the site: **https://kcodweb.github.io/Temporal-ONA-builder/**
+Open `index.html` in a browser. It is one self-contained file: nothing to install, and it runs offline.
 
 1. **Upload.** Drop a CSV, TSV or semicolon-separated file onto the page, choose it with **Choose file**, or paste rows. No data yet? Try the built-in sample of 30 synthetic learners, or download the template.
 2. **Check.** See how each column was read, change the column choices if needed, and look over the first rows and any warnings (unreadable rows, `09:12`-style times, a missing end column). Under **Behaviours** you can rename codes, merge two codes by giving them the same name, leave codes out, and set their order around the circle.
@@ -88,8 +88,8 @@ The page makes no network requests except to load Google Fonts and, only when yo
 
 ## Cite
 
-Bansal, K. (2026). *Temporal ONA builder* [Web tool].
+Withheld for blind review.
 
 ## Licence
 
-The code is released under the [MIT licence](LICENSE). The white paper and other documents in `docs/` are released under [CC BY 4.0](docs/LICENSE.md).
+The code is released under the [MIT licence](LICENSE).

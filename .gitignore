@@ -10,3 +10,5 @@ test-data/pyguru/*
 # The paper under blind review (drafts and the submission) must not appear in a public repo before the decision.
 docs/paper/
 __pycache__/
+# Educator study: figure images (PyGuru is student data; CoAuthor has no stated licence), AI outputs and ratings.
+test-data/educator-study/
