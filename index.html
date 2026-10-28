@@ -313,6 +313,8 @@ dialog.about{width:min(560px,calc(100% - 32px));max-height:calc(100% - 48px);ove
 dialog.about::backdrop{background:rgba(15,17,22,.45)}
 dialog.about h2{font-size:19px;margin:0 0 12px}
 dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
+#save-body img{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;margin:8px 0}
+#save-body textarea{display:block;width:100%;height:220px;margin:8px 0;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .dlg-x{float:right;margin:-6px -8px 0 0;border:0;background:none;font-size:22px;line-height:1;padding:4px 8px;color:var(--muted)}
 
 /* step 1: offline strip */
@@ -660,6 +662,13 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
   <div class="row"><button id="clear">Clear saved data</button><button id="dl-tool-3" data-save hidden>Download tool (HTML)</button></div>
   <h3>Cite</h3>
   <p class="m">Bansal, K. (2026). <i>Integrated Temporal Network builder</i> [Web tool]. https://kcodweb.github.io/Temporal-ONA-builder/</p>
+</dialog>
+
+<dialog class="about" id="save-dlg" aria-labelledby="save-t">
+  <button class="dlg-x" id="save-x" aria-label="Close">×</button>
+  <h2 id="save-t">Save the file</h2>
+  <p class="m">This page runs in a sandbox that blocks downloads, so the file is shown here instead.</p>
+  <div id="save-body"></div>
 </dialog>
 
 <footer class="foot">
@@ -1272,11 +1281,25 @@ function svgString(withFont){var svg=$('#net').cloneNode(true);svg.setAttribute(
   var s=new XMLSerializer().serializeToString(svg);
   if(withFont)s=s.replace(/(<svg[^>]*>)/,'$1<style>@import url(\'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&amp;display=swap\');</style>');
   return '<?xml version="1.0" encoding="UTF-8"?>\n'+s;}
-function fname(ext){var gs=grp==='cmp'?'groups ':typeof grp==='number'&&grp>=0&&P&&P.groups?P.groups[grp]+' ':'',sl=(dsLabel()+' '+gs).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);return 'temporal-ona-'+(sl?sl+'-':'')+tnum(view.t0)+'-'+tnum(view.t1)+TU.k+'.'+ext;}
+function fname(ext){var gs=grp==='cmp'?'groups ':typeof grp==='number'&&grp>=0&&P&&P.groups?P.groups[grp]+' ':'',sl=(dsLabel()+' '+gs).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);return 'temporal-network-'+(sl?sl+'-':'')+tnum(view.t0)+'-'+tnum(view.t1)+TU.k+'.'+ext;}
 var standalone=!(window.claude&&typeof window.claude.use==='function');
+// A page served in a sandbox without downloads (such as an anonymised review mirror) has an opaque origin over http(s).
+// A download link does nothing there, so the file is shown in a dialog to save with the browser's own commands.
+var sandboxed=(function(){try{return window.origin==='null'&&/^https?:$/.test(location.protocol);}catch(e){return false;}})();
+function showSave(filename,data){return new Promise(function(res,rej){var body=$('#save-body'),d=$('#save-dlg');body.innerHTML='';$('#save-t').textContent='Save '+filename;
+  function say(t){var p=document.createElement('p');p.textContent=t;body.appendChild(p);}
+  function img(src){var i=new Image();i.src=src;i.alt=filename;body.appendChild(i);}
+  if(/\.html$/.test(filename))say('Press Ctrl+S (\u2318S on a Mac) and save this page as \u201cWebpage, HTML only\u201d. The saved file is the whole tool and runs offline.');
+  else if(/\.png$/.test(filename)){say('Right-click the image and choose \u201cSave image as\u2026\u201d.');var fr=new FileReader();fr.onload=function(){img(fr.result);};fr.readAsDataURL(data);}
+  else if(/\.svg$/.test(filename)){say('Right-click the image and choose \u201cSave image as\u2026\u201d.');img('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(data));}
+  else{say('Copy the text below and save it as '+filename+'.');var ta=document.createElement('textarea');ta.readOnly=true;ta.value=data;body.appendChild(ta);
+    var b=document.createElement('button');b.textContent='Copy';b.addEventListener('click',function(){copyText(data,'Copied.');});body.appendChild(b);}
+  if(typeof d.showModal==='function'){if(!d.open)d.showModal();}else d.setAttribute('open','');
+  rej({code:'declined'});});}
+function closeSave(){var d=$('#save-dlg');if(typeof d.close==='function'&&d.open)d.close();else d.removeAttribute('open');}
 function browserSave(filename,data){return new Promise(function(res,rej){try{var mime=/\.png$/.test(filename)?'image/png':/\.svg$/.test(filename)?'image/svg+xml;charset=utf-8':/\.html$/.test(filename)?'text/html;charset=utf-8':'text/csv;charset=utf-8';
   var blob=data instanceof Blob?data:new Blob([data],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.rel='noopener';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},4000);res();}catch(e){rej({code:'browser_error'});}});}
-function saveFile(filename,data,btn){var saver=downloads?function(){return downloads.save({filename:filename,data:data});}:(standalone?function(){return browserSave(filename,data);}:null);if(!saver)return;var old=btn.innerHTML;btn.textContent='Saving…';
+function saveFile(filename,data,btn){var saver=downloads?function(){return downloads.save({filename:filename,data:data});}:(standalone?function(){return sandboxed?showSave(filename,data):browserSave(filename,data);}:null);if(!saver)return;var old=btn.innerHTML;btn.textContent='Saving…';
   saver().then(function(){btn.textContent='Saved';setTimeout(function(){btn.innerHTML=old;},1400);},function(err){btn.innerHTML=old;var code=err&&err.code;
     if(code==='declined')return;$('#exp-note').hidden=false;$('#exp-note').textContent=code==='rate_limited'?'A save prompt is already open. Finish that one first.':'That file couldn\'t be saved here ('+(code||'unknown error')+').';});}
 // In "groups side by side" the export is one SVG with every group panel; otherwise it is the main figure.
@@ -1568,7 +1591,7 @@ function init(){
   $('#dl-svg').addEventListener('click',function(){saveFile(fname('svg'),exportSVG(true).str,this);});
   $('#dl-png').addEventListener('click',function(){savePNG(this);});
   $('#dl-csv').addEventListener('click',function(){saveFile('sample-srl-log.csv',sampleCSV(),this);});
-  $('#dl-template').addEventListener('click',function(){saveFile('temporal-ona-template.csv',TEMPLATE,this);});
+  $('#dl-template').addEventListener('click',function(){saveFile('episode-log-template.csv',TEMPLATE,this);});
   $('#clear').addEventListener('click',function(){try{['tona-data','tona-name','tona-map','tona-settings-v2','tona-settings-v3','tona-settings-v4','tona-codes','tona-ai','tona-ai-key','tona-tab'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}
     stopPlay();if(aiCtl)aiCtl.abort();grp=-1;CMP=null;S=Object.assign({},DEF);applyTheme();writeSettingsUI();P=null;D=null;pending=null;selected=null;lastC=null;$('#data').value='';
     aiLoad();aiWriteUI();aiFor=null;$('#ai-out').hidden=true;$('#ai-q').value='';aiFail('');closeAbout();
@@ -1626,6 +1649,7 @@ function init(){
   var tb=load('tona-tab');showTab(typeof tb==='string'?tb:'guide');
   $('#about-btn').addEventListener('click',openAbout);$('#about-x').addEventListener('click',closeAbout);
   $('#about').addEventListener('click',function(e){if(e.target===this)closeAbout();});
+  $('#save-x').addEventListener('click',closeSave);$('#save-dlg').addEventListener('click',function(e){if(e.target===this)closeSave();});
 
   // AI reading
   aiLoad();aiWriteUI();
