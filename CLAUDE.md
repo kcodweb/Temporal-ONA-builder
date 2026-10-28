@@ -1,10 +1,10 @@
-# CLAUDE.md — Temporal ONA builder
+# CLAUDE.md — Integrated Temporal Network builder
 
 Project brief for Claude Code. Read this before changing anything.
 
 ## What this is
 
-A browser tool that turns a coded self-regulated learning (SRL) episode log into a **temporal ordered network**: one figure that shows how long learners spent in each behaviour, when in the session each behaviour happened, what followed what, and when each link happened.
+A browser tool that turns a coded self-regulated learning (SRL) episode log into a **integrated temporal network**: one figure that shows how long learners spent in each behaviour, when in the session each behaviour happened, what followed what, and when each link happened.
 
 - **Author:** Karan Bansal, IIT Bombay.
 - **Origin:** a design question in ET 610, Learning Analytics and Educational Data Mining. The question asked how to add time spent and timing to an ENA/ONA co-occurrence network of SRL behaviours (Planning, Monitoring, Debugging, Help seeking, Evaluation) in a 60-minute programming lab.
@@ -80,7 +80,7 @@ The code is ES5-style inside an IIFE, with no dependencies. Sections, in order:
 11. **Window UI:** `buildFrames` (each frame button shows the number of episodes that start in it; `ACT` = episodes starting per slice, drawn as the activity strip above the window slider), `syncWindowUI`, `setFrame`, `togglePlay` (1.6 s per frame), dual range slider (`#r0`, `#r1`).
 12. **Data flow and steps:** the page has three stages, `#stage-start` (upload: drop zone, file input, paste box, sample, template), `#stage-check` (column selects `#map-*`, preview table, summary tiles, behaviour chips, warnings) and `#stage-explore` (settings, figure, legend, detail). `showStage(s, focus)` switches them and the step buttons in the app bar. `analyse(text, name, idx)` fills `pending` and draws the check step (`drawCheck`); `build(fromUser)` turns `pending` into `P` and opens the explore step; `rederive()`, `readSettingsUI`/`writeSettingsUI`, `applyTheme`. First visits open on the upload step; a saved log opens straight on its figure. Storage keys: `tona-data`, `tona-name`, `tona-map` (column names per role), `tona-codes`, `tona-settings-v4` (older saves are read once without their old defaults for minShare, slice and frame), `tona-tab`, `tona-ai` (provider, model, endpoint), `tona-ai-key` (only when the user ticks *Remember the key*), all wrapped in try/catch and all removed by **Clear saved data**.
 13. **Sample:** `mulberry32(610)` plus `sampleCSV()`, which generates phase-weighted synthetic data. **Do not change the seed or generator** without updating the tests and the white paper numbers.
-14. **Export:** `svgString`, `savePNG` (SVG → canvas at 2×), `saveFile`, which uses the Claude `downloads` capability when running as a Claude artifact and `browserSave` (Blob + `<a download>`) when standalone. `TEMPLATE` is the small CSV behind **Download template**; elements marked `data-save` appear only when saving works. **Download tool** saves `SELF`, a copy of the page's HTML taken at the top of the script before `init` touches the DOM, as `temporal-ona-builder.html`; it runs offline from `file://` (a test loads the copy in jsdom and builds the sample).
+14. **Export:** `svgString`, `savePNG` (SVG → canvas at 2×), `saveFile`, which uses the Claude `downloads` capability when running as a Claude artifact and `browserSave` (Blob + `<a download>`) when standalone. `TEMPLATE` is the small CSV behind **Download template**; elements marked `data-save` appear only when saving works. **Download tool** saves `SELF`, a copy of the page's HTML taken at the top of the script before `init` touches the DOM, as `integrated-temporal-network-builder.html`; it runs offline from `file://` (a test loads the copy in jsdom and builds the sample).
 15. **Caption and AI reading:** `caption(c)` writes the reporting details for **Copy caption**; `copyText` uses the Clipboard API with an `execCommand` fallback. The AI reading is optional and off until the user presses **Read this figure**. `figureBrief(c)` is the only data that leaves the page: aggregated numbers behind the current figure (settings, coverage, minutes and slice profile per behaviour, link weights, mean minute and per-slice weights; at most 30 links) plus the fixed instructions `AI_SYS`, which encode the reading rules and forbid causal, significance or prediction claims. Providers (`AI_PROV`): `anthropic` (Messages API called directly from the browser with the user's key and the `anthropic-dangerous-direct-browser-access` header; default model `claude-opus-5-5`, effort `medium`, server-side refusal fallback), `openai` (any `/v1/chat/completions` endpoint) and `local` (Ollama or LM Studio on localhost; no key). `aiRequest` builds the request, `aiStream` reads either SSE shape (or a plain JSON reply), `aiHttpError` maps status codes to plain messages, `mdHtml` renders the reply as Markdown **after escaping it**, so model output can never become live HTML. `aiAfterRender` marks a reading as stale when the window or settings change. There is no SDK: the page has no build step and must keep working offline.
 16. **Explore extras:** on screen, `drawFigure` moves each `<title>` into a `data-tip` attribute and the hover card (`onHover`, `edgeCard`, `nodeCard`, `#tip`) replaces native tooltips: pointing at an arrow lights it and its two discs, pointing at a disc lights its links; cards show weight, timing, learners who made the link and a mini timeline. `svgString` puts the titles back and strips screen-only classes. `edgeCard`/`EDGE` index edges by `"f>t"`; each edge has an invisible 12 px hit path. **Key points** (`S.notes`, button `#kp`, key K): `keyPoints` puts numbered badges on the most-time disc, the strongest shown link and the busiest slice in the window, matching numbered footer lines (adds a "Busiest moment" line). **Dataset name:** `dsName`, renamed inline (`startRename`), shown in the figure subtitle and file names via `dsLabel()` (generic names such as "Pasted data" are left out). **Export menu** (`#export-menu`): PNG, SVG, **Numbers as CSV** (`numbersCSV`: one row per behaviour and link in the window, plain minutes, learners) and Copy caption. **Keys:** ← → frames, Home whole session, Space play, K key points, Esc clears.
 17. **About dialog:** `openAbout`/`closeAbout` (`<dialog>`, with a fallback to the `open` attribute); it holds the privacy note, **Clear saved data** and the citation.
@@ -159,7 +159,7 @@ Keep both paths working. If you add a library, load it from cdnjs with a pinned 
 ### P0 — publish
 - [x] `git init`, first commit, push to a public GitHub repo; enable GitHub Pages (branch `main`, root).
 - [x] Add a LICENSE: MIT for the code, CC BY 4.0 for `docs/` (chosen by the author).
-- [x] Add `CITATION.cff` (author Karan Bansal, 2026, title "Temporal ONA builder"); optionally link to Zenodo for a DOI.
+- [x] Add `CITATION.cff` (author Karan Bansal, 2026, title "Integrated Temporal Network builder"); optionally link to Zenodo for a DOI.
 - [x] GitHub Action running `npm test` on push and pull requests.
 
 ### P1 — features that support valid inference (from the research phase)
@@ -170,7 +170,7 @@ Keep both paths working. If you add a library, load it from cdnjs with a pinned 
 - [x] **"Copy figure caption"** that writes the reporting details: n, window, w, slice, aggregation, alignment, merge, coverage, thickness meaning.
 - [ ] Optional **question prompt** before play mode ("What are you looking for?") to discourage fishing across frames. (The AI reading already asks this question.)
 - [ ] Optional **line-up view:** the real network hidden among networks from permuted episode orders (Wickham et al., 2010).
-- [ ] Rename the UI title to make "ONA-inspired" visible (e.g. subtitle).
+- [x] Rename the UI title to make "ONA-inspired" visible: renamed to Integrated Temporal Network builder (October 2026), with "ONA-inspired network of time and order" as the subtitle. The GitHub repo keeps its old name until after the review.
 
 ### Done outside the original roadmap
 - [x] **Code manager** on the Check step (rename, merge, leave out, reorder) and smarter column matching.
@@ -223,7 +223,7 @@ No published work found combines the full design. Closest works:
   - Beck, Burch, Diehl & Weiskopf (2017), taxonomy of dynamic graph visualisation, CGF 36(1), doi:10.1111/cgf.12791
 - **Process-mining maps** (bupaR/processmapR) already combine duration on nodes with transitions on edges, in layered layouts without within-session timing glyphs.
 
-Draft positioning sentence: *"The temporal ordered network adopts ONA's ground→response connection logic over a moving window and adds three encodings not previously combined in learning-analytics networks: node area proportional to time share, a clock-ring glyph showing when each behaviour occurred, and edges that double as within-window timelines. It is ONA-inspired but descriptive."*
+Draft positioning sentence: *"The integrated temporal network adopts ONA's ground→response connection logic over a moving window and adds three encodings not previously combined in learning-analytics networks: node area proportional to time share, a clock-ring glyph showing when each behaviour occurred, and edges that double as within-window timelines. It is ONA-inspired but descriptive."*
 
 Word novelty claims as "to our knowledge".
 

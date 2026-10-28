@@ -8,7 +8,7 @@ The white paper and other documents in this folder are licensed under the
 You may share and adapt them for any purpose, provided you give appropriate
 credit, link to the licence and indicate if changes were made. Suggested credit:
 
-> Bansal, K. (2026). *Temporal ONA builder* [Web tool]. https://github.com/kcodweb/Temporal-ONA-builder
+> Bansal, K. (2026). *Integrated Temporal Network builder* [Web tool]. https://github.com/kcodweb/Temporal-ONA-builder
 
 The code in this repository (including `index.html`, `tests/` and `scripts/`)
 is licensed separately under the MIT licence; see `../LICENSE`.

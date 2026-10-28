@@ -1,4 +1,4 @@
-# Temporal ONA builder
+# Integrated Temporal Network builder
 
 A browser tool that turns a coded episode log into an ordered network showing, in one figure:
 
@@ -39,7 +39,7 @@ S01,Debugging,09:03:45,09:07:10
 
 ## Use it offline
 
-Click **Download tool** in the top bar (or **Download tool (HTML)** on the upload page). You get `temporal-ona-builder.html`, the whole tool in one file. Open it in Chrome, Edge, Firefox or Safari; nothing needs installing and it works without an internet connection (the page then uses your system font instead of Source Sans 3). Logs you load in the downloaded copy are remembered by that browser on that computer only.
+Click **Download tool** in the top bar (or **Download tool (HTML)** on the upload page). You get `integrated-temporal-network-builder.html`, the whole tool in one file. Open it in Chrome, Edge, Firefox or Safari; nothing needs installing and it works without an internet connection (the page then uses your system font instead of Source Sans 3). Logs you load in the downloaded copy are remembered by that browser on that computer only.
 
 ## AI reading
 
@@ -88,7 +88,7 @@ The page makes no network requests except to load Google Fonts and, only when yo
 
 ## Cite
 
-Bansal, K. (2026). *Temporal ONA builder* [Web tool].
+Bansal, K. (2026). *Integrated Temporal Network builder* [Web tool].
 
 ## Licence
 

@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Temporal ONA builder</title>
+<title>Integrated Temporal Network builder</title>
 <meta name="description" content="Upload a coded episode log (self-regulated learning, collaboration, clickstream and more) and get an ONA-inspired network that shows time spent, when behaviours happened, and what followed what. Runs entirely in your browser.">
-<meta property="og:title" content="Temporal ONA builder">
+<meta property="og:title" content="Integrated Temporal Network builder">
 <meta property="og:description" content="An ONA-inspired network for learning logs that shows duration, timing and sequence in one figure. Your data stays in your browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,8 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .steps button[aria-current="step"] i{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .steps button:disabled{opacity:.45;cursor:default}
 .steps button:not(:disabled):not([aria-current]):hover{color:var(--ink)}
-@media (max-width:700px){.steps .lbl{display:none}.steps button{padding:5px}.brand small{display:none}}
+@media (max-width:700px){.steps .lbl{display:none}.steps button{padding:5px}.brand small{display:none}.brand b{font-size:15px}}
+@media (max-width:1000px){.brand small{display:none}.brand b{white-space:normal;max-width:11em}}
 
 /* controls */
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
@@ -356,9 +357,9 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
 <body>
 <header class="appbar">
   <div class="in">
-    <a class="brand" href="#" id="home" aria-label="Temporal ONA builder, start page">
+    <a class="brand" href="#" id="home" aria-label="Integrated Temporal Network builder, start page">
       <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-opacity=".18" stroke-width="3"/><path d="M16 3.5 A12.5 12.5 0 0 1 28.5 16" fill="none" stroke="#4B3FB5" stroke-width="3"/><circle cx="16" cy="16" r="7" fill="#438CEB"/></svg>
-      <span><b>Temporal ONA builder</b><small>ONA-inspired network of time and order</small></span>
+      <span><b>Integrated Temporal Network builder</b><small>ONA-inspired network of time and order</small></span>
     </a>
     <nav class="steps" aria-label="Steps">
       <button data-go="start" aria-current="step"><i>1</i><span class="lbl">Upload</span></button>
@@ -536,7 +537,7 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
           </div>
           <span class="winlbl" id="winlbl">0′ – 60′</span>
         </div>
-        <div class="figbox" id="figbox"><svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Temporal ordered network</title><desc id="net-d">Build a network to see it here.</desc></svg><div class="tipcard" id="tip" hidden></div></div>
+        <div class="figbox" id="figbox"><svg id="net" viewBox="0 0 800 740" role="img" aria-labelledby="net-t net-d"><title id="net-t">Integrated temporal network</title><desc id="net-d">Build a network to see it here.</desc></svg><div class="tipcard" id="tip" hidden></div></div>
         <div class="compare" id="compare" hidden><p class="hint" id="cmp-note" style="margin:0"></p><div class="cmp-grid" id="cmp-grid"></div><div class="cmp-diff" id="cmp-diff"></div></div>
         <p class="swipe">Swipe sideways to see the whole figure.</p>
       </section>
@@ -652,17 +653,17 @@ dialog.about h3{font-size:14.5px;font-weight:600;margin:16px 0 6px}
 <dialog class="about" id="about" aria-labelledby="about-t">
   <button class="dlg-x" id="about-x" aria-label="Close">×</button>
   <h2 id="about-t">About this tool</h2>
-  <p>The Temporal ONA builder turns a coded episode log, such as self-regulated learning codes, collaboration moves or clickstream events, into one figure that shows how long learners spent in each behaviour, when in the session it happened, what followed what, and when each link happened.</p>
+  <p>The Integrated Temporal Network builder turns a coded episode log, such as self-regulated learning codes, collaboration moves or clickstream events, into one figure that shows how long learners spent in each behaviour, when in the session it happened, what followed what, and when each link happened.</p>
   <p>The link logic is adapted from ordered network analysis (ONA). This is a descriptive, ONA-inspired figure, not a full ONA: it does not normalise, reduce dimensions or test differences between groups. For statistical comparisons, run ONA itself.</p>
   <h3>Your data</h3>
   <p>Everything runs in your browser and the log you load is never uploaded. The page remembers your last log on this device so it is there next time; use pseudonymous learner IDs and clear it when you are done with real student data. The AI reading is off until you use it, and then sends only the numeric summary shown under “See exactly what will be sent”.</p>
   <div class="row"><button id="clear">Clear saved data</button><button id="dl-tool-3" data-save hidden>Download tool (HTML)</button></div>
   <h3>Cite</h3>
-  <p class="m">Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool]. https://kcodweb.github.io/Temporal-ONA-builder/</p>
+  <p class="m">Bansal, K. (2026). <i>Integrated Temporal Network builder</i> [Web tool]. https://kcodweb.github.io/Temporal-ONA-builder/</p>
 </dialog>
 
 <footer class="foot">
-  <span>Bansal, K. (2026). <i>Temporal ONA builder</i> [Web tool]. Code under the MIT licence.</span>
+  <span>Bansal, K. (2026). <i>Integrated Temporal Network builder</i> [Web tool]. Code under the MIT licence.</span>
   <a href="https://github.com/kcodweb/Temporal-ONA-builder" rel="noopener">Source on GitHub</a>
 </footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -981,7 +982,7 @@ function figureMarkup(c,opt){opt=opt||{};
   o.push('<rect x="'+f1(bx+bw*t0/L)+'" y="'+(by-3)+'" width="'+f1(Math.max(2,bw*win/L))+'" height="14" rx="3" fill="none" stroke="'+T.ink+'" stroke-width="1"/>');
   o.push('<text x="'+bx+'" y="'+(by+26)+'" font-size="12" fill="'+T.muted+'">'+tp(0)+'</text><text x="'+(bx+bw/2)+'" y="'+(by+26)+'" font-size="12" text-anchor="middle" fill="'+T.muted+'">'+tp(L/2)+'</text><text x="'+(bx+bw)+'" y="'+(by+26)+'" font-size="12" text-anchor="end" fill="'+T.muted+'">'+tp(L)+'</text>');
 
-  return {inner:o.join(''),W:W,H:H,font:FONT,title:'Temporal ordered network, '+(c.groupName?c.groupName+', ':'')+tp(t0)+' to '+tp(t1),desc:ins.join(' ')};}
+  return {inner:o.join(''),W:W,H:H,font:FONT,title:'Integrated temporal network, '+(c.groupName?c.groupName+', ':'')+tp(t0)+' to '+tp(t1),desc:ins.join(' ')};}
 function drawFigure(c){var m=figureMarkup(c,{}),svg=$('#net');svg.setAttribute('viewBox','0 0 '+m.W+' '+m.H);svg.setAttribute('font-family',m.font);
   svg.innerHTML='<title id="net-t">'+esc(m.title)+'</title><desc id="net-d">'+esc(m.desc)+'</desc>'+m.inner;
   Array.prototype.forEach.call(svg.querySelectorAll('title'),function(t){if(t.id==='net-t')return;t.parentNode.setAttribute('data-tip',t.textContent);t.parentNode.removeChild(t);});
@@ -1281,7 +1282,7 @@ function saveFile(filename,data,btn){var saver=downloads?function(){return downl
 // In "groups side by side" the export is one SVG with every group panel; otherwise it is the main figure.
 function exportSVG(withFont){if(grp==='cmp'&&CMP&&CMP.length){var cols=CMP.length<=2?CMP.length:CMP.length<=4?2:3,rows=Math.ceil(CMP.length/cols),y=0,parts=[],TW=800*cols,T=tokens();
     for(var r=0;r<rows;r++){var rw=CMP.slice(r*cols,r*cols+cols),rh=Math.max.apply(null,rw.map(function(x){return x.m.H;}));rw.forEach(function(x,i){parts.push('<svg x="'+(i*800)+'" y="'+y+'" width="800" height="'+x.m.H+'" viewBox="0 0 800 '+x.m.H+'">'+x.m.inner+'</svg>');});y+=rh;}
-    var str='<svg xmlns="http://www.w3.org/2000/svg" width="'+TW+'" height="'+y+'" viewBox="0 0 '+TW+' '+y+'" font-family="'+CMP[0].m.font+'"><title>Temporal ordered networks by group</title><rect width="'+TW+'" height="'+y+'" fill="'+T.bg+'"/>'+parts.join('')+'</svg>';
+    var str='<svg xmlns="http://www.w3.org/2000/svg" width="'+TW+'" height="'+y+'" viewBox="0 0 '+TW+' '+y+'" font-family="'+CMP[0].m.font+'"><title>Integrated temporal networks by group</title><rect width="'+TW+'" height="'+y+'" fill="'+T.bg+'"/>'+parts.join('')+'</svg>';
     if(withFont)str=str.replace(/(<svg[^>]*>)/,'$1<style>@import url(\'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&amp;display=swap\');</style>');
     return {str:'<?xml version="1.0" encoding="UTF-8"?>\n'+str,w:TW,h:y};}
   var vb=$('#net').getAttribute('viewBox').split(' ');return {str:svgString(withFont),w:+vb[2],h:+vb[3]};}
@@ -1349,14 +1350,14 @@ function copyText(t,okMsg){var fail='Copying isn’t allowed here. Select the te
 // The reporting details a reader needs to interpret the figure (sample, window, link window, weights, alignment, merging, coverage).
 function caption(c){var avg=S.scope==='avg',w=Math.max(2,S.window|0),cap=(c.t1-c.t0)*(avg?1:c.n),coded=c.mins.reduce(function(a,b){return a+b;},0),
   wt=S.thick==='lift'?'times more often than chance (observed \u00f7 expected transitions, given how often each code occurs; pairs seen fewer than '+LIFT_MIN+' times are left out)':(S.thick==='count'?'transitions':'time spent in B')+(avg?' per learner':' across the class');
-  return 'Temporal ordered network (ONA-inspired, descriptive) of coded episodes from '+plural(c.n,'learner')+(c.groupName?' in group '+c.groupName:'')+', '+tr(c.t0,c.t1)+' of a session lasting '+tp(c.L)+(view.frame>=0?' (frame '+(view.frame+1)+' of '+Math.ceil(c.L/D.fr-1e-9)+')':'')+'. '+
+  return 'Integrated temporal network (ONA-inspired, descriptive) of coded episodes from '+plural(c.n,'learner')+(c.groupName?' in group '+c.groupName:'')+', '+tr(c.t0,c.t1)+' of a session lasting '+tp(c.L)+(view.frame>=0?' (frame '+(view.frame+1)+' of '+Math.ceil(c.L/D.fr-1e-9)+')':'')+'. '+
     'Disc area is proportional to the share of the window spent in each behaviour ('+(avg?'mean per learner':'class total')+'); the ring of bars around each disc shows the share of each '+td(c.sl)+' slice of the session spent in that behaviour, read clockwise from '+tp(0)+' at the top. '+
     'An arrow A \u2192 B means B began within '+(w-1)+' action'+(w>2?'s':'')+' after A (moving window, w = '+w+'). '+
     (S.edgeStyle==='swell'?(S.thick==='lift'?'Line strength shows '+wt+'. ':'')+'Each arrow doubles as a timeline of the window: it swells in proportion to the '+(S.thick==='lift'?'transitions per learner':wt)+' in each '+td(c.sl)+' slice, coloured from early (violet) to late (amber), and fainter arrows are weaker links. ':'Arrow width shows '+wt+' and colour shows the mean '+tword()+' of the link, from early (violet) to late (amber). ')+
     (S.norm?'Each learner’s session is stretched to 0–100% (normalised time)':'Learners '+(S.align?'are aligned to their own first event':'share one clock'))+'; back-to-back repeats are '+(S.merge?'merged':'not merged')+'; '+linkNote(c).replace(/\.$/,'').replace(/^./,function(m){return m.toLowerCase();})+'; self-loops are '+(S.loops?'shown':'hidden')+'. '+
     'Coded behaviours cover '+fmt(coded/af())+' of '+ta(cap)+(avg?' per learner':'')+' in the window.'+(c.stab?' A stability check resampled learners '+c.stab.B+' times; dashed links with hollow arrowheads are shown in fewer than '+Math.round(STAB_HOLD*100)+'% of resamples.':'')+' No statistical tests are involved.';}
 function captionCompare(){var sc=S.scope;S.scope='avg';try{var first=CMP[0].c,rest=caption(first),i=rest.indexOf('. ');rest=i>=0?rest.slice(i+2):rest;
-  return 'Temporal ordered networks (ONA-inspired, descriptive) for '+CMP.length+' groups side by side ('+CMP.map(function(x){return x.c.groupName+': '+plural(x.c.n,'learner');}).join('; ')+'), '+tr(first.t0,first.t1)+'. All panels share their scales: per-learner values, the same link threshold, and the same disc, ring and arrow sizes. '+rest.replace(' No statistical tests are involved.',' Differences between groups are exploratory; no statistical tests are involved.');}finally{S.scope=sc;}}
+  return 'Integrated temporal networks (ONA-inspired, descriptive) for '+CMP.length+' groups side by side ('+CMP.map(function(x){return x.c.groupName+': '+plural(x.c.n,'learner');}).join('; ')+'), '+tr(first.t0,first.t1)+'. All panels share their scales: per-learner values, the same link threshold, and the same disc, ring and arrow sizes. '+rest.replace(' No statistical tests are involved.',' Differences between groups are exploratory; no statistical tests are involved.');}finally{S.scope=sc;}}
 
 /* ---------- AI reading ---------- */
 // Optional and off until the user asks. Only figureBrief() leaves the page: aggregated numbers behind the current
@@ -1365,7 +1366,7 @@ var AI_PROV={
   anthropic:{model:'claude-opus-5-5',models:['claude-opus-5-5','claude-sonnet-5-5','claude-haiku-4-5'],key:true},
   openai:{url:'https://api.openai.com/v1',models:[],key:true},
   local:{url:'http://localhost:11434/v1',models:['llama3.1','qwen2.5','gemma2','mistral'],key:false}};
-var AI_SYS=['You help learning-analytics researchers read one figure: a temporal ordered network made with the Temporal ONA builder from a coded episode log, for example self-regulated learning codes, collaboration moves or clickstream events, over a session of minutes, hours or days. You receive the numbers behind the figure, not the image, and possibly a short description of the data from the researcher.',
+var AI_SYS=['You help learning-analytics researchers read one figure: a integrated temporal network made with the Integrated Temporal Network builder from a coded episode log, for example self-regulated learning codes, collaboration moves or clickstream events, over a session of minutes, hours or days. You receive the numbers behind the figure, not the image, and possibly a short description of the data from the researcher.',
   '',
   'How the figure encodes the data:',
   '- Disc area = share of the time window spent in a behaviour (mean per learner unless stated as a class total).',
@@ -1408,7 +1409,7 @@ function figureBrief(c){var avg=S.scope==='avg',u=avg?' per learner':' (class to
   D.seqs.forEach(function(q){eps+=q.length;q.forEach(function(x){if(x.s>=c.t0&&(x.s<c.t1||(c.t1>=c.L&&x.s<=c.t1)))inWin++;});});
   function sl(k){return tr(k*c.sl,Math.min((k+1)*c.sl,c.L));}
   var coded=c.mins.reduce(function(a,b){return a+b;},0),unitName={s:'seconds (s)',min:'minutes (\u2032 for points in the session, min for amounts)',h:'hours (h)',d:'days (d) for points in the session, hours (h) for amounts'}[TU.k];
-  o.push('FIGURE: temporal ordered network (ONA-inspired, descriptive) of a coded episode log.');
+  o.push('FIGURE: integrated temporal network (ONA-inspired, descriptive) of a coded episode log.');
   o.push('Time units: '+unitName+'.');
   o.push('Data: '+plural(c.n,'learner')+', '+plural(eps,'episode')+', '+plural(c.B,'behaviour')+'; session length '+tp(c.L)+'.'+(D.filled?' '+plural(D.filled,'episode')+' had no usable end time and run until the learner\u2019s next episode.':''));
   o.push('Window shown: '+tr(c.t0,c.t1)+' ('+viewName(c)+'); '+plural(inWin,'episode')+' start in it.');
@@ -1613,7 +1614,7 @@ function init(){
     else if(e.key==='k'||e.key==='K'){S.notes=!S.notes;store('tona-settings-v4',S);render();}
     else if(e.key==='w'||e.key==='W'){toggleWin();}
     else if(e.key==='Escape'&&selected!=null){selected=null;render();}});
-  ['#dl-tool','#dl-tool-2','#dl-tool-3'].forEach(function(s){$(s).addEventListener('click',function(){if(SELF)saveFile('temporal-ona-builder.html',SELF,this);});});
+  ['#dl-tool','#dl-tool-2','#dl-tool-3'].forEach(function(s){$(s).addEventListener('click',function(){if(SELF)saveFile('integrated-temporal-network-builder.html',SELF,this);});});
   $('#copy-cap').addEventListener('click',function(){if(lastC)copyText(grp==='cmp'&&CMP?captionCompare():caption(lastC),'Caption copied. Paste it under the figure.');});
 
   // Side panel tabs (arrow keys move between them) and the About dialog
