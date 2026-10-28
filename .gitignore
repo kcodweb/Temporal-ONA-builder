@@ -10,3 +10,5 @@ test-data/pyguru/*
 # The paper under blind review (drafts and the submission) must not appear in a public repo before the decision.
 docs/paper/
 __pycache__/
+# The first white paper draft is kept locally only.
+docs/white-paper-v1.html

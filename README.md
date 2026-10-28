@@ -92,4 +92,4 @@ Bansal, K. (2026). *Integrated Temporal Network builder* [Web tool].
 
 ## Licence
 
-The code is released under the [MIT licence](LICENSE). The white paper and other documents in `docs/` are released under [CC BY 4.0](docs/LICENSE.md).
+The code is released under the [MIT licence](LICENSE). The documents in `docs/` are released under [CC BY 4.0](docs/LICENSE.md).

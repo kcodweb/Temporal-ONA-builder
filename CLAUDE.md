@@ -27,7 +27,7 @@ package.json               dev tooling only (jsdom for tests/scripts)
 tests/smoke.test.js        jsdom smoke tests that run the real page script (npm test)
 scripts/export-figures.js  exports figure SVGs from the real page (npm run figures)
 samples/sample-srl-log.csv built-in synthetic sample (30 learners, seed 610)
-docs/white-paper-v1.html   first white paper draft (self-contained, figures embedded as WebP)
+docs/white-paper-v1.html   first white paper draft (self-contained, figures embedded as WebP); kept locally and git-ignored, not published
 ```
 
 Keep `index.html` as a **single self-contained file**. If you refactor into modules, add a build step that still emits one `index.html`, and keep tests running against the built file.
