@@ -570,7 +570,7 @@ const svgOk = (svg) => {
     w.HTMLAnchorElement.prototype.click = function () { name = this.download; };
     d.querySelector('#dl-svg').click();
     await wait(80);
-    assert(/^temporal-ona-.*\.svg$/.test(name), String(name));
+    assert(/^temporal-network-.*\.svg$/.test(name), String(name));
   });
 
   await t('exports carry tooltips, and the numbers export is a tidy CSV', async () => {
@@ -585,7 +585,7 @@ const svgOk = (svg) => {
     assert((svgText.match(/<title>/g) || []).length > 5, 'tooltips are restored in the exported SVG');
     d.querySelector('#dl-num').click();
     await wait(60);
-    assert(/^temporal-ona-.*-numbers\.csv$/.test(name), String(name));
+    assert(/^temporal-network-.*-numbers\.csv$/.test(name), String(name));
     const csv = await read(blob);
     const lines = csv.trim().split('\n');
     assert.strictEqual(lines[0], 'group,kind,from,to,value,unit,percent_of_window,learners,learners_total,mean_time_min,peak_slice,shown_in_figure,stability,window_start_min,window_end_min');
