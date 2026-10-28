@@ -6,8 +6,8 @@ Project brief for Claude Code. Read this before changing anything.
 
 A browser tool that turns a coded self-regulated learning (SRL) episode log into a **integrated temporal network**: one figure that shows how long learners spent in each behaviour, when in the session each behaviour happened, what followed what, and when each link happened.
 
-- **Author:** Karan Bansal, IIT Bombay.
-- **Origin:** a design question in ET 610, Learning Analytics and Educational Data Mining. The question asked how to add time spent and timing to an ENA/ONA co-occurrence network of SRL behaviours (Planning, Monitoring, Debugging, Help seeking, Evaluation) in a 60-minute programming lab.
+- **Author:** withheld while the paper is under blind review; restore the name, citation and links from git history after the decision.
+- **Origin:** a design question in a graduate course on learning analytics and educational data mining. The question asked how to add time spent and timing to an ENA/ONA co-occurrence network of SRL behaviours (Planning, Monitoring, Debugging, Help seeking, Evaluation) in a 60-minute programming lab.
 - **Status:** working v0.1. It has been published once as a Claude artifact and is being prepared as a public website (GitHub Pages).
 
 **Audience.** Learning analytics researchers and instructors.
@@ -159,7 +159,7 @@ Keep both paths working. If you add a library, load it from cdnjs with a pinned 
 ### P0 — publish
 - [x] `git init`, first commit, push to a public GitHub repo; enable GitHub Pages (branch `main`, root).
 - [x] Add a LICENSE: MIT for the code, CC BY 4.0 for `docs/` (chosen by the author).
-- [x] Add `CITATION.cff` (author Karan Bansal, 2026, title "Integrated Temporal Network builder"); optionally link to Zenodo for a DOI.
+- [x] Add `CITATION.cff`; removed during blind review, restore it after the decision. Optionally link to Zenodo for a DOI.
 - [x] GitHub Action running `npm test` on push and pull requests.
 
 ### P1 — features that support valid inference (from the research phase)

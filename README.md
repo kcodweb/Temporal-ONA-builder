@@ -15,7 +15,7 @@ Everything runs in the browser. No data is uploaded. You can also download the t
 
 ## Use it
 
-Open the site: **https://kcodweb.github.io/Temporal-ONA-builder/**
+Open `index.html` in a browser. It is one self-contained file: nothing to install, and it runs offline.
 
 1. **Upload.** Drop a CSV, TSV or semicolon-separated file onto the page, choose it with **Choose file**, or paste rows. No data yet? Try the built-in sample of 30 synthetic learners, or download the template.
 2. **Check.** See how each column was read, change the column choices if needed, and look over the first rows and any warnings (unreadable rows, `09:12`-style times, a missing end column). Under **Behaviours** you can rename codes, merge two codes by giving them the same name, leave codes out, and set their order around the circle.
@@ -50,7 +50,7 @@ The **AI reading** tab sends a summary of the figure you are looking at to a lan
 **Providers.**
 - **Claude (Anthropic API):** paste your own API key from [console.anthropic.com](https://console.anthropic.com). The default model is `claude-opus-5-5`; you can type another. The page calls the API directly from your browser.
 - **OpenAI-compatible API:** any service with a `/v1/chat/completions` endpoint (OpenAI, OpenRouter, Groq and others). Enter the base URL, model name and key. The service must accept requests from a browser.
-- **Local model on this computer:** Ollama (`http://localhost:11434/v1`) or LM Studio (`http://localhost:1234/v1`). Nothing leaves your computer. Enter a model you have installed (`ollama list`). If the page cannot reach the server, allow the page's origin: for the website, start Ollama with `OLLAMA_ORIGINS=https://kcodweb.github.io`; in LM Studio, turn on CORS in the server settings.
+- **Local model on this computer:** Ollama (`http://localhost:11434/v1`) or LM Studio (`http://localhost:1234/v1`). Nothing leaves your computer. Enter a model you have installed (`ollama list`). If the page cannot reach the server, allow the page's origin: start Ollama with `OLLAMA_ORIGINS` set to the address the page is served from (for example `OLLAMA_ORIGINS=https://example.github.io`); in LM Studio, turn on CORS in the server settings.
 
 Keys stay in the page's memory unless you tick **Remember the key on this device**, which keeps it in this browser's local storage. **Clear saved data** removes it.
 
@@ -88,7 +88,7 @@ The page makes no network requests except to load Google Fonts and, only when yo
 
 ## Cite
 
-Bansal, K. (2026). *Integrated Temporal Network builder* [Web tool].
+Withheld for blind review.
 
 ## Licence
 
