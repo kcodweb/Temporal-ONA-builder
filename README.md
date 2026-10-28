@@ -50,7 +50,7 @@ The **AI reading** tab sends a summary of the figure you are looking at to a lan
 **Providers.**
 - **Claude (Anthropic API):** paste your own API key from [console.anthropic.com](https://console.anthropic.com). The default model is `claude-opus-5-5`; you can type another. The page calls the API directly from your browser.
 - **OpenAI-compatible API:** any service with a `/v1/chat/completions` endpoint (OpenAI, OpenRouter, Groq and others). Enter the base URL, model name and key. The service must accept requests from a browser.
-- **Local model on this computer:** Ollama (`http://localhost:11434/v1`) or LM Studio (`http://localhost:1234/v1`). Nothing leaves your computer. Enter a model you have installed (`ollama list`). If the page cannot reach the server, allow the page's origin: for the website, start Ollama with `OLLAMA_ORIGINS=https://kcodweb.github.io`; in LM Studio, turn on CORS in the server settings.
+- **Local model on this computer:** Ollama (`http://localhost:11434/v1`) or LM Studio (`http://localhost:1234/v1`). Nothing leaves your computer. Enter a model you have installed (`ollama list`). If the page cannot reach the server, allow the page's origin: start Ollama with `OLLAMA_ORIGINS` set to the address the page is served from (for example `OLLAMA_ORIGINS=https://example.github.io`); in LM Studio, turn on CORS in the server settings.
 
 Keys stay in the page's memory unless you tick **Remember the key on this device**, which keeps it in this browser's local storage. **Clear saved data** removes it.
 
